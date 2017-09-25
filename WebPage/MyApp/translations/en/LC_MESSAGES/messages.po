@@ -1,0 +1,161 @@
+# English translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-06-03 21:03+0200\n"
+"PO-Revision-Date: 2017-05-24 20:00+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: forms.py:18 templates/login.html:62
+msgid "Email"
+msgstr "Email"
+
+#: forms.py:20
+msgid "Introduce an email."
+msgstr "Introduce an email."
+
+#: forms.py:21
+msgid "Introduce a valid email."
+msgstr "Introduce a valid email."
+
+#: forms.py:22 templates/login.html:64
+msgid "Password"
+msgstr "Password"
+
+#: forms.py:23
+msgid "Password required"
+msgstr "Password required"
+
+#: forms.py:24
+msgid "Enter"
+msgstr "Enter"
+
+#: forms.py:37
+msgid "Browse files"
+msgstr "Browse files"
+
+#: forms.py:39
+msgid "No file was selected"
+msgstr "No file was selected"
+
+#: forms.py:40
+msgid "Only ply!"
+msgstr "Only ply files accepted!"
+
+#: forms.py:41 templates/navigation_bar.html:8 templates/upload.html:3
+msgid "Upload"
+msgstr "Upload"
+
+#: views.py:87
+msgid "You are not allowed, contact administrator"
+msgstr "You are not allowed, contact administrator"
+
+#: views.py:106
+msgid "User or password incorrect"
+msgstr "User or password incorrect"
+
+#: views.py:161
+#, python-format
+msgid "File '%(filename)s' successfully uploaded"
+msgstr "File '%(filename)s' successfully uploaded"
+
+#: templates/login.html:3
+msgid "Login"
+msgstr "Login"
+
+#: templates/login.html:59
+msgid "Login form"
+msgstr "Login form"
+
+#: templates/navigation_bar.html:7
+msgid "Models"
+msgstr "Models"
+
+#: templates/navigation_bar.html:9
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/ply_models.html:3
+msgid "PLY Models"
+msgstr "PLY Models"
+
+#: templates/upload.html:35
+msgid "File successfully uploaded!"
+msgstr "File successfully uploaded!"
+
+#: templates/upload.html:39
+msgid "Upload your files"
+msgstr "Upload your files"
+
+#: templates/visor.html:3
+msgid "3D Visor"
+msgstr "3D Visor"
+
+#: templates/visor.html:145
+msgid "Please, select just one."
+msgstr "Please, select just one."
+
+#: templates/visor.html:150
+msgid ""
+"Because you didn't selected one object before press \"remove\",\n"
+"\t\t\tjust the next object you press will be deleted."
+msgstr ""
+"Because you didn't selected one object before press \"remove\",\n"
+"\t\t\tjust the next object you press will be deleted."
+
+#: templates/visor.html:156
+msgid ""
+"The file of points you are importing does not correspond to\n"
+"\t\t\tthe not of the same model: do it at your own risk."
+msgstr ""
+"The file of points you are importing does not correspond to\n"
+"\t\t\tthe not of the same model: do it at your own risk."
+
+#: templates/visor.html:162
+msgid "Import points"
+msgstr "Import points"
+
+#: templates/visor.html:163
+msgid "Export points"
+msgstr "Export points"
+
+#: templates/visor.html:163
+msgid "Import & Export"
+msgstr "Import & Export"
+
+#: templates/visor.html:167
+msgid "Annotations"
+msgstr "Annotations"
+
+#: templates/visor.html:171 templates/visor.html:181
+msgid "Unselect all"
+msgstr "Unselect all"
+
+#: templates/visor.html:172 templates/visor.html:182
+msgid "Add"
+msgstr "Add"
+
+#: templates/visor.html:173 templates/visor.html:183
+msgid "Remove"
+msgstr "Remove"
+
+#: templates/visor.html:174 templates/visor.html:184
+msgid "Edit"
+msgstr "Edit"
+
+#: templates/visor.html:177
+msgid "Measurements"
+msgstr "Measurements"
+

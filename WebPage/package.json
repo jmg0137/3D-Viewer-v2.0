@@ -1,0 +1,35 @@
+{
+  "name": "3d-viewer",
+  "version": "0.9.0",
+  "description": "Teaching tool for 3D models.",
+  "dependencies": {},
+  "devDependencies": {
+    "jsdoc": "^3.4.3",
+    "rollup": "^0.41.6",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-uglify": "^2.0.1",
+    "uglify-es": "^3.0.15",
+    "rollup-watch": "^3.2.2"
+  },
+  "scripts": {
+    "jsdoc": "jsdoc src/*.js --destination ../Documentación/javascript",
+    "pydoc-style": "pydocstyle ./MyApp/*.py",
+    "pydoc-http": "make --directory ../Documentación/python -f Makefile html",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alberto-Vivar/3D-Viewer.git"
+  },
+  "keywords": [
+    "3d",
+    "ply"
+  ],
+  "author": "Alberto Vivar Arribas",
+  "bugs": {
+    "url": "https://github.com/Alberto-Vivar/3D-Viewer/issues"
+  },
+  "homepage": "https://github.com/Alberto-Vivar/3D-Viewer#readme"
+}
