@@ -1,0 +1,359 @@
+\apendice{Plan de Proyecto Software}
+
+\section{Introducción}
+En este apéndice presentaremos la evolución del proyecto en cada \textit{sprint} a lo largo del tiempo, además de aspectos necesarios para valorar la viabilidad del proyecto desde diferentes perspectivas para su mejora en el futuro.
+
+\section{Planificación temporal}
+A continuación detallaremos los objetivos que nos hemos marcado para cada sprint, y lo que hemos conseguido de los mismos. Para la misma, hemos utilizado Scrum~\cite{schwaber2002agile}, una metodología ágil. Empleamos el gestor de tareas que nos provee GitHub, y generamos los diagramas \textit{burndown chart} mediante el seguimiento con la extensión ZenHub.
+
+\subsection{Sprint 1 - 09-11-2016/16-11-2016}
+En este sprint se pretendía la instalación de las herramientas necesarias para comenzar el proyecto, así como la realización de un prototipo mínimo (visualización de un archivo \textit{STL}). Se pide para un futuro un \textit{login} básico.
+
+Finalizamos la instalación de herramientas y se añade ZenHub al repositorio para ayudar a la gestión del proyecto.
+
+\subsection{Sprint 2 - 17-11-2016/24-11-2016}
+Al prototipo inicial se decide añadir una suerte de anotaciones mediante esferas y se establece que se deberá montarse sobre un servidor Flask, aunque de forma muy básica para establecer la arquitectura. También se busca justificar un \textit{IDE} que facilite el trabajo con JavaScript.
+
+Finalizamos el prototipo mínimo (sin anotaciones), que ya queda montado sobre Flask, y hemos realizado la comparativa de \textit{IDE}.
+
+\subsection{Sprint 3 - 25-11-2016/1-12-2016}
+Se pide realizar una comparativa de visores \textit{STL} para buscar las características más comunes y/o útiles que deban ser implementadas. Se quiere ver la escala del modelo, aunque para empezar se decide mostrar una malla cualquiera.
+
+Se realiza correctamente la comparativa, y se finaliza un día tarde una refactorización de código, organizando el código JavaScript y las estructura de carpetas y archivos para Flask.
+
+\subsection{Sprint 4 - 02-12-2016/08-12-2016}
+Se quiere comprobar la medida que hay entre dos puntos. También se quiere tener un selector de escala para determinar con qué unidades se corresponde el modelo. 
+
+Se revisa la documentación, se añade el selector de unidades de escala, se añade un sistema de control de acceso básico (el formulario con su sistema de seguridad) y, finalmente, se habilitan las anotaciones.
+
+\subsection{Sprint 5 - 09-12-2016/13-12-2016}
+Planificamos la refactorización del código, además de buscar una solución a las barras de desplazamiento, que no deberían aparecer. Queremos que las anotaciones se deban seleccionar desde el menú y no estar habilitadas de forma permanente, además de poder eliminarlas. Nos gustaría habilitar un autozoom.
+
+Separamos la carga del archivo \textit{STL} de la inicialización de la escena. Se corrige la gestión del lienzo para ser más robusta. Corregimos la aparición de la barra de desplazamiento. Hacemos que las anotaciones se realicen una vez por cada click en el menú. Posibilitamos eliminar las anotaciones. Habilitamos la funcionalidad de medir entre dos puntos, así como la malla.
+
+
+\subsection{Sprint 6 - 14-12-2016/23-12-2016}
+Queremos que las dimensiones de la malla se correspondan con dimensiones reales, aunque necesitemos inicialmente unas unidades por defecto. De igual forma, necesitamos mejorar la implementación de las anotaciones sobre nuestra aplicación, así que queremos buscar patrones en JavaScript para implementar la visualización de la información de las mismas.
+
+Se consigue establecer unidades por defecto e investigar formas de gestionar las anotaciones, además de hacer realista la escala de la malla.
+
+\subsection{Sprint 7 - 24-12-2016/12-01-2017}
+Queremos implementar una primera aproximación a las mejoras que hemos diseñado sobre la visualización de las anotaciones, lo haremos con la ayuda de jQueryUI.
+
+Investigamos cómo funciona jQueryUI para la implementación de las anotaciones.
+
+\subsection{Pausa exámenes - 13-01-2017/09-02-2017}
+Debido a la carga de trabajo de otras asignaturas, se hace un parón en el proyecto.
+
+\subsection{Sprint 8 - 10-02-2017/16-02-2017}
+Se requiere actualizar la plantilla de \LaTeX~\cite{wiki:latex}. El cliente solicita un cambio en el fichero de entrada (ahora tenemos que procesar archivos \textit{PLY} en vez de \textit{STL}). Para comenzar con las anotaciones, necesitamos añadir las librerías pertinentes de jQuery y jQueryUI. Necesitamos un gestor de color. Queremos que las anotaciones se añadan y eliminen de la lista además del modelo. Queremos enlazar las acciones de selección del modelo y la lista de anotaciones. Los tutores solicitan correcciones en la memoria. Debemos investigar dónde almacenaremos de forma persistente las anotaciones sobre el modelo para futuros usos.
+Durante el \textit{sprint} se detectan fallos: de iluminación y enfoque, la malla no aparece donde debería y la malla no actualiza automáticamente sus dimensiones al cambiar las escalas.
+
+Se consigue añadir un gestor de color primitivo, se añaden las librerías de jQuery y jQueryUI, se añade la lista en la que se añadirán las anotaciones, se consigue que las anotaciones se añadan de forma dinámica en la lista lateral, que la selección de una/s anotación/es en la lista represente un cambio en el color de la anotación o anotaciones en el modelo. Ahora ya visualizamos archivos del tipo adecuado, aunque queda pendiente revisar el uso del color del mismo. Se actualiza la plantilla de \LaTeX.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-8}.
+\imagenpersonalizada{sprint-8}{Progreso en el \textit{sprint} 8}{1}
+
+\subsection{Sprint 9 - 17-02-2017/23-02-2017}
+Queremos que los elementos de la interfaz se deseleccionen de una manera intuitiva (hasta el momento solamente se puede deseleccionar mediante el uso de la tecla control). Así mismo quisiéramos poder seleccionar una anotación directamente desde el modelo. Debemos realizar la comparativa de visores de \textit{PLY}, de librerías de elementos interactivos en web, de dat.GUI, además de documentar el cambio de herramientas de documentación de \LaTeX y la elección sobre la iluminación de la escena. Por último se iniciará la transición a una documentación más estándar, y trataremos de seguir las guías de JSDoc.
+Se lee el color del modelo, se corrige un error en el que los objetos podían aparecer poco centrados en la escena, movemos al menú izquierdo la funcionalidad de añadir anotaciones, además de incluir una característica para deseleccionar todas aquellas que estuviesen seleccionadas.
+
+Documentamos las decisiones tomadas acerca de las luces, materiales y colores, además de una breve comparativa de visores de ficheros \textit{PLY}. Conseguimos que las anotaciones se puedan seleccionar directamente desde el modelo, además de poderse deseleccionar de la misma manera. Ahora, al eliminar las anotaciones del modelo, también desaparecen de la lista. Hemos conseguido que la malla de ayuda se refresque automáticamente tras cualquier cambio en las escalas, además de mover dicha malla fuera del modelo (en ocasiones aparecía en medio del mismo). Corregimos un error surgido con la cámara que hacía que desapareciese el modelo en ocasiones. Y, finalmente, conseguimos implementar el autozoom para los objetos.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-9}.
+\imagenpersonalizada{sprint-9}{Progreso en el \textit{sprint} 9}{1}
+
+\subsection{Sprint 10 - 24-02-2017/02-03-2017}
+Detectamos durante la reunión un error relacionado con la selección múltiple de las anotaciones, además de ver que la caja mínima que podría contener el modelo dista de lo que nos parece lógico. Queremos implementar la funcionalidad de eliminar anotaciones en el menú izquierdo. Se desea crear función de auto-centrado, y la capacidad de deshacer y rehacer. Se detectan pequeños errores de forma en la memoria. Se insiste en que el puntero debiera cambiar según el contexto de lo que se esté haciendo (añadir, modificar, eliminar, mover el modelo, etcétera).
+
+Corregimos el error de la selección múltiple. Decidimos crear una herramienta para diagnosticar los problemas con archivos \textit{PLY}. Añadimos funcionalidad de eliminar a menú izquierdo.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-10}.
+\imagenpersonalizada{sprint-10}{Progreso en el \textit{sprint} 10}{1}
+
+\subsection{Sprint 11 - 03-03-2017/10-03-2017}
+Realizamos el \textit{parser} de \textit{PLY}, su corrector y finalmente la herramienta que nos permita persistir los datos ya corregidos. Por el camino corregimos un fallo que hacía consumir una cantidad exorbitante de memoria. Ésta corrección nos permite descartar el problema de auto centrado definitivamente, además de corregir una altura inadecuada de la malla de ayuda.
+
+Realizamos unos pequeños cambios sobre los anexos y eliminamos los botones de las anotaciones del menú derecho. Finalmente, hacemos que el tamaño de las esferas sean dependientes del modelo.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-11}.
+\imagenpersonalizada{sprint-11}{Progreso en el \textit{sprint} 11}{1}
+
+\subsection{Sprint 12 - 11-03-2017/16-03-2017}
+En la reunión se habla de tener listos unos elementos a tiempo para la entrega de un abstract al congreso EDULEARN\footnote{\url{https://iated.org/edulearn/mailingFEB2.html}}. Dichos cambios debieran ser: corregir un problema con el tamaño de la malla, permitir la edición de las anotaciones, preparar el menú izquierdo para dar cabida a las mediciones, trasladar las función de añadir medidas al menú izquierdo, quitar dicho elemento del menú dat.GUI.
+
+Hemos conseguido corregir los problemas de tamaño de la malla, permitir añadir anotaciones, dar cabida a las medidas en el menú izquierdo, trasladarlas, permitir añadirlas, así como eliminarlas, convertir en iconos la botonera de edición, adición, eliminación y deselección, que las mediciones tengan realimentación, añadimos pequeños mensajes de advertencia según situaciones, y solucionamos errores que hemos encontrado por el camino.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-12}.
+\imagenpersonalizada{sprint-12}{Progreso en el \textit{sprint} 12}{1}
+
+\subsection{Sprint 13 - 17-03-2017/23-03-2017}
+Queremos que las mediciones puedan editarse además de de-seleccionarse y que en el menú de las mediciones no aparezcan tantos decimales.
+Además, deseamos encapsular los menús de anotaciones y mediciones, así como un caso concreto de anotación para permitir una selección múltiple a la hora de resolver y generar pruebas.
+Finalmente, queremos seguir estándares, por lo que sería recomendable empezar a echar un vistazo al formato <<Moodle XML>>.
+
+Realizamos un resumen sobre la librería dat.GUI, hacemos que el puntero sea dependiente de los eventos, conseguimos que las mediciones sean editables así como un botón para la de-selección de las mismas. Finalmente, hacemos que las mediciones tengan un número más razonable de decimales para mostrar.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-13}.
+\imagenpersonalizada{sprint-13}{Progreso en el \textit{sprint} 13}{1}
+
+\subsection{Sprint 14 - 24-03-2017/30-03-2017}
+Se desea migrar el código JavaScript a un modelo orientado a objetos.
+
+Se realiza una lectura extensa sobre las particularidades de la orientación a objetos en JavaScript. Concluimos que necesitamos un empaquetador de código, así que realizamos su despliegue, e instalamos un gestor de dependencias para ayudar con este proceso. Además, comenzamos a probar inicialmente la orientación de objetos mediante este sistema.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-14}.
+\imagenpersonalizada{sprint-14}{Progreso en el \textit{sprint} 14}{1}
+
+\subsection{Sprint 15 - 31-03-2017/20-04-2017}
+Queremos resolver un error acerca de las anotaciones largas que generan un problema de visualización, gestionar el proyecto mediante npm y crear un manual de uso para dicho gestor, crear un diagrama de orientación a objetos de la parte JavaScript, estudiar migrar las diferentes dependencias del proyecto a npm, informarnos de la orientación a objetos en la versión \texttt{ES6} o \texttt{ES1015} de JavaScript y finalmente, queremos refactorizar el código.
+
+Conseguimos finalizar la investigación sobre la orientación a objetos en JavaScript, gestionar la construcción del proyecto mediante npm, además de avanzar en la refactorización.
+
+
+\subsection{Sprint 16 - 21-04-2017/27-04-2017}
+Deseamos generar la documentación de la parte JavaScript mediante JSDoc, dejar plasmado el diagrama de clases, renombrar la interfaz de escala a un identificador mejor, se plantea que el cambio de nombre en las etiquetas se pueda confirmar mediante un entrar, se desea añadir un título para identificar con mayor facilidad a la parte de las anotaciones y medidas. Además de lo anterior, queremos mejorar la documentación de instalación del manual de usuario. Durante el \textit{sprint}, detectamos además un problema acerca del número de pulsaciones en los botones.
+
+Finalizamos el sprint con la gran tarea de refactorizar el código.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-16}.
+\imagenpersonalizada{sprint-16}{Progreso en el \textit{sprint} 16}{1}
+
+\subsection{Sprint 17 - 28-04-2017/04-05-2017}
+En este sprint no realizamos reunión, puesto que <<solamente>>  hemos conseguido la refactorización.
+
+Añadimos el diagrama de clases para la parte JavaScript, corregimos un error por el que no podíamos dejar de añadir o eliminar elementos si pulsábamos más de una vez los botones. Realizamos correcciones sobre el manual de instalación, ademas de añadir unos scripts para dicha tarea. Añadimos una pequeña sección de texto sobre los menús de anotaciones y medidas para facilitar su identificación. Tratamos de migrar las dependencias de jQuery y jQueryUI, aunque en el intento nos damos cuenta de incompatibilidades que no harían el cambio trivial, así que abortamos. Finalmente, corregimos un error que habíamos introducido en el código al refactorizar: la carga de modelos \textit{PLY} sin color fallaba.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-17}.
+\imagenpersonalizada{sprint-17}{Progreso en el \textit{sprint} 17}{1}
+
+\subsection{Sprint 18 - 05-05-2017/11-05-2017}
+Se plantea mantener una referencia al último \texttt{EventListener} añadido para posibilitar mejoras en el comportamiento de los botones. Además, se habla de recuperar el soporte original a \textit{STL}, posibilitar el \textit{login} (añadiendo perfiles de usuario), la posibilidad de exportar e importar los diferentes elementos añadidos al modelo (anotaciones y mediciones). Se desea completar la documentación de forma general. Finalmente se habla de añadir un gestor de archivos para manejar los modelos existentes en el servidor.
+
+Se corrige un \textit{bug} que afectaba a modelos \textit{PLY} sin color. Nos informamos sobre algunas alternativas para establecer el gestor de archivos. Se posibilita la subida de modelos al servidor, se permite elegir de forma dinámica (mediante parámetro en la \textit{URL}) el modelo a visualizar, se permite una basta prebasvisualización de los modelos existentes. Finalmente, se permite que desde dicha lista se acceda al modelo correspondiente añadiendo un enlace a su previsualización.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-18}.
+\imagenpersonalizada{sprint-18}{Progreso en el \textit{sprint} 18}{1}
+
+\subsection{Sprint 19 - 12-05-2017/18-05-2017}
+Queremos añadir una barra de navegación además de otra para importar y exportar anotaciones y mediciones. Se quiere investigar alguna manera de mostrar progreso o al menos reactividad en la subida de los modelos. Queremos añadir una tabla de admitidos con determinados usuarios para el \textit{login} de UBUVirtual. 
+
+Conseguimos implementar un sistema de gestión para los usuarios conectados, aunque todavía no está conectado con UBUVirtual o una base de datos. Añadimos la barra de navegación a todas las vistas de la aplicación. Además, permitimos la importación y exportación de los puntos (anotaciones y mediciones) en el visor, además dejar documentado el estándar \textit{JSON} que empleamos para ello. Finalmente, corregimos un \textit{bug} detectado durante el \textit{sprint} acerca de la ubicación del puntero en el \textit{canvas}.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-19}.
+\imagenpersonalizada{sprint-19}{Progreso en el \textit{sprint} 19}{1}
+
+\subsection{Sprint 20 - 19-05-2017/25-05-2017}
+Para este \textit{sprint} deseamos introducir una tabla de características, añadir una etiqueta a los botones de importar y exportar, añadir imágenes a los modelos para que tengan su propia miniatura, investigar para conseguir que nuestro código Python cumpla con un estándar de generación de documentación, realizar el despliegue de la misma, internacionalizar la interfaz de la aplicación, meter un campo \texttt{<<filename>>} en \textit{JSON} para comprobarlo durante la importación y conseguir que el \textit{login} se realice también contra ubuvirtual.
+
+Corregimos la redirección acerca de la ruta \texttt{<</>>}, conseguimos realizar el \textit{login} sobre base de datos de usuarios y sobre la \textit{API} de UbuVirtual. Arreglamos un \textit{bug} que inutilizaba la barra de navegación sobre el visor, realizamos la carga de las miniaturas acorde a cada modelo y añadimos una etiqueta para reconocer mejor los botones de importar y exportar. Además, añadimos el campo \texttt{<<filename>>} a los ficheros \textit{JSON} y avisamos durante la importación si no se corresponden. Añadimos \texttt{<<uploads>>} a la barra de navegación. Internacionalizamos la aplicación, añadiendo inglés, castellano y francés, y también documentamos el proceso de actualizar dicha mejora. Añadimos a la comparativa de visores y también generamos la documentación de Python. Permitimos que el idioma del navegador se escoja de manera automática, además de cargar de forma dinámica las traducciones. Para concluir, añadimos una barra de progreso para la subida de archivos.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-20}.
+\imagenpersonalizada{sprint-20}{Progreso en el \textit{sprint} 20}{1}
+
+\subsection{Sprint 21 - 26-05-2017/01-06-2017}
+Durante este \textit{sprint}, queríamos y además hemos conseguido los siguientes puntos:
+\begin{itemize}
+	\item Solucionar un problema de visualización cuando la anotación es muy larga, la cual no podemos observar por completo.
+	\item Añadir un manual de uso para el nuevo gestor de dependencias.
+	\item Añadir comentarios de los problemas que nos podemos encontrar durante la instalación.
+	\item Añadir unos \textit{scripts} para el lanzamiento del proyecto.
+	\item Realizar unas correcciones a la documentación.
+	\item Documentar el problema de PyBabel con las <<etiquetas perezosas>>.
+	\item Generar un \textit{script} de importación de usuarios y su manual correspondiente.
+	\item Añadir un léeme a la raíz del proyecto para mostrar documentación en la página de GitHub.
+	\item Corregir la estética de los botones de editar y eliminar medidas (faltaba el icono).
+	\item Documentar el razonamiento para emplear <<secure\_filename>> en el servidor.
+	\item Eliminar el molesto duplicado de algunas clases en la documentación de JSDoc.
+\end{itemize}
+
+Lamentablemente, tenemos un par de cosas que han quedado sin resolver por el momento, como:
+\begin{itemize}
+	\item Documentar la investigación necesaria para desarrollar el analizador de modelos.
+	\item Añadir característica para subir archivos \texttt{<<.png>>} al servidor para las miniaturas de los modelos.
+\end{itemize}
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-21}.
+\imagenpersonalizada{sprint-21}{Progreso en el \textit{sprint} 21}{1}
+
+\subsection{Sprint 22 - 02-06-2017/09-06-2017}
+A lo largo de este \textit{sprint}, conseguimos terminar lo siguiente:
+\begin{itemize}
+	\item Corregimos un error del evento de redimensionar que no actualizaba la dimensión vertical.
+	\item Aplicamos un \textit{CSS} y el logo de la UBU a la página de login
+	\item Aplicamos \textit{CSS} a la página de subida de archivos.
+	\item Realizamos una serie de comentarios sobre la memoria.
+	\item Añadimos CodeClimate al repositorio.
+	\item Migramos el despliegue de varios \textit{scripts} a sus versiones \textit{<<minified>>}.
+	\item Corregimos varias \textit{issues} existentes en CodeClimate.
+	\item Actualizamos el diseño del \textit{JSON} en anexos.
+	\item Añadimos three.js al anexo <<Técnicas y herramientas>>.
+	\item Actualizamos manual del programador (principalmente lo movemos a su sitio).
+	\item Añadimos un manual de usuario.
+	\item Determinamos que no podemos -más bien que no debemos- añadir soporte \textit{HTTPS} directamente sobre Flask.
+	\item Realizar reuniones con usuarios para determinar la calidad del manual de usuario.
+	\item Añadir separadores visuales entre menús para facilitar distinguirlos.
+\end{itemize}
+
+Y hemos aquí las tareas que no hemos podido completar:
+\begin{itemize}
+	\item Mencionar el artículo de EDULEARN.
+	\item Añadir una sección para el generador de informes.
+	\item Establecer una licencia en GitHub.
+	\item Añadir capturas al manual de usuario.
+\end{itemize}
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-22}.
+\imagenpersonalizada{sprint-22}{Progreso en el \textit{sprint} 22}{1}
+
+\subsection{Sprint 23 - 10-06-2017/15-06-2017}
+Lamentablemente, hemos finalizado este \textit{sprint} sin poder completar las siguientes tareas:
+\begin{itemize}
+	\item Implementar sistema anti copia basado en \textit{checksum}.
+	\item Añadir \texttt{timestamp} en ficheros \textit{JSON}.
+\end{itemize}
+
+En cambio, sí hemos podido completar las siguientes:
+\begin{itemize}
+	\item Documentar características jQuery.
+	\item Realizamos un bosquejo de la viabilidad económica del proyecto.
+	\item Documentar características jQueryUI.
+	\item Añadir un apéndice al manual para el proceso de eliminar los puntos sobrantes en los modelos.
+	\item Corregimos algunos errores de CodeClimate.
+	\item Reestructuramos el código del generador de informes.
+	\item Explicamos el formato \textit{PLY}.
+\end{itemize}
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-23}.
+\imagenpersonalizada{sprint-23}{Progreso en el \textit{sprint} 23}{1}
+
+\subsection{Sprint 24 - 16-06-2017/22-06-2017}
+En este \textit{sprint} hemos podido finalizar las siguientes tareas:
+\begin{itemize}
+	\item Capturar \textit{enter} y \textit{escape} en los diálogos de edición.
+	\item Añadir \texttt{timestamp} y \texttt{checksum} al fichero \textit{JSON} desde servidor.
+	\item Recuperar soporte \textit{STL}.
+	\item Añadimos capturas a manual de usuario.
+	\item Realizamos pequeñas mejoras en textos de aplicación.
+\end{itemize}
+
+Sin embargo, no hemos podido realizar un estudio económico con mayor detalles, ni añadir requisitos a anexos.
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-24}.
+\imagenpersonalizada{sprint-24}{Progreso en el \textit{sprint} 24}{1}
+
+\subsection{Sprint 25 - 23-06-2017/30-06-2017}
+Durante este \textit{sprint} se desean realizar correcciones en la memoria para dejarla imprimida, y, conseguimos:
+\begin{itemize}
+	\item Mencionamos el artículo de EDULEARN.
+	\item Reflejamos el uso de SCRUM en técnicas y herramientas
+	\item Mejorar el apartado de viabilidad económica.
+	\item Añadir referencias bibliográficas.
+	\item Corregir estilos y erratas en memoria.
+	\item Realizar correcciones solicitadas por los tutores.
+\end{itemize}
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-25}.
+\imagenpersonalizada{sprint-25}{Progreso en el \textit{sprint} 25}{1}
+
+\subsection{Sprint 26 - 01-07-2017/03-07-2017}
+Ahora, encaramos la entrega final de los productos del proyecto. Durante el mismo, realizamos:
+\begin{itemize}
+	\item Analizamos las licencias de los elementos que el proyecto usa.
+	\item Añadimos los requisitos.
+	\item Realizamos correcciones sobre los anexos.
+	\item Revisamos el formato de los mismos.
+	\item Realizamos lanzamiento de versión.
+\end{itemize}
+
+Podemos observar el progreso del sprint en la figura~\ref{fig:sprint-26}.
+\imagenpersonalizada{sprint-26}{Progreso en el \textit{sprint} 26}{1}
+
+\section{Estudio de viabilidad}
+A continuación explicaremos los diferentes escenarios en los que aplicar el proyecto para conseguir su desarrollo/implantación futura, además de posibles <<vías muertas>> para el mismo desde diferentes puntos de vista.
+
+\subsection{Viabilidad económica}
+En este punto analizaremos la viabilidad del proyecto desde el punto de vista económico. Detallaremos los gastos que hubiese supuesto a diferentes niveles para una empresa.
+
+\subsubsection{Costes de personal}
+Los recursos humanos para realizar este proyecto han sido el alumno y los tutores. El primero ha empleado 5 semanas a media jornada (20 horas semanales), además de 12 semanas a tiempo completo (40 horas cada semana).
+
+\noindent Así, de las semanas a media jornada tenemos:
+\[ 5 \ semanas * \frac{20h}{semana} = 100h \]
+
+\noindent Y de las semanas a jornada completa tenemos:
+\[ 12 \ semanas * \frac{40h}{semana} = 480h \]
+
+\noindent Que sumadas hacen:
+\[ 100h + 480h = 580h\]
+
+\noindent A razón de 14\euro{} cada hora:
+\[ 14 \euro /hora * 580 \ horas = 8120\euro \]
+
+Para calcular el coste de las reuniones con los tutores, y a partir de las tablas generales de sueldos de PDI\footnote{Personal Docente Investigador de la UBU:~\url{http://www.ubu.es/sites/default/files/portal_page/files/pdi_funcionario_ano_2017.pdf}}, estimaremos el coste en $ 6,5\frac{\euro}{hora} $.
+\[ \frac{8\euro}{hora} * 26 = 208\euro \]
+
+Continuamos pues; tenemos dos tutores, y como han sido 26 reuniones a razón de una hora cada reunión, su coste asciende a:
+\[ 6,5\frac{\euro}{hora} * 26 \ reuniones * \frac{1h}{reunion} * 2 = 338\euro \]
+
+A lo anterior debemos añadir los costes que los empleadores debieran pagar a la Seguridad Social, que supondremos serán de un 16\%:
+\[ (8120\euro + 208\euro) * 1,16 \approx 9660\euro \]
+
+\subsubsection{Costes de hardware}
+En primer lugar, dejamos constancia que no hemos necesitado comprar equipamiento \textit{hardware} adicional para el desarrollo del proyecto. No obstante, debemos calcular la amortización de los equipos empleados.
+
+Uno de ellos ha sido el ordenador sobremesa con el que se ha realizado la mayor parte del trabajo. Estimando su valor en 900\euro, y suponiendo una vida útil de 7 años y 26 semanas de proyecto, tenemos un coste de amortización de 64\euro{} aproximadamente:
+\[ \frac{900\euro}{7 \ a\textit{ñ}os} * \frac{1 \ a\textit{ñ}o}{52 \ semanas} * 26 \ semanas \approx 64\euro \]
+
+Además de esto, empleamos un ordenador portátil, cuyo coste fue de 1150\euro. Por ello, y suponiendo los mismos valores que en el sobremesa anterior, tenemos:
+\[ \frac{1150\euro}{7 \ a\textit{ñ}os} * \frac{1 \ a\textit{ñ}o}{52 \ semanas} * 26 \ semanas \approx 82\euro \]
+
+\subsubsection{Costes de software}
+Desde el primer momento, se ha desarrollado empleando plataformas \textit{software} libre para todo lo imprescindible, desde las herramientas de documentación, navegadores, \textit{IDE}, \dots \space El único caso fuera de lo anterior es el SO del portátil, aunque sigue siendo gratuito. Por ello, los costes \textit{software} son nulos.
+
+\subsubsection{Costes totales}
+\noindent Así, realicemos un cálculo de los costes totales del proyecto:
+\[ 9660\euro + 64\euro + 82\euro = 9806\euro \]
+
+\subsection{Viabilidad legal}
+Uno de los datos potencialmente sensibles que manejará la aplicación serán los modelos a visualizar. Por ello, tendremos que estar atentos a los posibles cambios con el tipo de licencia que puedan poseer dichos modelos. No por el tipo de fichero ni porque dicho tipo sea propietario --pues es un estándar abierto--, sino por la preferencia de mantener los mencionados modelos a buen recaudo.
+Además de lo anterior, también almacenaremos unos pocos datos de carácter personal (por el momento solo el correo electrónico institucional).
+
+\subsection{Software}
+Pasamos ahora a analizar la licencia que deberíamos tener en nuestro proyecto. Tendremos que observar las licencias de los elementos que hemos utilizado para su realización.
+
+Podemos observar las diferentes licencias de los componentes del proyecto en ~\ref{tabla:licencias}.
+
+\tablaApaisadaSmall{Licencias utilizadas en el proyecto}
+{p{3.5cm} c l c}
+{licencias}
+{
+	\textbf{Dependencia} & \textbf{Versión} & \textbf{Descripción} & \textbf{Licencia} \\
+}
+{
+	three.js & 84.0 & Motor de renderizado en navegadores. & MIT \\
+	dat.GUI & 0.62 & Librería para generación de menús. & Apache 2.0 \\
+	jQuery & 1.12.4 & Biblioteca para manejo \textit{DOM}. & Apache 2.0 \\
+	jQueryUI & 1.12.4 & Biblioteca con elementos \textit{UI} \textit{web}. & Apache 2.0 \\
+	rollup & 0.41.6 & Empaquetador de código. & MIT \\
+	rollup-plugin-node-resolve & 2.0.0 & \textit{Plugin} de rollup para manejar import. & MIT \\
+	rollup-plugin-uglify & 2.0.1 & \textit{Plugin} de rollup para comprimir el código. & MIT \\
+	rollup-watch & 3.2.2 & \textit{Plugin} para vigilar el proceso de \textit{minifying}. & MIT \\
+	uglify-es & 3.0.15 & \textit{Plugin} para comprimir código con formato \textit{ES6}. & BSD-2-Clause \\
+	jsdoc & 3.4.3 & Herramienta para extraer documentación de código JavaScript. &  Apache-2.0 \\
+	pydocstyle & 2.0.0 & Herramienta para extraer documentación de código Python. & MIT \\
+	Flask & 0.12.1 & \textit{Microframework} Python para servidor. & BSD \\
+	Flask-WTF & 0.14.2 & \textit{Plugin} Flask para soportar formularios. & BSD \\
+	Flask-Login & 0.4.0 & \textit{Plugin} Flask para restringir acceso de usuarios. & MIT \\
+	Flask-Babel & 0.11.2 & \textit{Plugin} Flask para soportar i18n y i10n. & BSD-3-Clause \\
+	Jinja2 & 2.9.6 & Motor de plantillas para Python. & BSD \\
+	requests & 2.14.2 & Librería para realizar peticiones \textit{HTTP}. & Apache 2.0 \\
+	Sphinx & 1.6.1 & Herramienta para generar documentación. & PSFL (BSD + GPL) \\
+	bitarray & 0.8.1 & Librería para manejo de \textit{arrays} binarios. & PSFL (BSD + GPL) \\
+}
+
+Analizando la tabla, vemos que el conjunto de las licencias está en MIT, Apache 2.0, BSD-2-Clause, BSD-3-Clause, BSD. Las licencias BSD y es más restrictiva que su hija la BSD-3-Clause, y esta a su vez más restrictiva que la BSD-2-Clause. Simplemente se diferencian en no poder emplear el nombre de la licencia para promover productos derivados sin permiso y en la obligatoriedad de mencionar la autoría del software en el que te bases para realizar tu proyecto. Pero para más simplicidad, evitaremos incluirlas en la figura~\ref{fig:comparativa-licencias}. De izquierda a derecha, las hemos ordenado de más permisivas a más restrictivas.
+
+\imagenpersonalizada{comparativa-licencias}{Compatibilidad entre licencias del proyecto}{0.9}
+
+Podemos observar que la licencia más restrictiva es la Apache-2.0, siendo esta la que vamos a incluir en el proyecto.

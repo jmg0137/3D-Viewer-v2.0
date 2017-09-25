@@ -1,0 +1,55 @@
+\capitulo{4}{Técnicas y herramientas}
+
+En las siguientes secciones vamos a documentar algunos elementos con los que justificar las decisiones tomadas sobre las librerías y herramientas de trabajo empleadas.
+
+\section{Comparativa de \textit{IDE}}
+Para facilitar el desarrollo del \textit{plugin} de \textit{JavaScript}, queremos un \textit{IDE} con función de autocompletar. Aunque varios disponen de dicha función para \textit{JavaScript} como lenguaje, pocos son capaces de aportar esta característica a las bibliotecas que queremos usar. Entre estos pocos se encuentran Sublimetext\footnote{\url{https://www.sublimetext.com/}}, que lo soporta mediante una extensión de terceros\footnote{\url{https://github.com/blackjk3/threejs-sublime}}, aunque éste es un \textit{IDE} con versión de prueba y finalmente tendríamos que pagar una licencia. Otro que permite autocompletar en bibliotecas (en nuestro caso, three.js\footnote{\url{https://threejs.org/}}) es Visual Studio Code. Para habilitar esta característica  tendríamos que seguir una pequeña guía\footnote{\url{https://code.visualstudio.com/docs/languages/javascript\#_typescript-definition-files-typings}}. Otro gran \textit{IDE} como LightTable lo hemos descartado por no tener autocompletar para three.js.
+
+\section{Editor de documentación \LaTeX}
+La documentación de la memoria y anexos la vamos a realizar basándonos en la plantilla que nos provee la UBU\footnote{\url{https://github.com/ubutfgm/plantillaLatex}}.
+
+De los diferentes editores de \LaTeX que existen disponibles (consideramos TeXstudio y Texmaker), nos hemos decantado por el primero al resultarnos más fácil de usar la interfaz.
+
+\section{Librería 3D en \textit{JavaScript}: three.js}
+Al inicio del proyecto, se buscaba una librería que permitiese la visualización de elementos tridimensionales en un navegador \textit{web}. Deseábamos que nuestro visor fuese capaz de cargar archivos con extensión \textit{STL}, por lo que valoramos emplear babylon.js\footnote{\url{http://www.babylonjs.com/}}, openjscad\footnote{\url{https://openjscad.org/}} y {three.js\footnote{\url{https://threejs.org/}}.
+
+Aunque todas ellas tenían dicho soporte, también valoramos otras características, como el número de proyectos hechos a partir de ellas, la cantidad de documentación disponible para las mismas, o los módulos disponibles. Como consecuencia, nos decantamos finalmente por three.js.
+
+Un tiempo después de iniciar el proyecto, se cambió un requisito y desde entonces vamos a cargar archivos de tipo \textit{PLY} y no \textit{STL}. Es por esto que fue un acierto escoger three.js: soportar una gran cantidad de formatos hizo poco traumático el nuevo requisito. Con otras opciones probablemente tendríamos que haber empezado de cero en otro \textit{framework}, o si acaso crear un cargador que fuese compatible.
+
+\section{Librería GUI en \textit{JavaScript}: dat.GUI}
+Conocimos esta librería por ser prácticamente omnipresente en una gran cantidad de ejemplos y tutoriales de three.js. Existen algunas páginas\footnote{\url{http://workshop.chromeexperiments.com/examples/gui/}}\footnote{\url{https://davidwalsh.name/dat-gui}} en las cuales podemos comprender perfectamente la utilidad así como la manera de configurar dichos controles, aunque echamos en falta documentación de algún tipo en el propio proyecto.
+
+Aunque existe un mayor número de elementos, para nuestro proyecto hemos empleado: carpetas, para mantener organizados los elementos de diferentes categorías, \textit{checkbox} o casilla de confirmación para activar y desactivar el asistente de malla, y \textit{dropdown list} o lista desplegable para mostrar diferentes escalas para escoger.
+
+Su simplicidad radica en no tener que configurar los elementos para que sean un desplegable, una casilla de confirmación o incluso un cuadro de texto, sino que según el tipo de parámetro que se le pase, el elemento que genera en el menú se elige de forma transparente al programador.
+
+Sin embargo, la facilidad para configurar los elementos de la que hace gala queda empañada por la escasa manipulación que permite en los diferentes elementos que pueden usarse: no podemos integrar varios botones en un mismo elemento, ni cambiar su estilo. Tampoco podemos incluir elementos que simplemente sean seleccionables y no botones o campos de texto, aquí no tenemos capacidad de elección.
+
+Finalmente, esto no quiere decir que no sirva para lo que ha sido concebida: tener un menú que permita modificaciones de parámetros a la par que dicho menú sea de fácil desarrollo.
+
+\section{Librería funcionalidades en \textit{JavaScript}: jQuery}
+jQuery\footnote{\url{http://jquery.com/}} es una librería \textit{JavaScript} que permite manipular, manejar eventos y otras muchas funcionalidades mediante una \textit{API} simple de usar al mismo tiempo que mantiene una gran compatibilidad entre navegadores \textit{web}.
+
+<<\$>>. Es el símbolo que define esta librería. A través de éste, llamamos a la función principal que nos permite realizar selecciones de diferentes elementos del \textit{DOM} que queramos manejar, y todo ello empleando un estándar conocido por los desarrolladores \textit{web}, como son los selectores \textit{CSS}.
+Solamente pasando una cadena con un selector, podemos realizar diferentes acciones que, de otra manera hubiesen sido tediosas de realizar en \textit{JavaScript} puro. Por ejemplo, en nuestra aplicación, para deseleccionar todos los elementos de una lista en un menú, hacemos lo siguiente:
+
+\verb|$("#menu li.ui-selected").removeClass("ui-selected");|
+
+Lo que hacemos es seleccionar todos los elementos \texttt{<<li>>} que se encuentren seleccionados dentro de \texttt{<<\#menu>>} y deseleccionarlos.
+
+\section{Librería \textit{GUI} en \textit{JavaScript}: jQueryUI}
+jQueryUI\footnote{\url{http://jqueryui.com/}}, al igual que jQuery, está mantenida por la jQuery Foundation\footnote{\url{https://jquery.org/}}. Se basa en la sintaxis de su hermana (depende de ella) para aportar funcionalidades sobre la parte gráfica de las páginas \textit{web}. Así, permite crear listas, botones personalizados, elementos seleccionables y ventanas emergentes, además de otros elementos que no hemos empleado en nuestra aplicación.
+
+Y no es solamente que nos permita crear estos elementos gráficos, sino que además nos proporciona una interfaz para enlazar los eventos que generan con las acciones que nosotros queramos.
+
+Gracias a estas características la escogimos como librería para permitirnos un desarrollo rápido y eficiente para los elementos de la interfaz en el visor.
+
+\section{Diagramas \textit{UML}: draw.io}
+Para editar los diagramas \textit{UML} de clases, empleamos la herramienta en línea draw.io\footnote{\url{https://www.draw.io/}}, que nos provee suficiente funcionalidad sin necesidad de instalar ninguna herramienta extra.
+
+\section{Documentar \textit{JSON}}
+Con el fin de mostrar el esquema de los archivos \textit{JSON} que se iban a importar, nos vemos en la necesidad de destacar que la plantilla empleada para resaltar \textit{JSON} ha sido obtenida de \TeX\space\textit{stackexchange}\footnote{\url{https://tex.stackexchange.com/questions/83085/how-to-improve-listings-display-of-json-files}}.
+
+\section{Metodología Scrum}
+Emplearemos Scrum durante el proyecto apoyándonos en las características propias de GitHub, así como el añadido que genera ZenHub\footnote{\url{https://www.zenhub.com/}} sobre él.

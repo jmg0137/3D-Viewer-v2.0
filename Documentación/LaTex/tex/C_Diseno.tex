@@ -1,0 +1,52 @@
+\apendice{Especificación de diseño}
+
+\section{Introducción}
+A continuación especificaremos la forma en que hemos organizado los elementos del proyecto, así como el porqué.
+
+\section{Diseño de datos}
+\subsection{Puntos}
+Necesitamos una convención para que nuestro sistema de importar y exportar puntos funcione correctamente. El archivo \textit{JSON} (ver código \ref{JSON-schema}) se compone por:
+\begin{itemize}
+	\item \texttt{filename} El nombre del modelo al que pertenece.
+	\item \texttt{annotations} Una lista con las diferentes anotaciones.
+	\item \texttt{measurements} Una lista con las medidas.
+	\item \texttt{timestamp} Una marca de tiempo de cuando se ha validado en el servidor.
+	\item \texttt{checksum} Un código de comprobación (\textit{md5} para ser concretos.)
+\end{itemize}
+Cada una de las anotaciones se compone por una etiqueta y un punto. Las medidas son una etiqueta y dos puntos. Finalmente, los puntos son tres números de tipo \textit{float} (\texttt{x}, \texttt{y}, \texttt{z}).
+
+La estructura de los archivos \textit{JSON} puede verse en el código \ref{JSON-schema}.
+
+\begin{lstlisting}[language=json, float, caption=Esquema JSON, label=JSON-schema]
+{"filename": "a filename",
+ "annotations": [annotation, ..., annotation],
+ "measurements": [measurement, ..., measurement]}
+
+annotation = {"tag": "a tag",
+              points: [point]}
+		
+measurement = {"tag": "a tag",
+               points: [point, point]}
+		  
+point = {"x": float,
+         "y": float,
+         "z": float}
+\end{lstlisting}
+
+
+\section{Diseño procedimental}
+En el momento que el servidor está en línea, éste puede aceptar peticiones de inicio de sesión. Cuando un usuario lo solicita, es redirigido a la página de \textit{login}, en el que tendrá que introducir su correo y contraseña de UBUVirtual. Tras ello, el servidor buscará en su base de datos de usuarios si éste está presente en ella. Si no está, redirigiremos al usuarios a la página de \textit{login} anteriormente mencionada. Si pertenece, entonces el servidor lanza una consulta a la \textit{API} de UBUVirtual, para saber si también se encuentra reconocido como usuario en dicha plataforma. Si no consta el correo, o si la contraseña es incorrecta, se redirige a la página de \textit{login}. En caso de que ambas preguntas sean correctas, finalmente comprobaremos si había entrado con la intención de abrir un modelo concreto en caso afirmativo, le redirigiremos a aquel que hubiera solicitado; si no, visualizará la estantería de modelos.
+
+En la figura \ref{fig:flux-diagram-login} se aprecia cómo sucede el proceso de \textit{login}.
+\imagenpersonalizada{flux-diagram-login}{Proceso de \textit{login}}{0.75}
+
+Por orden cronológico, el siguiente proceso que podremos realizar será elegir el modelo, tal y como se aprecia en la figura \ref{fig:flux-diagram-model-selection}.
+\imagenpersonalizada{flux-diagram-model-selection}{Selección de modelo}{0.75}
+
+\section{Diseño arquitectónico}
+En la figura \ref{fig:class-diagram} el diagrama de clases que define la parte JavaScript del proyecto. La clase \texttt{<<Utils>>} aunque separada del resto, sí está relacionada con las demás clases, aunque para facilitar la comprensión hemos evitado las uniones. Dependen de ella las clases \texttt{<<AnnotationTool>>}, \texttt{<<MeasurementTool>>}, \texttt{<<PointManager>>} y \texttt{<<Scene>>}.
+\imagenpersonalizada{class-diagram}{Diagrama de clases de parte JavaScript}{1.0}
+
+Sin embargo, no añadiremos el diagrama de paquetes JavaScript, puesto que solamente existe uno.
+
+

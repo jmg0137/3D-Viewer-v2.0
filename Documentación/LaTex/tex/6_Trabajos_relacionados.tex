@@ -1,0 +1,67 @@
+\capitulo{6}{Trabajos relacionados}
+
+Para conseguir un correcto desarrollo de nuestro proyecto, observamos algunas de las herramientas más representativas que hemos encontrado en el mercado y las comparamos, tanto entre ellas como con la nuestra.
+
+\section{Comparativa de visores \textit{STL}}
+Haremos una comparativa de algunos de los visores \textit{STL} más relevantes. Casi todos los que vamos a analizar son gratuitos y funcionan de forma \textit{online}, exceptuando algunos. Aunque estos visores normalmente se emplean \textit{online}, es posible utilizarlos de forma local en el navegador incluyéndolos en un archivo \textit{html}.
+
+Ponemos un resumen en la tabla \ref{tabla:caracteristicas-herramientas}.
+
+\tablaSmall
+{Resumen de características}
+{lccccc}
+{caracteristicas-herramientas}
+{Nombre herramienta & STL & PLY & Plataforma & Código abierto & Activo \\}
+{
+	ViewSTL & Si & No & WebGL & No (pago) & Si \\
+	OpenJSCAD & Si & No & WebGL & Si & Si \\ 
+	Mesh Viewer & No & Si & Escritorio & Si  & No \\ 
+	Open 3D Model Viewer & Si & Si & Escritorio & Si & Si \\ 
+	Pointcloud-PLY-Viewer & No & Si & Flash & Si & No \\ 
+	Online 3D PLY & No & Si & WebGL & No (pago) & Si \\ 
+	Autodesk A360 Viewer & Si & Si & Plug-in web & No (pago) & Si \\ 
+	Nuestro visor & No & Si & WebGL & Si & Si \\ 
+}
+
+\subsection{ViewSTL}
+Es muy simple (el más simple de todos los que hemos examinado)\footnote{\url{http://www.viewstl.com/}}, solamente permite la visualización de archivos en formato \textit{STL} (escondido en el \textit{FAQ}\footnote{\url{http://www.viewstl.com/faq/}} dice que soportan \textit{OBJ}). También es el único que no realiza actividad de red para cargar el archivo, por lo que cumple con lo que promete y no sube nuestros archivos a la red.
+Sin embargo, tiene algunas opciones no observadas en los rivales, como definir las unidades de las dimensiones del archivo. Ya que el formato \textit{STL} no contiene las unidades en las que se definen las coordenadas, al menos podemos añadir la información a posteriori.
+Otra característica relevante es la de definir la orientación del modelo desde un menú desplegable. Puede que no todos los modelos vengan capturados desde el mismo ángulo y, teniendo en cuenta las limitaciones que hay respecto a la rotación de las cámaras, es posible que nos sea de utilidad.
+También podemos elegir el color del modelo, ya que aunque \textit{STL} soporte definir color, no es en absoluto estándar~\cite{wiki:color-in-STL} y normalmente deberemos definirlo nosotros.
+La última característica que vamos a mencionar es la opción de tomar una instantánea de lo que estemos visualizando en ese momento podría ser útil a la hora de realizar imágenes para diapositivas o similares.
+
+\subsection{Autodesk A360 Viewer}
+Creado por Autodesk, el visor\footnote{\url{https://a360.autodesk.com/viewer}} posee un aspecto profesional y de escritorio.
+A destacar el asistente de medida, bastante visual e intuitivo y el asistente de perspectiva, que ayuda a rotar la pieza de la manera deseada.
+Permite elegir entre diferentes maneras de rotar (órbitas), cambiar parámetros de la cámara, añadir planos que corten la pieza para ver el corte en sección, que resalta entre las demás por ser de nuestro interés.
+Finalmente, podemos señalar que cambia el icono del puntero según la actividad que estemos realizando (rotando, \textit{zoom}, desplazando, midiendo\dots).
+
+\subsection{OpenJSCAD}
+Es el visor que nos permite ahondar más en los detalles del modelo. Al importar un archivo \textit{STL}, pasa primero por un asistente que transforma un archivo \textit{STL} (tanto binario como \textit{ASCII}) en el conjunto de coordenadas y triángulos de los que está compuesto reorganizando pues los datos de una manera que el propio OpenJSCAD\footnote{\url{http://openjscad.org/}} comprende. Tras esta <<interpretación>> del objeto, tenemos a nuestra disposición una versión editable de los datos en crudo, además de poder visualizar cambios sobre los mismos en tiempo real.
+Como último punto, permite realizar la exportación de la figura visualizada en diferentes formatos.
+
+
+\section {Comparativa de visores \textit{PLY}}
+Tras la modificación del requisito del tipo de archivos que nuestro programa debe aceptar de \textit{STL} a \textit{PLY}~\cite{wiki:PLY}, necesitamos examinar los visores de archivos \textit{PLY} disponibles.
+
+Nos hallamos desconcertados ante el aparente poco interés de la comunidad de código abierto respecto a este formato, puesto que no encontramos complementos para emplear en el navegador de forma gratuita, aunque vemos alguna excepción. La mayor parte de los programas que existen para el navegador son servicios de pago, y los programas de escritorio no son multiplataforma. Terminamos el análisis descorazonados por la inexistente oferta en el mercado, además de no poder comprobar de primera mano el funcionamiento de los mismos; o son de pago, o muy complicados de instalar. Por ello, exponemos un breve repaso a cada uno de ellos.
+
+\subsection{Pointcloud-PLY-Viewer}
+Ésta es la única implementación para navegador y de código abierto que hemos conseguido encontrar\footnote{\url{https://github.com/ktuite/Pointcloud-PLY-viewer}}, pero desafortunadamente se basa en el ya vetusto Adobe Flash y no ha sido actualizado recientemente (4 años).
+
+\subsection{Mesh Viewer}
+Es una aplicación de escritorio\footnote{\url{http://mview.sourceforge.net/}} multiplataforma (Linux, Windows), aunque solamente aparece el código fuente y no hemos conseguido obtener una compilación funcional. La compatibilidad con \textit{PLY} es limitada, pues solamente soporta su versión \textit{ASCII}.
+
+\subsection{Open 3D Model Viewer}
+Aplicación de escritorio\footnote{\url{http://www.open3mod.com/}} que únicamente está disponible para Windows con instalador y con versión portable. En principio permite mucho más que solamente visualizaciones, como realizar animaciones con los modelos, además de edición compleja. Tampoco lo hemos podido probar por no poseer licencia de Windows.
+
+\subsection{Online 3D PLY Viewer}
+Es una herramienta\footnote{\url{https://www.afanche.com/online-3d-ply-viewer}} que, como su propio nombre indica, permite la visualización \textit{online}. Sin embargo, hay que comprar un \textit{token} a la empresa propietaria para el uso de la misma.
+
+Aunque les preguntamos el día 2 de marzo de 2017 acerca del precio, a día \today \space aún no hemos conseguido respuesta.
+
+\section{African Fossils}
+Un trabajo similar al nuestro sería el de African Fossils\footnote{\url{http://africanfossils.org/}}, aunque con un enfoque diferente.
+
+Coincide en mostrar de forma tridimensional modelos, y se apoya en un plugin de Autodesk. Salvando las diferencias entre los tipos de modelos, añade a éstos explicaciones en texto, siendo éstos los únicos elementos que nos proporcionan información sobre el modelo. Permite descargar los modelos para imprimirlos en 3D, y también tienen disponible funciones de redes sociales para dar visibilidad al proyecto.
+

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Scene.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Scene.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {Utils} from "./Utils.js";
+
+/**
+ * @fileoverview File that manages all the stuff related to the THREE.Scene.
+ */
+
+export class Scene {
+    /**
+     * @constructor
+     * @class Holds all the attributes that are needed to do the basics on it.
+     * @param {string} canvasIdentifier - The identifier of the canvas the scene must be created into.
+     * @param {number} near - Near parameter of the camera.
+     * @param {number} far - Far parameter of the camera.
+     */
+    constructor (canvasIdentifier, near, far) {
+        this.threeScene = new THREE.Scene();
+        this.canvasNode = document.getElementById(canvasIdentifier);
+        this.renderer = new THREE.WebGLRenderer({canvas: this.canvasNode});
+        this.renderer.setSize(this.canvasNode.clientWidth, this.canvasNode.clientHeight, false);
+        this.camera = new THREE.PerspectiveCamera(75, this.canvasNode.clientWidth/this.canvasNode.clientHeight, near, far);
+        this.camera.position.set(0,0,500);
+        this.threeScene.add(this.camera);
+        this.raycaster = new THREE.Raycaster();
+        this.mouse = new THREE.Vector2();
+        this.__attachUpdateMouseCoordinatesEventListener();
+        this.__attachResizeCanvasEventListener();
+    }
+
+    /**
+     * This method creates two types of lights to attach to the scene: one ambient light and one point light.
+     * 
+     * @param {number} pointLightIntensity - Intensity of the point light.
+     * @param {number} ambientLightIntensity - Intensity of the ambient light.
+     */
+    setupLights(pointLightIntensity, ambientLightIntensity){
+        let cameraLight = new THREE.PointLight(0xffffff, pointLightIntensity);
+        let ambientLight = new THREE.AmbientLight(0xffffff, ambientLightIntensity);
+        //Attach the light to the camera
+        this.camera.add(cameraLight);
+        this.threeScene.add(ambientLight);
+    }
+
+    /**
+     * It removes an object from the scene.
+     * 
+     * @param {THREE.Object3D} object - Object to remove from the scene.
+     */
+    remove(object) {
+        this.threeScene.remove(object);
+    }
+
+    /**
+     * It adds an object to the scene.
+     * 
+     * @param {THREE.Object3D} object - Object to be attached to the scene.
+     */
+    add(object) {
+        this.threeScene.add(object);
+    }
+
+    /**
+     * Helper that loads the model file into the scene.
+     * 
+     * @param {THREE.FileLoader} loader - Specific loader to parse the elements.
+     * @param {String} filename - Route to the PLY file to be loaded.
+     */
+    load(loader, filename){
+        let myScene = this;
+        let autoZoom = this.autoZoom;
+        loader.load(filename, function (geometry) {
+            geometry.computeVertexNormals();
+            //If the model has a color, we have to use it.
+            let material;
+            if (geometry.attributes.color !== undefined || geometry.hasColors){
+                material = new THREE.MeshStandardMaterial( { shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
+                myScene.setupLights(0.1, 2.0);
+            }else{
+                //Now we provide a default color.
+                material = new THREE.MeshStandardMaterial( { color: Utils.getColor("material-standard"), shading: THREE.SmoothShading } );
+                myScene.setupLights(0.6,0.4);
+            }
+            myScene.theObject = new THREE.Mesh( geometry, material );
+            //Calculate the initial position in case the center is offset from origin
+            if (myScene.theObject.geometry.boundingSphere === null) {
+                myScene.theObject.geometry.computeBoundingSphere();
+            }
+            let centerOfObject = myScene.theObject.geometry.boundingSphere.center;
+            myScene.theObject.position.sub(centerOfObject);
+            myScene.add( myScene.theObject );
+            myScene.autoZoom();
+        });
+    }
+
+    /**
+     * It helps zooming in or out the required amount to the object to be centered into the scene.
+     */
+    autoZoom(){
+        let sphereRadius = this.theObject.geometry.boundingSphere.radius;
+        const factor = 1.25;
+        let angle = this.camera.fov / 2 * Math.PI/180;
+        let distance = sphereRadius * factor / Math.tan(angle);
+        this.camera.position.z = distance;
+    }
+
+    /**
+     * Returns the target size that the spheres added should be. It is correlated to
+     * the size of the object we are seeing.
+     * 
+     * @return {Number} Target size of the spheres (both annotation or measurement).
+     */
+    get radius(){
+        return this.theObject.geometry.boundingSphere.radius * 0.007;
+    }
+
+    /**
+     * Event listener wich updates the coordinates of the mouse whenever the mouse is moved.
+     * The target range is [-1,1].
+     */
+    __attachUpdateMouseCoordinatesEventListener() {
+        let mouse = this.mouse;
+        let myScene = this;
+        myScene.canvasNode.addEventListener('mousemove', function (event) {
+            mouse.x = ( (event.clientX - myScene.canvasNode.offsetLeft - 1) / myScene.canvasNode.clientWidth )* 2 - 1;
+            mouse.y = - (( event.clientY - myScene.canvasNode.offsetTop - 1) / myScene.canvasNode.clientHeight ) * 2 + 1;
+        });
+    }
+
+    /**
+     * Mades changes to the renderer and camera when the canvas is resized.
+     */
+    __attachResizeCanvasEventListener() {
+        let myScene = this;
+        window.addEventListener('resize', function () {
+            myScene.renderer.setSize(myScene.canvasNode.clientWidth, myScene.canvasNode.clientHeight, false);
+            myScene.camera.aspect = myScene.canvasNode.clientWidth / myScene.canvasNode.clientHeight;
+            myScene.camera.updateProjectionMatrix();
+        });
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AbstractElement.html">AbstractElement</a></li><li><a href="AbstractTool.html">AbstractTool</a></li><li><a href="AnnotationElement.html">AnnotationElement</a></li><li><a href="AnnotationTool.html">AnnotationTool</a></li><li><a href="Line.html">Line</a></li><li><a href="MeasurementElement.html">MeasurementElement</a></li><li><a href="MeasurementTool.html">MeasurementTool</a></li><li><a href="Particle.html">Particle</a></li><li><a href="PointManager.html">PointManager</a></li><li><a href="ScalePanel.html">ScalePanel</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sphere.html">Sphere</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#annotations">annotations</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#measurements">measurements</a></li><li><a href="global.html#myScene">myScene</a></li><li><a href="global.html#pointManager">pointManager</a></li><li><a href="global.html#scalePanel">scalePanel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jun 18 2017 01:04:33 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

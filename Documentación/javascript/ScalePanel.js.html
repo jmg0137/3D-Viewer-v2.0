@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ScalePanel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ScalePanel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview A tool to manage the scale of the model.
+ */
+
+export class ScalePanel {
+    /**
+     * @constructor
+     * @class It helps to know the scale of the model.
+     * @param {Scene} myScene - The scene which we want to manage its scale.
+     */
+    constructor(myScene) {
+        this.myScene = myScene;
+        //Parameters for the gui.
+        this.parameters = 
+            {
+                "Model units" : {mm:1, cm:10, in:25.4},
+                "Grid units" : {mm:1, cm:10, in:25.4},
+                "Grid Helper" : false,
+            };
+        this.gui = new dat.GUI();
+        this.__addGUI();
+    }
+
+    /**
+     * It refreshes the grid helper.
+     */
+    refreshGridHelper(){
+        if (this.myScene.threeScene.getObjectByName("MyGridHelper") != undefined){
+            this.toggleGridHelper(false);
+            this.toggleGridHelper(true);
+        }
+    }
+
+    /**
+     * It shows or hides the grid helper.
+     */
+    toggleGridHelper(cb, instance) {
+        let that;
+        if (instance) {
+            that = instance;
+        } else {
+            that = this
+        }
+        if (cb){
+            let a = new THREE.Mesh();
+            that.myScene.theObject.geometry.computeBoundingBox();
+            const boundingBox = that.myScene.theObject.geometry.boundingBox;
+            const difference = boundingBox.max.clone().sub(boundingBox.min);
+            let maxModelSizeInWorldUnits = Math.ceil(Math.max(difference.x, difference.z));
+
+            const modelSizeFactor = that.getModelSizeFactor();
+            const gridSizeFactor = that.getGridSizeFactor();
+            const numberDivisions = Math.ceil(maxModelSizeInWorldUnits * modelSizeFactor / gridSizeFactor);
+            const size = numberDivisions*gridSizeFactor/modelSizeFactor;
+
+            let gridHelper = new THREE.GridHelper(size, numberDivisions);
+            gridHelper.name = "MyGridHelper";
+            const middle = difference.clone().divideScalar(2);
+            gridHelper.position.y -= middle.y;
+            gridHelper.position.y *= 1.001;
+            that.myScene.add(gridHelper);
+        }else{
+            that.myScene.remove(that.myScene.threeScene.getObjectByName("MyGridHelper"));
+        }
+    }
+
+    /**
+     * Getter for model size factor.
+     * 
+     * @return {number} The value of mm of the actual unit of scale.
+     */
+    getModelSizeFactor(){
+        return this.gui.__folders.Units.__controllers[0].__select.value
+    }
+
+    /**
+     * Getter for grid size factor.
+     * 
+     * @return {number} The value in mm that the grid should have between gaps.
+     */
+    getGridSizeFactor(){
+        return this.gui.__folders.Units.__controllers[1].__select.value
+    }
+
+    /**
+     * Adds the dat.GUI helper to the scene.
+     */
+    __addGUI(){
+        let unitsFolder = this.gui.addFolder('Units');
+        let modelUnits = unitsFolder.add(this.parameters, "Model units", this.parameters["Model units"]);
+        let gridUnits = unitsFolder.add(this.parameters, "Grid units", this.parameters["Grid units"]);
+        let that = this;
+        unitsFolder.add(this.parameters, "Grid Helper").onFinishChange(
+            function(event) {
+                (function(event, instance) {
+                    instance.toggleGridHelper(event, instance);
+                })(event, that);
+            }
+        );
+        //Set default units.
+        let modelUnitsDefault = this.parameters["Model units"].mm;
+        let gridUnitsDefault = this.parameters["Grid units"].mm;
+        modelUnits.setValue(modelUnitsDefault);
+        gridUnits.setValue(gridUnitsDefault);
+        //We add the refreshGridHelper to make it happen on scale changes.
+        modelUnits.onFinishChange(this.refreshGridHelper);
+        gridUnits.onFinishChange(this.refreshGridHelper);
+    }
+}
+
+
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AbstractElement.html">AbstractElement</a></li><li><a href="AbstractTool.html">AbstractTool</a></li><li><a href="AnnotationElement.html">AnnotationElement</a></li><li><a href="AnnotationTool.html">AnnotationTool</a></li><li><a href="Line.html">Line</a></li><li><a href="MeasurementElement.html">MeasurementElement</a></li><li><a href="MeasurementTool.html">MeasurementTool</a></li><li><a href="Particle.html">Particle</a></li><li><a href="PointManager.html">PointManager</a></li><li><a href="ScalePanel.html">ScalePanel</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sphere.html">Sphere</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#annotations">annotations</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#measurements">measurements</a></li><li><a href="global.html#myScene">myScene</a></li><li><a href="global.html#pointManager">pointManager</a></li><li><a href="global.html#scalePanel">scalePanel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jun 18 2017 01:04:33 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

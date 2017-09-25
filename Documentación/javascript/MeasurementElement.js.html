@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: MeasurementElement.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: MeasurementElement.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {AbstractElement} from "./AbstractElement.js";
+import {Line} from "./Line.js";
+import {Sphere} from "./Sphere.js";
+
+/**
+ * @fileoverview A type of element that is specific for measurements.
+ */
+
+export class MeasurementElement extends AbstractElement {
+    /**
+     * @constructor
+     * @class AbstractElement, to hold the components that belongs to a measurement.
+     * @param {Scene} myScene - The scene which the measurement belongs to.
+     * @param {THREE.Color} defaultColor - The defaultColor the spheres of the measurement should have.
+     * @param {THREE.Color} highlightedColor - The color the spheres will have when they are highlighted.
+     */
+    constructor(myScene, defaultColor, highlightedColor) {
+        super(myScene, defaultColor, highlightedColor);
+        this.sphere1 = null;
+        this.sphere2 = null;
+        this.line = null;
+    }
+
+    /**
+     * It adds a sphere into the specified point. When the two spheres are already set up, it
+     * adds a line in between.
+     * 
+     * @param {THREE.Vector3} point - Point where the actual sphere should be put.
+     */
+    add(point) {
+        if (this.sphere1 === null) {
+            this.sphere1 = new Sphere(this.myScene, this.defaultColor, this.highlightedColor);
+            this.sphere1.add(point);
+        } else if (this.sphere2 === null) {
+            this.sphere2 = new Sphere(this.myScene, this.defaultColor, this.highlightedColor);
+            this.sphere2.add(point);
+            this.line = new Line(this.myScene);
+            this.line.add(this.sphere1, this.sphere2);
+            this.line.threeObject.userData = "a measurement";
+        } else {
+            throw new Error("Cannot call add more times.")
+        }
+    }
+
+    /**
+     * Removes all the elements of a measurement.
+     */
+    clear() {
+        this.sphere1.clear();
+        this.sphere = null;
+
+        this.sphere2.clear();
+        this.sphere2 = null;
+
+        this.line.clear();
+        this.line = null;
+    }
+
+    /**
+     * Toggles the color of the spheres of the measurement.
+     */
+    toggleColor() {
+        if (this.sphere1 === null || this.sphere2 === null) {
+            throw new Error("This measurement has no particles to change color to.");
+        } else {
+            this.sphere1.toggleColor();
+            this.sphere2.toggleColor();
+        }
+    }
+
+    /**
+     * Checks if the measurement is complete.
+     * 
+     * @return {boolean} True if the measurement has all of its elements, false if not.
+     */
+    isComplete() {
+        return this.sphere1 !== null &amp;&amp; this.sphere2 !== null &amp;&amp; this.line !== null;
+    }
+
+    /**
+     * Getter for the main property (the line on this case).
+     * 
+     * @return {Particle} The main particle of the element.
+     */
+    get mainParticle() {
+        return this.line;
+    }
+
+    /**
+     * Gives the threeObjects of the particles.
+     * 
+     * @return {Array} An array containing the objects of THREE.Object3D which are
+     * contained into the instance.
+     */
+    get threeObjects() {
+        
+        if (this.sphere1 !== null &amp;&amp; this.sphere2 !== null) {
+            return [this.sphere1.threeObject, this.sphere2.threeObject];
+        } else if (this.sphere2 !== null) {
+            return [this.sphere2.threeObject];
+        } else if (this.sphere1 !== null) {
+            return [this.sphere1.threeObject];
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AbstractElement.html">AbstractElement</a></li><li><a href="AbstractTool.html">AbstractTool</a></li><li><a href="AnnotationElement.html">AnnotationElement</a></li><li><a href="AnnotationTool.html">AnnotationTool</a></li><li><a href="Line.html">Line</a></li><li><a href="MeasurementElement.html">MeasurementElement</a></li><li><a href="MeasurementTool.html">MeasurementTool</a></li><li><a href="Particle.html">Particle</a></li><li><a href="PointManager.html">PointManager</a></li><li><a href="ScalePanel.html">ScalePanel</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sphere.html">Sphere</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#annotations">annotations</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#measurements">measurements</a></li><li><a href="global.html#myScene">myScene</a></li><li><a href="global.html#pointManager">pointManager</a></li><li><a href="global.html#scalePanel">scalePanel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jun 18 2017 01:04:33 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

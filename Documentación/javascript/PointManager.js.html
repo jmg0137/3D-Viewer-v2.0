@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: PointManager.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: PointManager.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {Utils} from "./Utils.js";
+
+/**
+ * @fileoverview Holds the logic for importing and exporting the points.
+ */
+
+export class PointManager {
+    /**
+     * @constructor
+     * @class Inits the buttons on the UI to manage the points.
+     * @param {Scene} myScene - The scene we want to handle points.
+     * @param {AnnotationTool} annotations - Reference to an annotation tool.
+     * @param {MeasurementTool} measurements - Reference to a measurement tool.
+     */
+    constructor(myScene, annotations, measurements) {
+        this.myScene = myScene;
+        this.annotations = annotations;
+        this.measurements = measurements;
+        this.__initImportButton();
+        this.__initExportButton();
+    }
+
+    /**
+     * Inits the import button on the menu.
+     */
+    __initImportButton() {
+        let instance = this;
+        $( "#import-points").click(
+            function () {
+                $("#file").click();
+            }
+        ).button({
+            icon: "ui-icon-arrowthickstop-1-n",
+            text: false
+        });
+        $( "#file" ).change(
+            function () {
+                //It should only be one file.
+                let file = this.files[0];
+                let json = Utils.loadJSON(file,
+                    function(event){
+                        let text = event.target.result;
+                        let json = JSON.parse(text);
+
+                        //Warn when the file we are importing doesn't match the model.
+                        let url = document.URL;
+                        let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                        let jsonFilename = json.filename;
+                        if (jsonFilename !== documentFilename) {
+                            $( "#not-same-model-warn").dialog({
+                                title: "Warning!",
+                            });
+                        }
+
+                        //Load annotations.
+                        let annotations = json.annotations;
+                        for (let annotation of annotations) {
+                            let point = annotation.points[0];
+                            let tag = annotation.tag;
+                            instance.annotations.addPoint(point, tag);
+                        }
+                        //Load measurements.
+                        let measurements = json.measurements;
+                        for (let measurement of measurements) {
+                            let point1 = measurement.points[0];
+                            let point2 = measurement.points[1];
+                            let tag = measurement.tag;
+                            instance.measurements.addPoint(point1);
+                            instance.measurements.addPoint(point2, tag);
+                        }
+                    }
+                );
+            }
+        );
+    }
+
+    /**
+     * Inits the export button on the menu.
+     */
+    __initExportButton() {
+        let instance = this;
+        $( "#export-points").click(
+            function importJSONPoints() {
+                let filename = "points.json";
+                let url = document.URL;
+                let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                let annotations = instance.annotations.toJSON();
+                let measurements = instance.measurements.toJSON();
+                let json = Object.assign({"filename": documentFilename}, annotations, measurements);
+                let text = JSON.stringify(json);
+                Utils.saveTextAs(text , filename);
+            }
+        ).button({
+            icon: "ui-icon-arrowthickstop-1-s",
+            text: false
+        });
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AbstractElement.html">AbstractElement</a></li><li><a href="AbstractTool.html">AbstractTool</a></li><li><a href="AnnotationElement.html">AnnotationElement</a></li><li><a href="AnnotationTool.html">AnnotationTool</a></li><li><a href="Line.html">Line</a></li><li><a href="MeasurementElement.html">MeasurementElement</a></li><li><a href="MeasurementTool.html">MeasurementTool</a></li><li><a href="Particle.html">Particle</a></li><li><a href="PointManager.html">PointManager</a></li><li><a href="ScalePanel.html">ScalePanel</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sphere.html">Sphere</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#annotations">annotations</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#measurements">measurements</a></li><li><a href="global.html#myScene">myScene</a></li><li><a href="global.html#pointManager">pointManager</a></li><li><a href="global.html#scalePanel">scalePanel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jun 18 2017 01:04:33 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

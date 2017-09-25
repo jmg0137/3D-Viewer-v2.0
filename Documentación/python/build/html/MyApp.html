@@ -1,0 +1,380 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MyApp package &#8212; 3D Visor  documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="MyApp" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="myapp-package">
+<h1>MyApp package<a class="headerlink" href="#myapp-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-MyApp.User">
+<span id="myapp-user-module"></span><h2>MyApp.User module<a class="headerlink" href="#module-MyApp.User" title="Permalink to this headline">¶</a></h2>
+<p>The User class, to support common functionality on users.</p>
+<dl class="class">
+<dt id="MyApp.User.User">
+<em class="property">class </em><code class="descclassname">MyApp.User.</code><code class="descname">User</code><a class="headerlink" href="#MyApp.User.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_login.mixins.UserMixin</span></code></p>
+<p>Now it only has the UserMixin class functionality.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-MyApp.forms">
+<span id="myapp-forms-module"></span><h2>MyApp.forms module<a class="headerlink" href="#module-MyApp.forms" title="Permalink to this headline">¶</a></h2>
+<p>The forms of the application are defined here.</p>
+<dl class="class">
+<dt id="MyApp.forms.EmailPasswordForm">
+<em class="property">class </em><code class="descclassname">MyApp.forms.</code><code class="descname">EmailPasswordForm</code><span class="sig-paren">(</span><em>formdata=&lt;object object&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.forms.EmailPasswordForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<p>It creates a form for logging in.</p>
+<p>It is made with a text field that only accepts email as inputs,
+another text field that renders and hides its text for password,
+and a submit button.</p>
+<dl class="attribute">
+<dt id="MyApp.forms.EmailPasswordForm.email">
+<code class="descname">email</code><em class="property"> = &lt;UnboundField(StringField, (l’Email’,), {‘validators’: [&lt;wtforms.validators.InputRequired object&gt;, &lt;wtforms.validators.Email object&gt;]})&gt;</em><a class="headerlink" href="#MyApp.forms.EmailPasswordForm.email" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="MyApp.forms.EmailPasswordForm.password">
+<code class="descname">password</code><em class="property"> = &lt;UnboundField(PasswordField, (l’Password’,), {‘validators’: [&lt;wtforms.validators.InputRequired object&gt;]})&gt;</em><a class="headerlink" href="#MyApp.forms.EmailPasswordForm.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="MyApp.forms.EmailPasswordForm.submit">
+<code class="descname">submit</code><em class="property"> = &lt;UnboundField(SubmitField, (l’Enter’,), {})&gt;</em><a class="headerlink" href="#MyApp.forms.EmailPasswordForm.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="MyApp.forms.UploadForm">
+<em class="property">class </em><code class="descclassname">MyApp.forms.</code><code class="descname">UploadForm</code><span class="sig-paren">(</span><em>formdata=&lt;object object&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.forms.UploadForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">flask_wtf.form.FlaskForm</span></code></p>
+<p>It creates a form made for uploads.</p>
+<p>It creates a form with a file field selector that requires a file
+to be selected in order to submit, and that only accepts files
+with ‘ply’ extension.
+It also has a submit button.</p>
+<dl class="attribute">
+<dt id="MyApp.forms.UploadForm.file">
+<code class="descname">file</code><em class="property"> = &lt;UnboundField(FileField, (l’Browse files’,), {‘validators’: [&lt;flask_wtf.file.FileRequired object&gt;, &lt;flask_wtf.file.FileAllowed object&gt;]})&gt;</em><a class="headerlink" href="#MyApp.forms.UploadForm.file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="MyApp.forms.UploadForm.submit">
+<code class="descname">submit</code><em class="property"> = &lt;UnboundField(SubmitField, (l’Upload’,), {})&gt;</em><a class="headerlink" href="#MyApp.forms.UploadForm.submit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-MyApp.views">
+<span id="myapp-views-module"></span><h2>MyApp.views module<a class="headerlink" href="#module-MyApp.views" title="Permalink to this headline">¶</a></h2>
+<p>It contains the views that will be displayed, and also some auxiliar functions.</p>
+<dl class="function">
+<dt id="MyApp.views.exist">
+<code class="descclassname">MyApp.views.</code><code class="descname">exist</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells if a filename exists into the upload folder.</p>
+<dl class="docutils">
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The filename to test its existance.</dd>
+</dl>
+<dl class="docutils">
+<dt>bool</dt>
+<dd>The existance of the file.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.get_models_list_with_extension">
+<code class="descclassname">MyApp.views.</code><code class="descname">get_models_list_with_extension</code><span class="sig-paren">(</span><em>extension</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.get_models_list_with_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of files with an specific extension.</p>
+<dl class="docutils">
+<dt>extension <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The extension to filter the list of files.</dd>
+</dl>
+<dl class="docutils">
+<dt>files <span class="classifier-delimiter">:</span> <span class="classifier">list of str</span></dt>
+<dd>The list of filtered files.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.index">
+<code class="descclassname">MyApp.views.</code><code class="descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redirects to the main view.</p>
+<dl class="docutils">
+<dt>flask.Response</dt>
+<dd>The response with ‘ply_models’ destination.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.login">
+<code class="descclassname">MyApp.views.</code><code class="descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try to log in a user, if all the requirements are correct.</p>
+<dl class="docutils">
+<dt>flask.Response</dt>
+<dd>The response with ‘ply_models’ destination if the requirements
+are correct, with ‘login’ destination otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.logout">
+<code class="descclassname">MyApp.views.</code><code class="descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log out a user of the session and redirects it to the main view.</p>
+<dl class="docutils">
+<dt>flask.Response</dt>
+<dd>The response with ‘/’ destination.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.ply_shelf">
+<code class="descclassname">MyApp.views.</code><code class="descname">ply_shelf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.ply_shelf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a view to show all the models with its thumbnails.</p>
+<dl class="docutils">
+<dt>flask.Response</dt>
+<dd>A view with all the model’s thumbnails.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.preview">
+<code class="descclassname">MyApp.views.</code><code class="descname">preview</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try to get the thumbnail of a model.</p>
+<p>It can find the thumbnail if it has the same name of the model and the ‘.png’ extension.</p>
+<dl class="docutils">
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The filename of the model we want the thumbnail of.</dd>
+</dl>
+<dl class="docutils">
+<dt>flask.Response</dt>
+<dd><dl class="first docutils">
+<dt>Whenever the file exists:</dt>
+<dd>-If there is a custom thumbnail for it, return it.
+-If there isn’t, return a default one.</dd>
+</dl>
+<p class="last">If the file doen’t exist, it response with a 404 error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.show_ply_models">
+<code class="descclassname">MyApp.views.</code><code class="descname">show_ply_models</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.show_ply_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give the visor with the specified model.</p>
+<dl class="docutils">
+<dt>filename <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The model we want to visualize.</dd>
+</dl>
+<dl class="docutils">
+<dt>flask.Response</dt>
+<dd>The visor with the selected file, a 404 if the model
+don’t exist.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.views.upload">
+<code class="descclassname">MyApp.views.</code><code class="descname">upload</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.views.upload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow to upload new models to the server.</p>
+<dl class="docutils">
+<dt>flask.Response</dt>
+<dd>Always returns the upload form, even when we already have
+uploaded a model.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-MyApp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MyApp" title="Permalink to this headline">¶</a></h2>
+<p>Main module for the server, inits all the configuration.</p>
+<dl class="function">
+<dt id="MyApp.close_connection">
+<code class="descclassname">MyApp.</code><code class="descname">close_connection</code><span class="sig-paren">(</span><em>exception</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.close_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle the conventional way to close the connection to the database.</p>
+<p>Fired when the context is about to be dropped.</p>
+<dl class="docutils">
+<dt>exception <span class="classifier-delimiter">:</span> <span class="classifier">Exception, optional</span></dt>
+<dd>If it was called because of an exception, it will receive an error object.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.email_in_db">
+<code class="descclassname">MyApp.</code><code class="descname">email_in_db</code><span class="sig-paren">(</span><em>email</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.email_in_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if an email is in the database.</p>
+<dl class="docutils">
+<dt>email <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The email we are looking for.</dd>
+</dl>
+<dl class="docutils">
+<dt>bool</dt>
+<dd>True if the database contains the email, false otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.get_db">
+<code class="descclassname">MyApp.</code><code class="descname">get_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.get_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a reference to the database.</p>
+<p>It is created just once until it is disposed.</p>
+<dl class="docutils">
+<dt>users_db <span class="classifier-delimiter">:</span> <span class="classifier">sqlite3.Connection</span></dt>
+<dd>The connection to the database.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.get_locale">
+<code class="descclassname">MyApp.</code><code class="descname">get_locale</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.get_locale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pretend to guess the match that does the best.</p>
+<p>The prefered language for the browser request.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.init_db">
+<code class="descclassname">MyApp.</code><code class="descname">init_db</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.init_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Init the database with the initial tables with the schema in ‘schema.sql’.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.query_db">
+<code class="descclassname">MyApp.</code><code class="descname">query_db</code><span class="sig-paren">(</span><em>query</em>, <em>args=()</em>, <em>one=False</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.query_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a query into the database.</p>
+<dl class="docutils">
+<dt>query <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The query we want to do on the database.</dd>
+<dt>args <span class="classifier-delimiter">:</span> <span class="classifier">tuple of str, optional</span></dt>
+<dd>The parameters the query should have (if the query has ‘?’ in it).</dd>
+<dt>one <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd>If the return value should be the first row queried or all of it.</dd>
+</dl>
+<dl class="docutils">
+<dt>sqlite3.Row or set of sqlite3.Row or None</dt>
+<dd>The row or set of rows the query has returned or None if empty and one == True.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="MyApp.user_loader">
+<code class="descclassname">MyApp.</code><code class="descname">user_loader</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#MyApp.user_loader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for the user with the corresponding id.</p>
+<dl class="docutils">
+<dt>user_id <span class="classifier-delimiter">:</span> <span class="classifier">unicode</span></dt>
+<dd>The id of the user we are looking for.</dd>
+</dl>
+<dl class="docutils">
+<dt>user <span class="classifier-delimiter">:</span> <span class="classifier">User or None</span></dt>
+<dd>The requested user or None if it is not found.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">MyApp package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-MyApp.User">MyApp.User module</a></li>
+<li><a class="reference internal" href="#module-MyApp.forms">MyApp.forms module</a></li>
+<li><a class="reference internal" href="#module-MyApp.views">MyApp.views module</a></li>
+<li><a class="reference internal" href="#module-MyApp">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">MyApp</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/MyApp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Alberto Vivar Arribas.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/MyApp.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

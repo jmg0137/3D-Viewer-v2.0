@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: AbstractTool.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: AbstractTool.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {Utils} from "./Utils.js";
+
+/**
+ * @fileoverview AbstractTool to manage whatever elements we want.
+ */
+
+export class AbstractTool {
+    /**
+     * @constructor
+     * @class Abstract tool to handle elements that are into the scene and represent them into a minimal GUI.
+     * @param {Scene} myScene - Scene that the elements will belong.
+     */
+    constructor(myScene) {
+        if (this.constructor === AbstractTool) {
+            throw new TypeError("Abstract class 'AbstractTool' cannot be instantiated.");
+        }
+        if (this.__initParticleMenu === undefined) {
+            throw new TypeError("__initParticleMenu method must be implemented");
+        }
+        if (this.__selectParticleEventListener === undefined) {
+            throw new TypeError("__selectParticleEventListener method must be implemented");
+        }
+        if (this.__addParticleDisposableEvent === undefined) {
+            throw new TypeError("__addParticleDisposableEvent method must be implemented");
+        }
+        if (this.__removeParticleEventListener === undefined) {
+            throw new TypeError("__removeParticleEventListener method must be implemented");
+        }
+        if (this.__removeParticleDisposableEvent === undefined) {
+            throw new TypeError("__removeParticleDisposableEvent method must be implemented");
+        }
+        if (this.removeParticle === undefined) {
+            throw new TypeError("removeParticle method must be implemented");
+        }
+        if (this.toggleColor === undefined) {
+            throw new TypeError("toggleColor method must be implemented");
+        }
+        this.myScene = myScene;
+        this.elements = [];
+        this.__selectParticleEventListener();
+        this.__initParticleMenu();
+        this.__initAddButton();
+        this.__initUnselectButton();
+        this.__initRemoveButton();
+        this.__initEditButton();
+        this.__addParticleDisposableEvent = this.__addParticleDisposableEvent.bind(this);
+        this.__removeParticleDisposableEvent = this.__removeParticleDisposableEvent.bind(this);
+    }
+
+    /**
+     * Add a disposable event listener to wait and select where we want to put a particle.
+     * When its done, it auto removes.
+     */
+    __addParticleEventListener(){
+        Utils.changeCursor(this.myScene.canvasNode, "copy");
+        this.myScene.canvasNode.addEventListener("mousedown", this.__addParticleDisposableEvent);
+    }
+
+    /**
+     * Add an event listener to wait for a mousedown and catch what particle will
+     * be selected (on the model) and removed. When it's done, it auto removes.
+     */
+    __removeParticleEventListener(){
+        Utils.changeCursor(this.myScene.canvasNode, "pointer");
+        this.myScene.canvasNode.addEventListener("mousedown", this.__removeParticleDisposableEvent);
+    }
+
+    /**
+     * Change the value of the the tag to the indicated element.
+     * 
+     * @param {String} uuid - The uuid of the element we want to change its tag.
+     * @param {String} finalTagValue - The value which the tag of the element will have.
+     */
+    __changeTagValue(uuid, finalTagValue){
+        for (let particle of this.elements) {
+            if (particle.mainParticle.uuid === uuid) {
+                particle.mainParticle.threeObject.userData = finalTagValue;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Searches the elements list to delete an object.
+     * 
+     * @param {Element} deletingObject - The element we want to erase.
+     */
+    __removeElement(deletingObject){
+        for (let element of this.elements) {
+            if (element.mainParticle.threeObject === deletingObject) {
+                this.removeParticle(element);
+                break;
+            }
+        }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AbstractElement.html">AbstractElement</a></li><li><a href="AbstractTool.html">AbstractTool</a></li><li><a href="AnnotationElement.html">AnnotationElement</a></li><li><a href="AnnotationTool.html">AnnotationTool</a></li><li><a href="Line.html">Line</a></li><li><a href="MeasurementElement.html">MeasurementElement</a></li><li><a href="MeasurementTool.html">MeasurementTool</a></li><li><a href="Particle.html">Particle</a></li><li><a href="PointManager.html">PointManager</a></li><li><a href="ScalePanel.html">ScalePanel</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sphere.html">Sphere</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#annotations">annotations</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#measurements">measurements</a></li><li><a href="global.html#myScene">myScene</a></li><li><a href="global.html#pointManager">pointManager</a></li><li><a href="global.html#scalePanel">scalePanel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jun 18 2017 01:04:33 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
