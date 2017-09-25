@@ -83,7 +83,22 @@ def email_in_db(email):
         'select count(email) as num from users where email = ?', (email,), True)
     return query['num'] != 0
 
-
+def check_rol(email):
+	"""
+	Checks the rol of the user that have the email given
+	
+	:param str email: The email we are looking for.
+	
+	:returns: Rol of the user given.
+	:rtype: String
+	
+	"""
+	with APP.app_context():
+		users_db = get_db()
+		query = query_db(
+			'select rol from users where email = ?', (email,), True)
+	return query['rol'] if email_in_db(email) else "Not user in database"
+	
 def get_db():
     """
     Return a reference to the database.
@@ -137,11 +152,13 @@ def import_users_to_db(filename='users_to_import.csv'):
     with APP.app_context():
         users_db = get_db()
         with APP.open_instance_resource(filename, mode='r') as file_pointer:
-            for row in csv.DictReader(file_pointer):
-                email = row['email']
+            for row in csv.DictReader(file_pointer, delimiter=';'):
+                email,name,rol = row['email'],row['name'],row['rol']
                 user_in_db = email_in_db(email)
-                if not user_in_db:
-                    users_db.execute('insert into users (email) values (?)', (email,))
+                if (not user_in_db) and (rol != ''):
+                    users_db.execute('insert into users (email,name,rol) values (?,?,?)', (email,name,rol))
+                else:
+                    users_db.execute('insert into users (email,name) values (?,?)', (email,name))
             users_db.commit()
 
 # Language support
