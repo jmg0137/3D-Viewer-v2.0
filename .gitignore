@@ -13,6 +13,6 @@
 *.lot
 .DS_Store
 WebPage/node_modules
-WebPage\instance\
+WebPage/instance/
 WebPage\mi_venc
 .vscode\
