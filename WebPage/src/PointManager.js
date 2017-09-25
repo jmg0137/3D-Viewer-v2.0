@@ -94,7 +94,7 @@ export class PointManager {
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function(data){
-                            let filename = "points.json";
+                            let filename = "pointsExport.json";
                             Utils.saveTextAs(JSON.stringify(data), filename)
                         }
                 });
