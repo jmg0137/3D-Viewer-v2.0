@@ -14,5 +14,5 @@
 .DS_Store
 WebPage/node_modules
 WebPage/instance/
-WebPage\mi_venc
-.vscode\
+WebPage/mi_venv
+.vscode/
