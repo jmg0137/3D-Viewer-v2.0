@@ -83,6 +83,7 @@ def email_in_db(email):
         'select count(email) as num from users where email = ?', (email,), True)
     return query['num'] != 0
 
+	
 def check_rol(email):
 	"""
 	Checks the rol of the user that have the email given
@@ -98,6 +99,7 @@ def check_rol(email):
 		query = query_db(
 			'select rol from users where email = ?', (email,), True)
 	return query['rol'] if email_in_db(email) else "Not user in database"
+	
 	
 def get_db():
     """
@@ -155,6 +157,7 @@ def import_users_to_db(filename='users_to_import.csv'):
             for row in csv.DictReader(file_pointer, delimiter=';'):
                 email,name,rol = row['email'],row['name'],row['rol']
                 user_in_db = email_in_db(email)
+                #We make two different calls to de database depending on the vale of the field rol
                 if (not user_in_db) and (rol != ''):
                     users_db.execute('insert into users (email,name,rol) values (?,?,?)', (email,name,rol))
                 else:
