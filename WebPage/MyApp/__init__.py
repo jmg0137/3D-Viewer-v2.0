@@ -96,7 +96,7 @@ def get_db():
     """
     users_db = getattr(_app_ctx_stack.top, '_database', None)
     if users_db is None:
-        users_db = _app_ctx_stack.top._database = sqlite3.connect(DATABASE)
+        users_db = sqlite3.connect(DATABASE)
         users_db.row_factory = sqlite3.Row
     return users_db
 
