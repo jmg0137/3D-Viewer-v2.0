@@ -1,0 +1,22 @@
+{% extends "navigation_bar.html" %}
+
+{% block title %}{{ _('PLY Models') }}{% endblock title %}
+
+{% block extra_css %}
+    img {
+        height: 256px;
+        width: 256px;
+    }
+{% endblock extra_css %}
+
+{% block body_content %}
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    
+    {% for file in files %}
+        <a href="{{ url_for('show_ply_models', filename=file) }}">
+            <img src="{{ url_for('preview', filename=file) }}">
+        </a>
+    {% endfor %}
+{% endblock body_content %}

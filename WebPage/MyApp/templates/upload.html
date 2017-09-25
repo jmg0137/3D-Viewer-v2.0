@@ -1,0 +1,88 @@
+{% extends "navigation_bar.html" %}
+
+{% block title %}{{ _('Upload') }}{% endblock title %}
+
+{% block extra_css %}
+    #upload-div {
+        width: 500px;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #F0F8FF;
+    }
+    #upload-div h2 {
+        padding-top: 10px;
+        color: #aa223e;
+    }
+    #upload-div form {
+        padding: 10px;
+        padding-top: 0px;
+    }
+    #upload-div form #progress-bar {
+        margin-bottom: 10px;
+    }
+{% endblock extra_css %}
+
+{% block body_content %}
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.file.errors %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    <div id="uploaded-complete-warn" style="display:none">
+		<p>
+			{{ _('File successfully uploaded!') }}
+		</p>
+	</div>
+    <div id="upload-div">
+        <h2>{{ _("Upload your files") }}</h2>
+        <form id="upload-form" method="POST" enctype = "multipart/form-data" action="">
+            {{ form.csrf_token }}
+            {{ form.file }}
+            {{ form.submit }}
+        </form>
+    </div>
+    <script src="{{url_for('static', filename='js/jquery-ui-1.12.1.custom/external/jquery/jquery.js') }}"></script>
+	<link rel="stylesheet" href="{{url_for('static', filename='js/jquery-ui-1.12.1.custom/jquery-ui.min.css') }}">
+	<script src="{{url_for('static', filename='js/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript">
+    $(document).ready( function(){
+        $("#upload-form").on("submit", function(event){
+            //Attach a progress bar if there are no one.
+            if ($("#progress-bar").length === 0) {
+                $('<div/>', {
+                    id: "progress-bar",
+                }).prependTo("#upload-form").progressbar();
+                $("#progress-bar").progressbar();
+            }
+            //Load the data form into a needed new way.
+            let formData = new FormData($("#upload-form")[0]);
+            $.ajax({
+                xhr: function() {
+                    let xhr = new window.XMLHttpRequest();
+                    //onprogress callback
+                    xhr.upload.addEventListener("progress", function(event) {
+                        if (event.lengthComputable) {
+                            let percentage = Math.round(event.loaded / event.total * 100);
+                            $("#progress-bar").progressbar("option", "value", percentage);
+                        }
+                    });
+                    return xhr;
+                },
+                type: "POST",
+                url: "/upload",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    $( "#uploaded-complete-warn").dialog({
+                        title: "Success!",
+                    });
+                }
+            })
+            event.preventDefault();
+        })
+    });
+    </script>
+{% endblock body_content %}
