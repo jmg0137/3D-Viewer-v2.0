@@ -7,7 +7,7 @@ from flask import request, render_template, flash, abort, \
 from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, logout_user
 from flask_babel import gettext
-from . import APP, email_in_db
+from . import APP, email_in_db, check_rol
 from .User import User
 from .forms import EmailPasswordForm, UploadForm
 
@@ -103,6 +103,7 @@ def login():
                 ).json().keys():
             user = User()
             user.id = email
+            user.rol = check_rol(email)
             login_user(user)
             return redirect(url_for('ply_shelf'))
         else:
