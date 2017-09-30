@@ -1,4 +1,8 @@
-{% extends "navigation_bar.html" %}
+{%if current_user.rol == 'ADMIN' %}
+    {% extends "navigation_bar.html" %}
+{% else %}
+    {% extends "navigation_bar_user.html" %}
+{% endif %}
 
 {% block title %}{{ _('PLY Models') }}{% endblock title %}
 
