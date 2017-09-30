@@ -40,6 +40,7 @@ def user_loader(user_id):
         return None
     user = User()
     user.id = user_id
+    user.rol = check_rol(user_id)
     return user
 
 
