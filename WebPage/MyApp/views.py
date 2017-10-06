@@ -7,9 +7,13 @@ from flask import request, render_template, flash, abort, \
 from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, logout_user
 from flask_babel import gettext
-from . import APP, email_in_db, check_rol
+from . import APP, email_in_db, check_rol, user_loader
 from .User import User
 from .forms import EmailPasswordForm, UploadForm
+
+
+#Variable that have the actual user role
+actualRol = None
 
 
 def get_models_list_with_extensions(extensions):
@@ -30,7 +34,6 @@ def get_models_list_with_extensions(extensions):
                 if element.endswith("." + extension):
                     files.append(element)
     return files
-
 
 def exist(filename):
     """
@@ -90,27 +93,61 @@ def login():
             flash(gettext("You are not allowed, contact administrator"))
             return redirect(url_for('login'))
 
+        #We declare the url directions
         base_url = 'https://ubuvirtual.ubu.es/'
         api_endpoint = '/login/token.php'
-        params = {"username": email,
+        api_rol_endpoint = 'webservice/rest/server.php'
+
+        #We declare the login params
+        paramsLogin = {"username": email,
                   "password": password,
                   "service":  "moodle_mobile_app"}
 
-        if APP.debug is True or \
-                "token" in requests.get(
+        #We take the login response
+        responseLogin = requests.get(
                         base_url + api_endpoint,
-                        params=params
-                ).json().keys():
-            user = User()
-            user.id = email
-            user.rol = check_rol(email)
-            login_user(user)
-            return redirect(url_for('ply_shelf'))
+                        params=paramsLogin
+                ).json()
+
+        userToken, format, wsfunction, courseid = responseLogin['token'], 'json', 'core_enrol_get_enrolled_users', 8688
+
+        #flash(gettext(userToken))
+
+        #We declare the rol request params
+        paramsRol = {"wstoken": userToken,
+                  "moodlewsrestformat": format,
+                  "wsfunction": wsfunction,
+                  "courseid": courseid,}
+
+        #We take the rol response
+        responseRol = requests.get(
+                        base_url + api_rol_endpoint,
+                        params=paramsRol
+                ).json()
+
+        rol = None
+        for field in responseRol:
+            if field['email'] == email:
+                rol = field['roles'][0]['name']
+
+        #Set role for current user
+        globals()['actualRol'] = rol 
+
+        if APP.debug is True or \
+                "token" in responseLogin.keys():
+            if actualRol != None:
+                user = user_loader(email)
+                login_user(user_loader(email))
+                return redirect(url_for('ply_shelf'))
+            else:
+                flash(gettext("User is not coursing this subject"))
+                return redirect(url_for('login'))
         else:
             flash(gettext("User or password incorrect"))
             return redirect(url_for('login'))
     else:
         return render_template('login.html', form=form)
+
 
 
 @APP.route('/ply_models/')
@@ -125,7 +162,7 @@ def ply_shelf():
     """
     allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
     models = get_models_list_with_extensions(allowed_model_extensions)
-    return render_template('ply_models.html', files=models)
+    return render_template('ply_models.html', files = models, userRol = actualRol)
 
 
 @APP.route('/ply_models/<string:filename>')
@@ -142,7 +179,7 @@ def show_ply_models(filename):
 
     """
     if exist(filename):
-        return render_template('visor.html')
+        return render_template('visor.html', userRol = actualRol)
     else:
         abort(404)
 
