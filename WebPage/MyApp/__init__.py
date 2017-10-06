@@ -38,10 +38,7 @@ def user_loader(user_id):
     """
     if not email_in_db(user_id):
         return None
-    user = User()
-    user.id = user_id
-    user.rol = check_rol(user_id)
-    return user
+    return User(user_id)
 
 
 # Database management
