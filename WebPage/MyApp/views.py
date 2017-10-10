@@ -13,7 +13,7 @@ from .forms import EmailPasswordForm, UploadForm
 
 
 #Variable that have the actual user role
-actualRol = None
+actualRol = dict()
 
 
 def get_models_list_with_extensions(extensions):
@@ -84,6 +84,7 @@ def login():
     :rtype: flask.Response
 
     """
+    global actualRol
     form = EmailPasswordForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -95,7 +96,9 @@ def login():
 
         #We declare the url directions
         base_url = 'https://ubuvirtual.ubu.es/'
+        #base_url2 = 'https://localhost/moodle/'
         api_endpoint = '/login/token.php'
+        #api_endpoint2 = '/login/index.php'
         api_rol_endpoint = 'webservice/rest/server.php'
 
         #We declare the login params
@@ -131,11 +134,11 @@ def login():
                 rol = field['roles'][0]['name']
 
         #Set role for current user
-        globals()['actualRol'] = rol 
+        actualRol[email] = rol
 
         if APP.debug is True or \
                 "token" in responseLogin.keys():
-            if actualRol != None:
+            if actualRol[email] != None:
                 user = user_loader(email)
                 login_user(user_loader(email))
                 return redirect(url_for('ply_shelf'))
@@ -160,6 +163,7 @@ def ply_shelf():
     :rtype: flask.Response
 
     """
+    global actualRol
     allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
     models = get_models_list_with_extensions(allowed_model_extensions)
     return render_template('ply_models.html', files = models, userRol = actualRol)
@@ -178,6 +182,7 @@ def show_ply_models(filename):
     :rtype: flask.Response
 
     """
+    global actualRol
     if exist(filename):
         return render_template('visor.html', userRol = actualRol)
     else:
