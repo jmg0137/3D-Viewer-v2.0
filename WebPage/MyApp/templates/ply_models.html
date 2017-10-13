@@ -1,4 +1,4 @@
-{%if userRol[current_user.id] == 'Profesor' %}
+{%if userRol[current_user.id][0] == 'Estudiante' %}
     {% extends "navigation_bar.html" %}
 {% else %}
     {% extends "navigation_bar_user.html" %}
