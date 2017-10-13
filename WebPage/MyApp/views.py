@@ -13,8 +13,14 @@ from .forms import EmailPasswordForm, UploadForm
 
 
 #Variable that have the actual user role
-actualRol = dict()
+actualUserInfo = dict()
 
+#We declare the url directions
+base_url = 'https://ubuvirtual.ubu.es/'
+base_url2 = 'https://localhost/moodle/'
+api_endpoint = '/login/token.php'
+api_endpoint2 = '/login/index.php'
+api_function_endpoint = 'webservice/rest/server.php'
 
 def get_models_list_with_extensions(extensions):
     """
@@ -33,6 +39,26 @@ def get_models_list_with_extensions(extensions):
             for extension in extensions:
                 if element.endswith("." + extension):
                     files.append(element)
+    return files
+
+def get_models_as_reources(extensions):
+    """
+    Return the list of files with one or more specific extension, being this files moodle resources
+
+    :param tuple extensions: The list of extensions to filter the list of files
+
+    :returns: The list of filtered files
+    :rtype: list of str
+
+    """
+    files, userToken, format, wsfunction, courseid = [], actualUserInfo[email][1], 'json', 'mod_resource_get_resources_by_courses', 8688
+
+    #We declare the rol request params
+    paramsRol = {"wstoken": userToken,
+              "moodlewsrestformat": format,
+              "wsfunction": wsfunction,
+              "courseid": courseid,}
+
     return files
 
 def exist(filename):
@@ -84,7 +110,7 @@ def login():
     :rtype: flask.Response
 
     """
-    global actualRol
+    global actualUserInfo, base_url, api_endpoint, api_function_endpoint
     form = EmailPasswordForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -95,11 +121,11 @@ def login():
             return redirect(url_for('login'))
 
         #We declare the url directions
-        base_url = 'https://ubuvirtual.ubu.es/'
+        #base_url = 'https://ubuvirtual.ubu.es/'
         #base_url2 = 'https://localhost/moodle/'
-        api_endpoint = '/login/token.php'
+        #api_endpoint = '/login/token.php'
         #api_endpoint2 = '/login/index.php'
-        api_function_endpoint = 'webservice/rest/server.php'
+        #api_function_endpoint = 'webservice/rest/server.php'
 
         #We declare the login params
         paramsLogin = {"username": email,
@@ -108,13 +134,11 @@ def login():
 
         #We take the login response
         responseLogin = requests.get(
-                        base_url + api_endpoint,
+                        base_url2 + api_endpoint2,
                         params=paramsLogin
                 ).json()
 
         userToken, format, wsfunction, courseid = responseLogin['token'], 'json', 'core_enrol_get_enrolled_users', 8688
-
-        #flash(gettext(userToken))
 
         #We declare the rol request params
         paramsRol = {"wstoken": userToken,
@@ -124,7 +148,7 @@ def login():
 
         #We take the rol response
         responseRol = requests.get(
-                        base_url + api_function_endpoint,
+                        base_url2 + api_function_endpoint,
                         params=paramsRol
                 ).json()
 
@@ -134,11 +158,11 @@ def login():
                 rol = field['roles'][0]['name']
 
         #Set role for current user
-        actualRol[email] = rol
+        actualUserInfo[email] = (rol, userToken)
 
         if APP.debug is True or \
                 "token" in responseLogin.keys():
-            if actualRol[email] != None:
+            if actualUserInfo[email] != None:
                 user = user_loader(email)
                 login_user(user_loader(email))
                 return redirect(url_for('ply_shelf'))
@@ -163,10 +187,10 @@ def ply_shelf():
     :rtype: flask.Response
 
     """
-    global actualRol
+    global actualUserInfo
     allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
     models = get_models_list_with_extensions(allowed_model_extensions)
-    return render_template('ply_models.html', files = models, userRol = actualRol)
+    return render_template('ply_models.html', files = models, userRol = actualUserInfo)
 
 
 @APP.route('/ply_models/<string:filename>')
@@ -182,9 +206,9 @@ def show_ply_models(filename):
     :rtype: flask.Response
 
     """
-    global actualRol
+    global actualUserInfo
     if exist(filename):
-        return render_template('visor.html', userRol = actualRol)
+        return render_template('visor.html', userRol = actualUserInfo)
     else:
         abort(404)
 
