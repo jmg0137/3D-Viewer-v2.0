@@ -99,7 +99,7 @@ def login():
         #base_url2 = 'https://localhost/moodle/'
         api_endpoint = '/login/token.php'
         #api_endpoint2 = '/login/index.php'
-        api_rol_endpoint = 'webservice/rest/server.php'
+        api_function_endpoint = 'webservice/rest/server.php'
 
         #We declare the login params
         paramsLogin = {"username": email,
@@ -124,7 +124,7 @@ def login():
 
         #We take the rol response
         responseRol = requests.get(
-                        base_url + api_rol_endpoint,
+                        base_url + api_function_endpoint,
                         params=paramsRol
                 ).json()
 
