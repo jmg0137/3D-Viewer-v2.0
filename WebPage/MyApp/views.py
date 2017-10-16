@@ -127,35 +127,35 @@ def login():
 
         #We take the login response
         responseLogin = requests.get(
-                        base_url2 + api_endpoint2,
-                        params=paramsLogin
+                        base_url2 + api_endpoint,
+                        params=paramsLogin, verify = False
                 ).json()
-
-        userToken, format, wsfunction, courseid = responseLogin['token'], 'json', 'core_enrol_get_enrolled_users', 8688
-
-        #We declare the rol request params
-        paramsRol = {"wstoken": userToken,
-                  "moodlewsrestformat": format,
-                  "wsfunction": wsfunction,
-                  "courseid": courseid,}
-
-        #We take the rol response
-        responseRol = requests.get(
-                        base_url + api_function_endpoint,
-                        params=paramsRol
-                ).json()
-
-        rol = None
-        for field in responseRol:
-            if field['email'] == email:
-                rol = field['roles'][0]['name']
-
-        #Set role for current user
-        actualUserInfo[email] = (rol, userToken)
-        flash(gettext(userToken))
 
         if APP.debug is True or \
                 "token" in responseLogin.keys():
+
+            userToken, format, wsfunction, courseid = responseLogin['token'], 'json', 'core_enrol_get_enrolled_users', 8688
+
+            #We declare the rol request params
+            paramsRol = {"wstoken": userToken,
+                      "moodlewsrestformat": format,
+                      "wsfunction": wsfunction,
+                      "courseid": courseid,}
+
+            #We take the rol response
+            responseRol = requests.get(
+                            base_url + api_function_endpoint,
+                            params=paramsRol
+                    ).json()
+
+            rol = None
+            for field in responseRol:
+                if field['email'] == email:
+                    rol = field['roles'][0]['name']
+
+            #Set role for current user
+            actualUserInfo[email] = (rol, userToken)
+       
             if actualUserInfo[email] != None:
                 user = user_loader(email)
                 login_user(user_loader(email))
