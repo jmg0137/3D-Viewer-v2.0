@@ -21,6 +21,10 @@ base_url_miMoodle = 'https://localhost/'
 api_endpoint = '/login/token.php'
 api_function_endpoint = 'webservice/rest/server.php'
 
+#We declare the course id
+courseid = 8688
+courseid_miMoodle = 1234
+
 def get_models_list_with_extensions(extensions):
     """
     Return the list of files with one or more specific extension.
@@ -109,7 +113,7 @@ def login():
     :rtype: flask.Response
 
     """
-    global actualUserInfo, base_url, api_endpoint, api_function_endpoint
+    global actualUserInfo, base_url, api_endpoint, api_function_endpoint, courseid, courseid_miMoodle
     form = EmailPasswordForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -133,18 +137,18 @@ def login():
         if APP.debug is True or \
                 "token" in responseLogin.keys():
 
-            userToken, format, wsfunction, courseid = responseLogin['token'], 'json', 'core_enrol_get_enrolled_users', 8688
+            userToken, format, wsfunction = responseLogin['token'], 'json', 'core_enrol_get_enrolled_users'
 
             #We declare the rol request params
             paramsRol = {"wstoken": userToken,
                       "moodlewsrestformat": format,
                       "wsfunction": wsfunction,
-                      "courseid": courseid,}
+                      "courseid": courseid_miMoodle,}
 
             #We take the rol response
             responseRol = requests.get(
                             base_url_miMoodle + api_function_endpoint,
-                            params=paramsRol
+                            params=paramsRol, verify = False
                     ).json()
 
             rol = None
