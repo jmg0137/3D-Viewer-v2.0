@@ -5,7 +5,7 @@ import requests
 from flask import request, render_template, flash, abort, \
     send_from_directory, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
 from . import APP, email_in_db, check_rol, user_loader
 from .User import User
@@ -17,7 +17,7 @@ actualUserInfo = dict()
 
 #We declare the url directions
 base_url = 'https://ubuvirtual.ubu.es/'
-base_url2 = 'https://localhost/moodle/'
+base_url2 = 'https://localhost/'
 api_endpoint = '/login/token.php'
 api_endpoint2 = '/login/index.php'
 api_function_endpoint = 'webservice/rest/server.php'
@@ -51,7 +51,7 @@ def get_models_as_reources(extensions):
     :rtype: list of str
 
     """
-    files, userToken, format, wsfunction, courseid = [], actualUserInfo[email][1], 'json', 'mod_resource_get_resources_by_courses', 8688
+    files, userToken, format, wsfunction, courseid = [], actualUserInfo[current_user.get_id()][1], 'json', 'mod_resource_get_resources_by_courses', 8688
 
     #We declare the rol request params
     paramsRol = {"wstoken": userToken,
@@ -120,13 +120,6 @@ def login():
             flash(gettext("You are not allowed, contact administrator"))
             return redirect(url_for('login'))
 
-        #We declare the url directions
-        #base_url = 'https://ubuvirtual.ubu.es/'
-        #base_url2 = 'https://localhost/moodle/'
-        #api_endpoint = '/login/token.php'
-        #api_endpoint2 = '/login/index.php'
-        #api_function_endpoint = 'webservice/rest/server.php'
-
         #We declare the login params
         paramsLogin = {"username": email,
                   "password": password,
@@ -148,7 +141,7 @@ def login():
 
         #We take the rol response
         responseRol = requests.get(
-                        base_url2 + api_function_endpoint,
+                        base_url + api_function_endpoint,
                         params=paramsRol
                 ).json()
 
@@ -159,6 +152,7 @@ def login():
 
         #Set role for current user
         actualUserInfo[email] = (rol, userToken)
+        flash(gettext(userToken))
 
         if APP.debug is True or \
                 "token" in responseLogin.keys():
