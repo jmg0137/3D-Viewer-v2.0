@@ -17,9 +17,8 @@ actualUserInfo = dict()
 
 #We declare the url directions
 base_url = 'https://ubuvirtual.ubu.es/'
-base_url2 = 'https://localhost/'
+base_url_miMoodle = 'https://localhost/'
 api_endpoint = '/login/token.php'
-api_endpoint2 = '/login/index.php'
 api_function_endpoint = 'webservice/rest/server.php'
 
 def get_models_list_with_extensions(extensions):
@@ -127,7 +126,7 @@ def login():
 
         #We take the login response
         responseLogin = requests.get(
-                        base_url2 + api_endpoint,
+                        base_url_miMoodle + api_endpoint,
                         params=paramsLogin, verify = False
                 ).json()
 
@@ -144,7 +143,7 @@ def login():
 
             #We take the rol response
             responseRol = requests.get(
-                            base_url + api_function_endpoint,
+                            base_url_miMoodle + api_function_endpoint,
                             params=paramsRol
                     ).json()
 
