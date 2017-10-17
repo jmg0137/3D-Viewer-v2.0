@@ -1,0 +1,17 @@
+alabaster==0.7.9
+Babel==2.3.4
+bitarray==0.8.1
+click==6.7
+docutils==0.13.1
+Flask==0.12.1
+heroku==0.1.4
+odo==0.5.0
+pew==1.0.1
+ply==3.9
+py==1.4.32
+pydocstyle==2.0.0
+Pygments==2.1.3
+requests==2.18.4
+six==1.10.0
+Sphinx==1.6.1
+tables==3.2.2
