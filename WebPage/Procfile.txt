@@ -1,1 +1,0 @@
-web: python service.py
