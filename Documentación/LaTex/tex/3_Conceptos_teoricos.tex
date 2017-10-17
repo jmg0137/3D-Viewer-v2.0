@@ -1,19 +1,12 @@
 \capitulo{3}{Conceptos teóricos}
 
 \section{API Rest}\label{sec:api-rest}
+Para comprender como funciona nuestra \textit{API} primero debemos comprender en que consiste una \textit{API Rest}. Una \textit{API Rest} es una arquitectura de desarrollo web basada en el protocolo \textit{HTTP}~\cite{wiki:http}, el cual es un protocolo de acceso sin estado en el que cada mensaje intercambiado tiene la información necesaria para su comprensión sin necesidad de mantener el estado de las comunicaciones.
 
-\section{Protocolo Rest}\label{sec:protocolo-rest}
+Se compone de un conjunto de operaciones \textit{CRUD} (create, read, update, delete) con sus métodos \textit{POST, GET, PUT, DELETE, PATCH} correspondientemente, de los cuales se obtendrá información en un determinado formato (en nuestro caso \textit{JSON})
 
-\section{Referencias}
-
-Las referencias se incluyen en el texto usando cite \cite{wiki:latex}. Para citar webs, artículos o libros \cite{koza92}.
-
-
-\section{Imágenes}
-
-Se pueden incluir imágenes con los comandos standard de \LaTeX, pero esta plantilla dispone de comandos propios como por ejemplo el siguiente:
-
-\imagen{escudoInfor}{Autómata para una expresión vacía}
+Una manera rápida de comprender como se realizan las peticiones a la \textit{API} de UBUVirtual es comprobar la llamada con este formato:~\ref{fig:curl-rest}
+\imagen{Url API Rest}{Url de ejemplo de llamada a la API Rest correspondiente}~\cite{moodle:api-rest-config}
 
 
 
