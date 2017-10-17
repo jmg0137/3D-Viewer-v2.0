@@ -23,7 +23,7 @@ api_function_endpoint = 'webservice/rest/server.php'
 
 #We declare the course id
 courseid = 8688
-courseid_miMoodle = 1234
+courseid_miMoodle = 2
 
 def get_models_list_with_extensions(extensions):
     """
@@ -54,19 +54,60 @@ def get_models_as_reources(extensions):
     :rtype: list of str
 
     """
-    files, userToken, format, wsfunction, courseid = [], actualUserInfo[current_user.get_id()][1], 'json', 'mod_resource_get_resources_by_courses', 8688
+    files, userToken, format, wsfunction = [], actualUserInfo[current_user.get_id()][1], 'json', 'mod_resource_get_resources_by_courses'
 
     #We declare the rol request params
-    paramsRol = {"wstoken": userToken,
+    paramsResources = {"wstoken": userToken,
               "moodlewsrestformat": format,
-              "wsfunction": wsfunction,
-              "courseid": courseid,}
+              "wsfunction": wsfunction}
 
+    #We take the rol response
+    responseRosources = requests.get(
+                    base_url_miMoodle + api_function_endpoint,
+                    params=paramsResources, verify = False
+            ).json()
+
+    for fields in responseRosources['resources']:
+        if fields['course'] == courseid_miMoodle:
+            for extension in extensions:
+                element = fields['contentfiles'][0]['filename']
+                if element.endswith("." + extension):
+                    files.append(element)
     return files
+
+def get_model_png(filename):
+    """
+    Return the file with png extension being this file a moodle resources
+
+    :param String filename: The filename of the looked for file
+
+    :returns: The png file
+    :rtype: list of str
+
+    """
+    file, userToken, format, wsfunction = None, actualUserInfo[current_user.get_id()][1], 'json', 'mod_resource_get_resources_by_courses'
+
+    #We declare the rol request params
+    paramsResources = {"wstoken": userToken,
+              "moodlewsrestformat": format,
+              "wsfunction": wsfunction}
+
+    #We take the rol response
+    responseRosources = requests.get(
+                    base_url_miMoodle + api_function_endpoint,
+                    params=paramsResources, verify = False
+            ).json()
+
+    for fields in responseRosources['resources']:
+        if fields['course'] == courseid_miMoodle:
+            element = fields['contentfiles'][0]
+            if (element['filename'].endswith(".png")) and (element['filename'] == filename):
+                file = element
+    return file
 
 def exist(filename):
     """
-    Tells if a filename exists into the upload folder.
+    Tells if a filename exists into the Moodle resources.
 
     :param str filename: The filename to test its existance.
 
@@ -74,7 +115,8 @@ def exist(filename):
     :rtype: bool
 
     """
-    return os.path.isfile(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename)))
+    allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
+    return filename in get_models_as_reources(allowed_model_extensions)
 
 
 @APP.route('/')
@@ -143,7 +185,7 @@ def login():
             paramsRol = {"wstoken": userToken,
                       "moodlewsrestformat": format,
                       "wsfunction": wsfunction,
-                      "courseid": courseid_miMoodle,}
+                      "courseid": courseid_miMoodle}
 
             #We take the rol response
             responseRol = requests.get(
@@ -186,7 +228,7 @@ def ply_shelf():
     """
     global actualUserInfo
     allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
-    models = get_models_list_with_extensions(allowed_model_extensions)
+    models = get_models_as_reources(allowed_model_extensions)
     return render_template('ply_models.html', files = models, userRol = actualUserInfo)
 
 
@@ -251,15 +293,17 @@ def preview(filename):
 
     """
     if exist(filename):
-        # First we look for a file in png extension with the same name.
-        route, _ = os.path.splitext(filename)
-        png = route + '.png'
-        if os.path.isfile(os.path.join(APP.config['UPLOAD_FOLDER'], png)):
-            return send_from_directory(APP.config['UPLOAD_FOLDER'],
-                                       secure_filename(png))
+        
+        #We first create the filename with the extension
+        png = filename.split(".")[0] + ".png"
+        pngExtension = ['png']
+
+        #We look for the file into the resources
+        if png in get_models_as_reources(pngExtension):
+            return get_model_png(png)
         else:
             return send_from_directory(APP.config['UPLOAD_FOLDER'],
-                                       secure_filename('number-1_icon-icons.com_51021.png'))
+                                       secure_filename('interrogación.png'))
     else:
         abort(404)
 
