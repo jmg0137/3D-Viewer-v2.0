@@ -3,6 +3,10 @@ Babel==2.3.4
 bitarray==0.8.1
 click==6.7
 docutils==0.13.1
+Jinja2==2.9.6
+MarkupSafe==1.0
+Werkzeug==0.12.1
+pydocstyle == 2.0.0
 Flask==0.12.1
 Flask-Login==0.4.0
 Flask-Babel==0.11.2
@@ -19,3 +23,4 @@ requests==2.18.4
 six==1.10.0
 Sphinx==1.6.1
 tables==3.2.2
+itsdangerous==0.24
