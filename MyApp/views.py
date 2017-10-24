@@ -44,66 +44,7 @@ def get_models_list_with_extensions(extensions):
                     files.append(element)
     return files
 
-def get_models_as_reources(extensions):
-    """
-    Return the list of files with one or more specific extension, being this files moodle resources
 
-    :param tuple extensions: The list of extensions to filter the list of files
-
-    :returns: The list of filtered files
-    :rtype: list of str
-
-    """
-    files, userToken, format, wsfunction = [], actualUserInfo[current_user.get_id()][1], 'json', 'mod_resource_get_resources_by_courses'
-
-    #We declare the rol request params
-    paramsResources = {"wstoken": userToken,
-              "moodlewsrestformat": format,
-              "wsfunction": wsfunction}
-
-    #We take the rol response
-    responseRosources = requests.get(
-                    base_url_miMoodle + api_function_endpoint,
-                    params=paramsResources, verify = False
-            ).json()
-
-    for fields in responseRosources['resources']:
-        if fields['course'] == courseid_miMoodle:
-            for extension in extensions:
-                element = fields['contentfiles'][0]['filename']
-                if element.endswith("." + extension):
-                    files.append(element)
-    return files
-
-def get_model_png(filename):
-    """
-    Return the file with png extension being this file a moodle resources
-
-    :param String filename: The filename of the looked for file
-
-    :returns: The png file
-    :rtype: list of str
-
-    """
-    file, userToken, format, wsfunction = None, actualUserInfo[current_user.get_id()][1], 'json', 'mod_resource_get_resources_by_courses'
-
-    #We declare the rol request params
-    paramsResources = {"wstoken": userToken,
-              "moodlewsrestformat": format,
-              "wsfunction": wsfunction}
-
-    #We take the rol response
-    responseRosources = requests.get(
-                    base_url_miMoodle + api_function_endpoint,
-                    params=paramsResources, verify = False
-            ).json()
-
-    for fields in responseRosources['resources']:
-        if fields['course'] == courseid_miMoodle:
-            element = fields['contentfiles'][0]
-            if (element['filename'].endswith(".png")) and (element['filename'] == filename):
-                file = element
-    return file
 
 def exist(filename):
     """
@@ -115,8 +56,7 @@ def exist(filename):
     :rtype: bool
 
     """
-    allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
-    return filename in get_models_as_reources(allowed_model_extensions)
+    return os.path.isfile(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename)))
 
 
 @APP.route('/')
@@ -228,7 +168,7 @@ def ply_shelf():
     """
     global actualUserInfo
     allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
-    models = get_models_as_reources(allowed_model_extensions)
+    models = get_models_list_with_extensions(allowed_model_extensions)
     return render_template('ply_models.html', files = models, userRol = actualUserInfo)
 
 
@@ -293,17 +233,15 @@ def preview(filename):
 
     """
     if exist(filename):
-        
-        #We first create the filename with the extension
-        png = filename.split(".")[0] + ".png"
-        pngExtension = ['png']
-
-        #We look for the file into the resources
-        if png in get_models_as_reources(pngExtension):
-            return get_model_png(png)
+        # First we look for a file in png extension with the same name.
+        route, _ = os.path.splitext(filename)
+        png = route + '.png'
+        if os.path.isfile(os.path.join(APP.config['UPLOAD_FOLDER'], png)):
+            return send_from_directory(APP.config['UPLOAD_FOLDER'],
+                                       secure_filename(png))
         else:
             return send_from_directory(APP.config['UPLOAD_FOLDER'],
-                                       secure_filename('interrogación.png'))
+                                       secure_filename('number-1_icon-icons.com_51021.png'))
     else:
         abort(404)
 
