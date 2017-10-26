@@ -241,7 +241,7 @@ def preview(filename):
                                        secure_filename(png))
         else:
             return send_from_directory(APP.config['UPLOAD_FOLDER'],
-                                       secure_filename('number-1_icon-icons.com_51021.png'))
+                                       secure_filename('interrogacion.png'))
     else:
         abort(404)
 
