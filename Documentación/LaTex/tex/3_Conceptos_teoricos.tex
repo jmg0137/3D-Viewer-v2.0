@@ -8,7 +8,21 @@ Se compone de un conjunto de operaciones \textit{CRUD} (create, read, update, de
 Una manera rápida de comprender como se realizan las peticiones a la \textit{API} de UBUVirtual es comprobar la llamada con este formato:~\ref{fig:curl-rest}
 \imagen{Url API Rest}{Url de ejemplo de llamada a la API Rest correspondiente}~\cite{moodle:api-rest-config}
 
+\section{Web Server Gateway Interface (WSGI)}\label{sec:wsgi}
+Se trata de una especificación para una interfaz simple y universal entre servidores web y aplicaciones (o \textit{frameworks}) para aplicaciones programadas en Python.
+De esta manera se tienen dos partes:
+\begin{itemize}
+	\item La parte del servidor
+	\item La parte de la aplicación
+\end{itemize}
+Para procesar la petición \textit{WSGI}~\cite{wiki:wsgi}, la parte del servidor recibe una petición del cliente y la pasa al \textit{middleware}. Después de ser procesada, esta petición pasa a la parte de la aplicación. La respuesta proporcionada por la parte de la aplicación es transmitida al \textit{middleware}, seguidamente a la parte del servidor y consecutivamente al cliente.
 
+Esta capara de \textit{middleware} puede tener las siguientes funcionalidades:
+\begin{itemize}
+	\item Relanzar la petición a múltiples objetos de tipo aplicación basados en \textit{URL}.
+	\item Permitiendo a múltiples aplicaciones ejecutarse de manera concurrente
+	\item Mantener un equilibrio de carga
+\end{itemize}
 
 \section{Listas de items}
 
