@@ -2,5 +2,4 @@
 python3 -m venv mi_venv
 source mi_venv/bin/activate
 pip3 install -r requirements.txt
-gunicorn MyApp:APP
-#python3 runserver.py
+python3 runserver.py
