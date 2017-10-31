@@ -206,6 +206,8 @@ def upload():
     form = UploadForm()
     if form.validate_on_submit():
         file = request.files['file']
+        #File encription
+        
         file.save(os.path.join(
             APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
         flash(gettext("File '%(filename)s' successfully uploaded",
