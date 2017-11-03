@@ -210,6 +210,7 @@ THREE.PLYLoader.prototype = {
 
 			case 'float': case 'double': case 'float32': case 'float64':
 
+				
 				return parseFloat( n );
 
 			}
@@ -248,6 +249,22 @@ THREE.PLYLoader.prototype = {
 			return element;
 
 		}
+
+		//We create our name space to handle our global variables and functions
+		var myNameSpace = {};
+
+		myNameSpace.myRandom = function myRandom(num){
+			//Function that generates my own random numbers
+			return 7 * num % 101;
+		}
+
+		myNameSpace.getInitialSeed = function getInitialSeed(){
+			//Function that returns the initial seed to start making random numbers
+			return 1;
+		}
+
+		//We create a variable that contains the seed to start making randoms
+		myNameSpace.seed = myNameSpace.getInitialSeed();
 
 		function parseASCII( data ) {
 
