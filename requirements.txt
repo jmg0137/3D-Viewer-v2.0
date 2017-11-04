@@ -12,3 +12,5 @@ requests == 2.14.2
 pydocstyle == 2.0.0
 Sphinx == 1.6.1
 bitarray == 0.8.1
+numpy == 1.13.3
+pandas == 0.21.0
