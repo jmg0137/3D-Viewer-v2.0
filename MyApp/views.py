@@ -10,6 +10,7 @@ from flask_babel import gettext
 from . import APP, email_in_db, user_loader
 from .User import User
 from .forms import EmailPasswordForm, UploadForm
+from .read_write_ply import *
 
 
 #Variable that have the actual user role
@@ -24,6 +25,61 @@ api_function_endpoint = 'webservice/rest/server.php'
 #We declare the course id
 courseid = 8688
 courseid_miMoodle = 2
+
+#Seed to generate random numbers
+seed = None
+
+#Count lines
+counter = 0
+
+#Coordenates
+pointsXYZ = ['x','y','z']
+
+def myRandom(num):
+    """
+    Return a random number.
+
+    :param num: num to calculate the random
+
+    :returns: The random number.
+    :rtype: int
+
+    """
+    return 7 * num % 101
+
+
+def applyChange(num):
+    """
+    Return the number encripted.
+
+    :param num: num to encript
+
+    :returns: The encripted number.
+    :rtype: float
+
+    """
+    global seed,counter
+    seed = myRandom(seed)
+
+    #Only change value to the even lines
+    if counter % 2 == 0:
+        counter += 1
+        return num * (2 * (seed / 100))
+    else:
+        counter += 1
+        return num
+
+
+def getInitialSeed():
+    """
+    Return the intial seed to make random numbers.
+
+    :returns: The initial seed.
+    :rtype: int
+
+    """
+    return 1
+
 
 def get_models_list_with_extensions(extensions):
     """
@@ -43,7 +99,6 @@ def get_models_list_with_extensions(extensions):
                 if element.endswith("." + extension):
                     files.append(element)
     return files
-
 
 
 def exist(filename):
@@ -203,15 +258,36 @@ def upload():
     :rtype: flask.Response
 
     """
+    global seed
+
+    #We initialize the seed each time we access to the upload page
+    #seed = getInitialSeed()
+
     form = UploadForm()
     if form.validate_on_submit():
         file = request.files['file']
+
         #File encription
-        
-        file.save(os.path.join(
-            APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
-        flash(gettext("File '%(filename)s' successfully uploaded",
-                      filename=file.filename))
+        if file.filename.split(".")[1] != "png":
+
+            #We first upload the file
+            file.save(os.path.join(
+                APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
+
+            #Then we encript the uploaded file
+            fileToUpload = read_ply(os.path.join(
+                APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
+
+            for coord in pointsXYZ:
+                seed = getInitialSeed()
+                fileToUpload['points'][coord] = list(map(applyChange, fileToUpload['points'][coord]))
+
+            write_ply(os.path.join(
+                APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)), fileToUpload['points'], fileToUpload['mesh'], True)
+
+            flash(gettext("File '%(filename)s' successfully uploaded",
+                          filename=file.filename))
+
         return render_template('upload.html', form=form)
     else:
         return render_template('upload.html', form=form)
