@@ -6,7 +6,7 @@ Para comprender como funciona nuestra \textit{API} primero debemos comprender en
 Se compone de un conjunto de operaciones \textit{CRUD} (create, read, update, delete) con sus métodos \textit{POST, GET, PUT, DELETE, PATCH} correspondientemente, de los cuales se obtendrá información en un determinado formato (en nuestro caso \textit{JSON})
 
 Una manera rápida de comprender como se realizan las peticiones a la \textit{API} de UBUVirtual es comprobar la llamada con este formato:~\ref{fig:curl-rest}
-\imagen{Url API Rest}{Url de ejemplo de llamada a la API Rest correspondiente}~\cite{moodle:api-rest-config}
+\imagen{curl-rest}{Url de ejemplo de llamada a la API Rest correspondiente}~\cite{moodle:api-rest-config}
 
 \section{Web Server Gateway Interface (WSGI)}\label{sec:wsgi}
 Se trata de una especificación para una interfaz simple y universal entre servidores web y aplicaciones (o \textit{frameworks}) para aplicaciones programadas en Python.
@@ -23,55 +23,3 @@ Esta capara de \textit{middleware} puede tener las siguientes funcionalidades:
 	\item Permitiendo a múltiples aplicaciones ejecutarse de manera concurrente
 	\item Mantener un equilibrio de carga
 \end{itemize}
-
-\section{Listas de items}
-
-Existen tres posibilidades:
-
-\begin{itemize}
-	\item primer item.
-	\item segundo item.
-\end{itemize}
-
-\begin{enumerate}
-	\item primer item.
-	\item segundo item.
-\end{enumerate}
-
-\begin{description}
-	\item[Primer item] más información sobre el primer item.
-	\item[Segundo item] más información sobre el segundo item.
-\end{description}
-	
-\begin{itemize}
-\item 
-\end{itemize}
-
-\section{Tablas}
-
-Igualmente se pueden usar los comandos específicos de \LaTeX o bien usar alguno de los comandos de la plantilla.
-
-\tablaSmall{Herramientas y tecnologías utilizadas en cada parte del proyecto}{l c c c c}{herramientasportipodeuso}
-{ \multicolumn{1}{l}{Herramientas} & App AngularJS & API REST & BD & Memoria \\}{ 
-HTML5 & X & & &\\
-CSS3 & X & & &\\
-BOOTSTRAP & X & & &\\
-JavaScript & X & & &\\
-AngularJS & X & & &\\
-Bower & X & & &\\
-PHP & & X & &\\
-Karma + Jasmine & X & & &\\
-Slim framework & & X & &\\
-Idiorm & & X & &\\
-Composer & & X & &\\
-JSON & X & X & &\\
-PhpStorm & X & X & &\\
-MySQL & & & X &\\
-PhpMyAdmin & & & X &\\
-Git + BitBucket & X & X & X & X\\
-Mik\TeX{} & & & & X\\
-\TeX{}Maker & & & & X\\
-Astah & & & & X\\
-Balsamiq Mockups & X & & &\\
-VersionOne & X & X & X & X\\
-} 
