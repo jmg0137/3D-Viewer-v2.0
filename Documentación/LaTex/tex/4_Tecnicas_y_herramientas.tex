@@ -41,11 +41,18 @@ A continuación, mostraremos una tabla con las diferentes herramientas seleccion
 	\centering
 	\caption{Tabla comparativa servidores}
 	\label{serverTable}
-	\begin{tabular}{c c c c c}
+	\begin{tabular}{p{2.0cm} p{3.0cm} p{3.0cm} p{3.0cm} p{3.0cm}}
 		\toprule
-		\backslashbox{}{} & \textbf{Apache} & \textbf{uWSGI} & \textbf{Stand-Alone (Gunicorn)} & \textbf{Stand-Alone (Twisted Web)} \\
+		  & \textbf{Apache} & \textbf{uWSGI} & \textbf{Stand-Alone (Gunicorn)} & \textbf{Stand-Alone (Twisted Web)} \\
 		\midrule
 		\textbf{¿Por qué utilizarlo?} & En el caso de tener experiencia utilizando Apache, así como que se tenga una dependencia del mismo, esto significará \textbf{estabilidad} en el entorno de producción de la aplicación, teniendo gran variedad de módulos estable sy completos. A su vez, es un software muy probado y fiable, teneindo gran variedad de información en la web. & Soporta aplicaciones Python por completo corriendo en WSGI, pudiendo sus componentes realizar muchas más funciones que correr la aplicación, con la correspondiente bajón en el uso de la memoria. Como \textbf{desventaja} hemos considerado que, como está actualmente en desarrollo, podría conllevar a un fallo que aún no se halla contemplado, teniendo a su vez una convención de nombres confusa. & \textbf{Gunicorn}: Si se desea extender de \textit{Apache} utilizando Python(siempre y cuando sea necesario) y programarlo para alguna tarea en concreto. Además, tiene la ventaja de ser sencillo de ejecutar si no se necesita extender de \textit{Apache} & \textbf{Twisted Web}: Si se desea extender de \textit{Apache} utilizando Python(siempre y cuando sea necesario ) siendo simple, estable y maduro. A su vez, puede soportar clientes virtuales.\\
 		\bottomrule
 	\end{tabular}
 \end{table}
+
+\section{"Librería" Pyntcloud}
+La palabra librería se encuentra entrecomillada ya que no es una librería en si misma sino una serie de recursos que en nuestro caso han sido utilizados para la lectura de os archivos \textit{PLY}, tanto fomarto \textit{ASCII} como \textit{Binario} (ver sección FORMATO PLY)\footnote{\url{https://github.com/daavoo/pyntcloud/blob/master/pyntcloud/io/ply.py}}.
+
+De esta manera, los modelos se leerán tanto en formato \textit{ASCII} como en \textit{Binario} almacenando los vértices y las caras por separado en dos \textit{DataFrames} diferentes. A su vez, diferencia entre los modelos con color a los modelos en escala de grises utilizando estructuras como las que se aprecia en las figuras~\ref{fig:dataframe-ascii} y~\ref{fig:dataframe-binary}:
+\imagen{dataframeColor}{DataFrame que contiene los vértices y colores}
+\imagen{dataframeNoColor}{DataFrame que contiene únicamente los vértices}
