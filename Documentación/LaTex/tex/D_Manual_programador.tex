@@ -6,6 +6,92 @@
 
 \section{Manual del programador}
 
+\subsection{Instalación y configuración de Moodle como API Rest}
+Como se menciona en los aspectos relevantes de la memoria, es necesario configurar \textit{Moodle} para poder utilizarlo como una \textit{API Rest}. A continuación se detalla como configurar la \textit{API}:
+
+En primer lugar debemos tener un usuario con el rol de administrador de la plataforma para poder acceder a la \textit{Administración del sitio} para poder activar los servicios web que por defecto vienen desactivados. Deberemos dirigirnos a \textit{Administración del sitio--Características avanzadas} y habilitar los servicios web. Una vez hecho esto deberemos activar el protocolo \textit{Rest}, que básicamente es el protocolo seguido por una \textit{API Rest}, el cual se accede mediante \textit{Administración del sitio -- Extensiones -- Servicios Web -- Administrar protocolos} y habilitamos dicho protocolo.
+
+A su vez, para que podamos acceder a dichas funcionalidades, además de tener que estar el servicio web y el protocolo activado, lo usuarios deben tener una ficha o \textit{token} el cual los identifique de manera única. Para generar desde nuestra \textit{API} dichos \textit{tokens} nos dirigiremos a \textit{Administración del sitio -- Extensiones -- Servicios web -- Administrar tokens} y ahí generaremos los tokens para los usuarios. De esta manera, cada usuario tendrá un identificador único para realizar las peticiones correspondientes~\cite{moodle:api-rest-config}.
+
+\subsection{Tratamiento de los roles de los usuarios}
+Como se menciona en los aspectos relevantes de la memoria, inicialmente se tenía una idea inicial de obtener los roles de los usuarios mediante la comprobación de la base de datos en la que estarían definidos dichos roles, pero posteriormente se decidió obtener dichos roles directamente de \textit{UBUVirtual}.
+
+Para ellos utilizamos las funciones proporcionadas por \textit{Moodle} para realizar peticiones a nuestra \textit{API Rest} (sección \ref{sec:api-rest}), que en este caso es UBUVirtual. En dicho listado de funciones (~\cite{moodle:web-service-api-functions}) encontramos la función \textit{core enrol get enrolled users}, la cual nos permitirá conocer los usuarios de la asignatura, así como su rol en la misma y más información variada de cada uno de los participantes. Dicha función nos muestra esta información en forma de diccionario \textit{JSON} desde el que buscaremos al usuario correspondiente para así conocer su rol en la asignatura correspondiente. Dicha información nos es presentada con la siguiente estructura~\ref{fig:user-info-JSON}:
+\imagen{user-info-JSON}{Estructura de la información proporcionada por la API en formato JSON}
+
+Como se puede apreciar en el campo \textit{roles} nos encontramos con el rol correspondiente del usuario en cuestión, que en este caso es \textit{Profesor} y el id de dicho rol es \textit{3}
+
+\subsection{Obtención de los modelos}
+Ya que la idea inicial era la de obtener los modelos a través de \textit{UBUVirtual} mediante recursos, cabe mencionar como conseguimos obtenerlos aunque la idea no prosperase.
+
+Para ello, recurrimos de nuevo a las funciones \textit{API Rest} siendo esta vez la función \textit{mod resource get resources by courses} la elegida ~\cite{moodle:web-service-api-functions}. Dicha función nos ofrece la información de los recursos presentes en la \textit{API} de UBUVirtual en los cursos correspondientes. En el caso de no seleccionar un curso en concreto, nos devuelve cada uno de los recursos a los que dicho usuario puede acceder. La información resultante tiene la siguiente estructura~\ref{fig:JSON-resources}:
+\imagen{JSON-resources}{Estructura de la información proporcionada por la API en formato JSON}
+
+De esta manera podemos acceder al nombre de recurso con su correspondiente extensión y comprobar que es del curso correspondiente mediante el campo \textit{course}.
+
+Pero posteriormente, la Universidad de Burgos nos proporcionó un servidor privado, de nombre "arquimedes" en el que podemos desplegar nuestra \textit{API} sin necesitar por ello todo lo mencionado anteriormente acerca de los albergar los modelos como recursos de \textit{UBUVirtual}, ya que podremos albergarlos en nuestro servidor.
+
+\section{Encriptado y desencriptado de los modelos}
+Para otorgar seguridad a los modelos, hemos tenido que encriptar los mismos de manera que el modelo que se alberga en el servidor esté modificado de tal manera que alguien ajeno a la \textit{API} que quiera obtener datos o modificar los datos guardados de los modelos sea incapaz.
+
+Para poder realizar una modificación que posteriormente podamos deshacer, lo primero es la generación de números aleatorios de tal manera que, conociendo la semilla inicial, obtengamos los mismos números para encriptar y desencriptar los modelos. Para obtener dichos números aleatorios hemos introducido en el código una función la cual dada un número, nos devuelve otro, con lo cual realizando esta operación un cierto número de veces, obtendremos una secuencia de números "aleatorios" (se encuentra entrecomillado porque los valores son aleatorios, pero si se conoce la semilla inicial siempre obtendremos la lista de valores en el mismo orden)\footnote{\url{https://cdsmith.wordpress.com/2011/10/10/build-your-own-simple-random-numbers/}}.
+
+\subsubsection{Obtención de los números aleatorios}\label{sec:numero-aleatorio}
+La manera de obtener números aleatorios en el caso de los vértices es la siguiente: \textit{7 * número aleatorio anterior \% 101}, mientras que en el caso de las caras obtendremos los valores aleatorios de la siguiente manera: \textit{7 * número aleatorio anterior \% 11}. Vemos que la diferencia reside en el valor máximo que puede alcanzar el número aleatorio.
+
+\subsubsection{Para la modificación de los valores de los vértices}
+Llegados a este punto tendremos que decidir cómo modificar los valores de los modelos, para lo cual hemos realizado un estudio de los tiempos que tarda el modelo en ser encriptado. La operación a realizar en cada caso será determinada por el tipo de los valores que se vayan a modificar.
+
+Siendo la manera de generar los números aleatorios la mencionada en la sección~\ref{sec:numero-aleatorio} y la manera de modificar los valores de los vértices: \textit{valor del vértice * (2 * número aleatorio obtenido)}, estaríamos en la encrucijada de elegir la cantidad de operaciones a realizar debido al gran volumen de datos que queremos modificar, por lo tanto hemos obtenido:
+
+\textbf{Para los modelos ASCII:}
+\begin{itemize}
+	\item Si modificamos todos los vértices que componen al modelo obtenemos un tiempo de: \textbf{12.013121366500854 segundos}
+	\item Si modificamos solamente los vértices que ocupan posiciones pares del modelo (la mitad de operaciones) obtenemos un tiempo de: \textbf{10.27306342124939 segundos}
+\end{itemize}
+
+\textbf{Para los modelos Binarios:}
+\begin{itemize}
+	\item Si modificamos todos los vértices que componen al modelo obtenemos un tiempo de: \textbf{2.7190418243408203 segundos}
+	\item Si modificamos solamente los vértices que ocupan posiciones pares del modelo (la mitad de operaciones) obtenemos un tiempo de: \textbf{2.048550605773926 segundos}
+\end{itemize}
+
+Una vez conocidos estos datos, decidimos modificar únicamente los valores que ocupan posiciones pares ya que la encriptación del modelo es suficiente para conservar su seguridad como podemos observar a continuación y el tiempo de codificación es menor:
+
+Teniendo un modelo inicial como el de la figura~\ref{fig:skull-corrected-notencripted}:
+\imagen{skull-corrected-notencripted}{Modelo de partida}
+
+Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-corrected-encripted}:
+\imagen{skull-corrected-encripted}{Modelo de encriptado}
+
+Como se puede apreciar, el modelo encriptado es lo suficientemente difuso como para poder obtener mediciones o datos del mismo en caso de que este fuera robado de la carpeta de almacenamiento de la aplicación. Pero a partir de aquí nos surge el problema relacionado con el redondeo de los decimales, así como de la cantidad de decimales que se devuelven al realizar un \textit{casteo} a otra clase (por ejemplo de \textit{str a float} en \textit{Python}).
+
+Tras realizar las operaciones de codificación del modelo, procedimos a comprobar que los valores obtenidos dividido entre los valores originales nos devolvieran el multiplicando (nuestro número aleatorio~\ref{sec:numero-aleatorio}) y es aquí cunando nos damos cuenta de que no podemos utilizar los valores en coma flotante de los vértices ya que al multiplicar o dividir, los valores de los mismo son corrompidos por los redondeos y el número de decimales. Por ejemplo, para un multiplicando de \textbf{0,7}, al dividir el valor obtenido entre el valor inicial obtenemos que el multiplicando es \textbf{0.712999999991845}, con lo que podemos concluir que esta no es una manera viable de encriptar los modelos. A continuación mostramos el modelo de la figura~\ref{fig:skull-corrected-notencripted} desencriptado tras modificar sus vértices en la figura~\ref{fig:skull-modified-floats}:
+\imagen{skull-modified-floats}{Modelo desencriptado utilizando los valores de los vértices}
+
+\subsubsection{Para la modificación de los valores de las caras}
+Tras el resultado nefasto de modificar los valores de los vértices, decidimos que podríamos alterar los valores de las caras formadas por los vértices, las cuales son enteras y no tendremos el problema de los decimales. En este caso, siendo la manera de generar los números aleatorios la mencionada en la sección~\ref{sec:numero-aleatorio} y la manera de modificar los valores de las caras: \textit{valor de la cara * (número aleatorio obtenido)} habiendo también realizado un estudio de los tiempos de codificación de los modelos, teniendo en cuanta que el número de caras en el modelo cogido de ejemplo es \textbf{248999} mientras que el número de vértices es de \textbf{126720}:
+
+\textbf{Para los modelos ASCII:}
+\begin{itemize}
+	\item Si modificamos todos los vértices que componen al modelo obtenemos un tiempo de: \textbf{14.124540567398071 segundos}
+	\item Si modificamos solamente los vértices que ocupan posiciones múltiplos de cuatro del modelo (la cuarta parte de operaciones) obtenemos un tiempo de: \textbf{11.115345239639282 segundos}
+\end{itemize}
+
+\textbf{Para los modelos Binarios:}
+\begin{itemize}
+	\item Si modificamos todos los vértices que componen al modelo obtenemos un tiempo de: \textbf{2.940922975540161 segundos}
+	\item Si modificamos solamente los vértices que ocupan posiciones múltiplos de cuatro del modelo (la cuarta parte de operaciones) obtenemos un tiempo de: \textbf{1.9844660758972168 segundos}
+\end{itemize}
+
+Una vez conocidos estos datos, decidimos modificar únicamente los valores que ocupan posiciones múltiplos de cuatro ya que la encriptación del modelo es suficiente para conservar su seguridad (el modelo no se llega a mostrar en el navegador ya que no es capaz de dibujarlo) y el tiempo de codificación es menor. De este modo obtenemos tanto una mejor codificación en lo relacionado con la seguridad como de precisión de resultados tras la decodificación. Por lo tanto, concluiremos adjudicando a las \textbf{caras} la encriptación en lugar de a los \textbf{vértices}.
+
+Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-corrected-encripted}:
+\imagen{skull-corrected-encripted}{Modelo de encriptado}
+
+\subsection{Ejecución de nuestra aplicación en arquimedes}
+Hay un script que ejecuta la aplicación. Desde Linux con el comando ssh (usuario y contraseña), en windows con putty y lo mismo. Una vez que se esté ejecutando, accederemos a la aplicación en la dirección url: \url{https://arquimedes.ubu.es/visor3d/}.
+
 \section{Compilación, instalación y ejecución del proyecto}
 
 \section{Pruebas del sistema}
