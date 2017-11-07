@@ -45,7 +45,7 @@ def myRandom(num):
     :rtype: int
 
     """
-    return 7 * num % 101
+    return 7 * num % 11
 
 
 def applyChange(num):
@@ -59,12 +59,12 @@ def applyChange(num):
 
     """
     global seed,counter
-    seed = myRandom(seed)
 
     #Only change value to the even lines
-    if counter % 2 == 0:
+    if counter % 4 == 0:
+        seed = myRandom(seed)
         counter += 1
-        return num * (2 * (seed / 100))
+        return int(str(num * seed))
     else:
         counter += 1
         return num
