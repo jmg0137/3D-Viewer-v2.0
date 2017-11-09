@@ -64,7 +64,7 @@ def applyChange(num):
     if counter % 4 == 0:
         seed = myRandom(seed)
         counter += 1
-        return int(str(num * seed))
+        return int((num * (seed * 10)) + (seed * 100))
     else:
         counter += 1
         return num

@@ -231,7 +231,7 @@ THREE.PLYLoader.prototype = {
 
 						if ( parseInt(values[index]) != 0 ) {
 
-							values[index] = parseInt(values[index]) / myNameSpace.seed;
+							values[index] = (parseInt(values[index]) - (myNameSpace.seed * 100)) / (myNameSpace.seed * 10) ;
 
 						}
 					}
@@ -267,8 +267,6 @@ THREE.PLYLoader.prototype = {
 
 			}
 
-
-			
 			return element;
 
 		}
