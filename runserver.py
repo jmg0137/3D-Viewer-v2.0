@@ -1,3 +1,5 @@
 """This script inits all the server itself."""
 from MyApp import APP
-APP.run()
+
+if __name__ == '__main__':
+	APP.run()
