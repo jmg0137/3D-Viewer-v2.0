@@ -14,3 +14,4 @@ Sphinx == 1.6.1
 bitarray == 0.8.1
 numpy == 1.13.3
 pandas == 0.21.0
+gunicorn == 19.7.1
