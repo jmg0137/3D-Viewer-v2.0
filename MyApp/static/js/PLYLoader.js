@@ -219,21 +219,28 @@ THREE.PLYLoader.prototype = {
 		function parseASCIIElement( properties, line ) {
 
 			var values = line.split( /\s+/ );
-
-
 			
-			//We change the value if the line is even
-			if ( myNameSpace.counter % 2 == 0 ) {
-
-				for ( var i = 0; i < values.length; i ++ ) {
-
+			if (!values[0].includes(".")){
+				
+				if ( myNameSpace.counter % 4 == 0 ) {
+					
+					//We set the seed per even line
 					myNameSpace.seed = myNameSpace.myRandom(myNameSpace.seed);
-					values[i] = values[i] / (2 * (myNameSpace.seed / 100));
 
+					for ( var index = 1; index < values.length; index ++ ) {
+
+						if ( parseInt(values[index]) != 0 ) {
+
+							values[index] = parseInt(values[index]) / myNameSpace.seed;
+
+						}
+					}
 				}
 
+				myNameSpace.counter++;
+
 			}
-			
+
 
 			var element = {};
 
@@ -260,8 +267,8 @@ THREE.PLYLoader.prototype = {
 
 			}
 
-			myNameSpace.counter++;
 
+			
 			return element;
 
 		}
@@ -271,7 +278,7 @@ THREE.PLYLoader.prototype = {
 		
 		myNameSpace.myRandom = function myRandom(num){
 			//Function that generates my own random numbers
-			return 7 * num % 101;
+			return 7 * num % 11;
 		}
 
 		myNameSpace.getInitialSeed = function getInitialSeed(){
