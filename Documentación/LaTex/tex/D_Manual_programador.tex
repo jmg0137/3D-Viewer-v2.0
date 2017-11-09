@@ -70,7 +70,7 @@ Tras realizar las operaciones de codificación del modelo, procedimos a comproba
 \imagen{skull-modified-floats}{Modelo desencriptado utilizando los valores de los vértices}
 
 \subsubsection{Para la modificación de los valores de las caras}
-Tras el resultado nefasto de modificar los valores de los vértices, decidimos que podríamos alterar los valores de las caras formadas por los vértices, las cuales son enteras y no tendremos el problema de los decimales. En este caso, siendo la manera de generar los números aleatorios la mencionada en la sección~\ref{sec:numero-aleatorio} y la manera de modificar los valores de las caras: \textit{valor de la cara * (número aleatorio obtenido)} habiendo también realizado un estudio de los tiempos de codificación de los modelos, teniendo en cuanta que el número de caras en el modelo cogido de ejemplo es \textbf{248999} mientras que el número de vértices es de \textbf{126720}:
+Tras el resultado nefasto de modificar los valores de los vértices, decidimos que podríamos alterar los valores de las caras formadas por los vértices, las cuales son enteras y no tendremos el problema de los decimales. En este caso, siendo la manera de generar los números aleatorios la mencionada en la sección~\ref{sec:numero-aleatorio} y la manera de modificar los valores de las caras: \textit{valor de la cara * (número aleatorio obtenido * 10) + (número aleatorio obtenido * 100)} habiendo también realizado un estudio de los tiempos de codificación de los modelos, teniendo en cuanta que el número de caras en el modelo cogido de ejemplo es \textbf{248999} mientras que el número de vértices es de \textbf{126720}:
 
 \textbf{Para los modelos ASCII:}
 \begin{itemize}
