@@ -13,10 +13,13 @@ APP = Flask(__name__, instance_relative_config=True)
 APP.config.from_object('config')
 APP.config.from_pyfile('config.py', silent=True)
 
-# Upload folder config
+# Upload folder and exercise folder config
 UPLOAD_FOLDER = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), 'static', 'uploads')
+EXERCISE_FOLDER = os.path.join(os.path.dirname(
+    os.path.realpath(__file__)), 'static', 'exercises')
 APP.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+APP.config['EXERCISE_FOLDER'] = EXERCISE_FOLDER
 
 # User management
 LOGIN_MANAGER = LoginManager()
