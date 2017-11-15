@@ -1,0 +1,19 @@
+{% extends "ply_models.html" %}
+{% block breadcrumb %}
+	<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+	<li><a href="{{ url_for('show_exercise_templates') }}">{{ _('Exercises Templates') }}</a></li>
+{% endblock breadcrumb %}
+
+{% block title %}{{ _('Exercise Templates') }}{% endblock title %}
+
+{% block body_content %}
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    
+    {% for file in files %}
+        <a href="{{ url_for('show_ply_models_exercise_templates', filename=file) }}">
+            <img src="{{ url_for('preview', filename=file) }}">
+        </a>
+    {% endfor %}
+{% endblock body_content %}
