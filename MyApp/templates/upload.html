@@ -1,4 +1,7 @@
 {% extends "navigation_bar.html" %}
+{% block breadcrumb %}
+		<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+{% endblock breadcrumb %}
 
 {% block title %}{{ _('Upload') }}{% endblock title %}
 
