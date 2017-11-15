@@ -1,8 +1,7 @@
 {% extends "navigation_bar.html" %}
 
-{% block nav %}
-        <ul id="nav">
-            <li><a href="{{ url_for('ply_shelf') }}">{{ _('Models') }}</a></li>
-            <li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
-        </ul>
-{% endblock nav %}
+<ul id="nav">
+	{% block breadcrumbUser %}
+	{% endblock breadcrumbUser %}
+	<li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+</ul>

@@ -3,13 +3,13 @@
     <head>
         <meta charset=utf-8>
         <title>{% block title %}{% endblock title %}</title>
-        {% block nav %}
+        
         <ul id="nav">
-            <li><a href="{{ url_for('ply_shelf') }}">{{ _('Models') }}</a></li>
-            <li><a href="{{ url_for('upload') }}">{{ _('Upload') }}</a></li>
-            <li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+			{% block breadcrumb %}
+			{% endblock breadcrumb %}
+			<li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+            <li class="align-right"><a href="{{ url_for('upload') }}">{{ _('Upload') }}</a></li>
         </ul>
-        {% endblock nav %}
         <style type="text/css">
             body {
                 margin: 0

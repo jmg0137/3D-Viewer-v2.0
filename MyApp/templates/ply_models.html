@@ -1,7 +1,15 @@
-{%if userRol[current_user.id][0] == 'Profesor' %}
+{%if userRol[current_user.id] == 'Profesor' %}
     {% extends "navigation_bar.html" %}
+	{% block breadcrumb %}
+		<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+		<li><a href="{{ url_for('ply_shelf') }}">{{ _('Models') }}</a></li>
+	{% endblock breadcrumb %}
 {% else %}
     {% extends "navigation_bar_user.html" %}
+	{% block breadcrumbUser %}
+		<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+		<li><a href="{{ url_for('ply_shelf') }}">{{ _('Models') }}</a></li>
+	{% endblock breadcrumbUser %}
 {% endif %}
 
 {% block title %}{{ _('PLY Models') }}{% endblock title %}
