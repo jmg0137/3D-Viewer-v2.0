@@ -1,0 +1,39 @@
+{%if userRol[current_user.id] == 'Profesor' %}
+    {% extends "navigation_bar.html" %}
+	{% block breadcrumb %}
+		<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+	{% endblock breadcrumb %}
+{% else %}
+    {% extends "navigation_bar_user.html" %}
+	{% block breadcrumbUser %}
+		<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+	{% endblock breadcrumbUser %}
+{% endif %}
+
+{% block title %}{{ _('Main Page') }}{% endblock title %}
+
+{% block extra_css %}
+    .father {
+        display: flex;
+		justify-content: center;
+    }
+	
+	.son{
+		padding: 150px;
+		margin: 10px;
+	}
+{% endblock extra_css %}
+
+{% block body_content %}
+	<div id="folders-view" class="father">
+		<div id="models-view" class="son">
+			<a href="{{ url_for('ply_shelf') }}"><img src="../static/uploads/folder.png" alt="Models" height="500" width="500"></a>
+			<center><font face="Ubuntu" size="5" color="DodgerBlue"><b>{{ _('Models') }}</b></font></center>
+		</div>
+		<div id="exercise-view" class="son">
+			<a href="{{ url_for('show_exercise_templates') }}"><img src="../static/uploads/folder.png" alt="Exercises" height="500" width="500"></a>
+			<center><font face="Ubuntu" size="5" color="DodgerBlue"><b>{{ _('Exercises') }}</b></font></center>
+		</div>
+	</div>
+	
+{% endblock body_content %}
