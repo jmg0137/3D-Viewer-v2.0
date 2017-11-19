@@ -1,0 +1,13 @@
+{% extends "visor.html" %}
+{% block breadcrumb %}
+	<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+	<li><a href="{{ url_for('show_exercise_templates') }}">{{ _('Exercises Templates') }}</a></li>
+{% endblock breadcrumb %}
+
+{% block buttonsImport %}
+	<button id="save-points" class="save-button">{{ _('Save') }}</button> {{ _('Save') }}
+	<div id="load-hidden-div" style="display: none;">
+		<button id="load-points" class="load-button"></button>
+		<input id="file" type="file"/>
+	</div>
+{% endblock buttonsImport %}

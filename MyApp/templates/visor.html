@@ -1,7 +1,15 @@
-{%if userRol[current_user.id][0] == 'Profesor' %}
+{%if userRol[current_user.id] == 'Profesor' %}
     {% extends "navigation_bar.html" %}
+	{% block breadcrumb %}
+		<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+		<li><a href="{{ url_for('ply_shelf') }}">{{ _('Models') }}</a></li>
+	{% endblock breadcrumb %}
 {% else %}
     {% extends "navigation_bar_user.html" %}
+	{% block breadcrumbUser %}
+		<li><a href="{{ url_for('main') }}">{{ _('Main Page') }}</a></li>
+		<li><a href="{{ url_for('ply_shelf') }}">{{ _('Models') }}</a></li>
+	{% endblock breadcrumbUser %}
 {% endif %}
 
 {% block title %}{{ _('3D Visor') }}{% endblock title %}
@@ -177,11 +185,13 @@
 	</div>
 
 	<div id="point-manager-placeholder">
+		{% block buttonsImport %}
 		<button id="import-points" class="import-button">{{ _('Import points') }}</button>
 		<button id="export-points" class="export-button">{{ _('Export points') }}</button> {{ _('Import & Export') }}
 		<input id="file" type="file"/>
+		{% endblock buttonsImport %}
 	</div>
-
+	
 	<div id="sep1" class="separator"></div>
 
 	<div id="annotations-menu-placeholder">
