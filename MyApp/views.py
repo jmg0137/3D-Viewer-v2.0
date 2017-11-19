@@ -1,5 +1,6 @@
 """It contains the views that will be displayed, and also some auxiliar functions."""
 import os
+import shutil
 import time, json, hashlib
 import requests
 from flask import request, render_template, flash, abort, \
@@ -15,6 +16,9 @@ from .read_write_ply import *
 
 #Variable that have the actual user role
 actualUserInfo = dict()
+
+#Variable with exercise counter
+exerciseCounter = dict()
 
 #We declare the url directions
 base_url = 'https://ubuvirtual.ubu.es/'
@@ -101,6 +105,28 @@ def get_models_list_with_extensions(extensions):
     return files
 
 
+def get_exercise_list_for_model(filename):
+    """
+    Return the list of files with one or more specific extension.
+
+    :param tuple extensions: The list of extensions to filter the list of files.
+
+    :returns: The list of filtered files.
+    :rtype: list of str
+
+    """
+    files = []
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]))):
+        folder = os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]))
+    else:
+        return files
+
+    for element in os.listdir(folder):
+        files.append(element)
+
+    return files
+
+
 def exist(filename):
     """
     Tells if a filename exists into the Moodle resources.
@@ -167,7 +193,7 @@ def login():
 
         #We take the login response
         responseLogin = requests.get(
-                        base_url + api_endpoint,
+                        base_url_miMoodle + api_endpoint,
                         params=paramsLogin, verify = False
                 ).json()
 
@@ -180,11 +206,11 @@ def login():
             paramsRol = {"wstoken": userToken,
                       "moodlewsrestformat": format,
                       "wsfunction": wsfunction,
-                      "courseid": courseid}
+                      "courseid": courseid_miMoodle}
 
             #We take the rol response
             responseRol = requests.get(
-                            base_url + api_function_endpoint,
+                            base_url_miMoodle + api_function_endpoint,
                             params=paramsRol, verify = False
                     ).json()
 
@@ -194,12 +220,14 @@ def login():
                     rol = field['roles'][0]['name']
 
             #Set role for current user
-            actualUserInfo[email] = (rol, userToken)
+            actualUserInfo[email] = rol
        
             if actualUserInfo[email] != None:
                 user = user_loader(email)
                 login_user(user_loader(email))
-                return redirect(url_for('ply_shelf'))
+
+                return redirect(url_for('main'))
+                #return redirect(url_for('ply_shelf'))
             else:
                 flash(gettext("User is not coursing this subject"))
                 return redirect(url_for('login'))
@@ -209,6 +237,22 @@ def login():
     else:
         return render_template('login.html', form=form)
 
+
+@APP.route('/main/')
+@login_required
+def main():
+    """
+    Create a view to select how do you want to work (see model, or add exercises to one model).
+
+    :returns: A view with two big folders.
+    :rtype: flask.Response
+
+    """
+    global actualUserInfo
+    if actualUserInfo[current_user.id] == 'Profesor':
+        return render_template('main_page.html', userRol = actualUserInfo)
+    else:
+        return render_template('main_page_user.html', userRol = actualUserInfo)
 
 
 @APP.route('/ply_models/')
@@ -247,6 +291,128 @@ def show_ply_models(filename):
         abort(404)
 
 
+@APP.route('/ply_models_exercise/')
+@login_required
+def show_exercise_templates():
+    """
+    Create a view to show all the models with its thumbnails to show the models' solutions.
+
+    :returns: A view with all the model's thumbnails.
+    :rtype: flask.Response
+
+    """
+    global actualUserInfo
+    allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
+    models = get_models_list_with_extensions(allowed_model_extensions)
+    return render_template('ply_models_exercise.html', files = models, userRol = actualUserInfo)
+
+
+@APP.route('/ply_models_exercise/<string:filename>')
+@login_required
+def show_ply_models_exercise_templates(filename):
+    """
+    Give the exercise solutions with the specified model.
+
+    :param str filename: The model we want to visualize.
+
+    :returns: The exercise solution with the selected file, a 404 if the model
+        don't exist.
+    :rtype: flask.Response
+
+    """
+    global actualUserInfo
+    folders = get_exercise_list_for_model(filename)
+    if exist(filename):
+
+         #We create a folder to do exercises in the model we are uploading
+        if not os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]))):
+            os.makedirs(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0])))
+
+        return render_template('models_solutions_list.html', userRol = actualUserInfo, file = filename, files = folders)
+    else:
+        abort(404)
+
+
+@APP.route('/ply_models_do_exercise/<string:filename>')
+@login_required
+def show_ply_models_exercise(filename):
+    """
+    Give the visor with the specified model to make an exercise.
+
+    :param str filename: The model we want to visualize.
+
+    :returns: The visor with the selected file to make an exercise, a 404 if the model
+        don't exist.
+    :rtype: flask.Response
+
+    """
+    global actualUserInfo, exerciseCounter
+
+    nFolders = get_exercise_list_for_model(filename)
+
+    if len(nFolders) == 0:
+        exerciseCounter[filename] = 0
+    else:
+        exerciseCounter[filename] = len(nFolders)
+        while os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename('Ejercicio_' + filename.split(".")[0] + '_' + str(exerciseCounter[filename])))):
+            exerciseCounter[filename] += 1
+
+    if exist(filename):
+         #We create a folder to do exercises in the model we are uploading
+        if not os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename('Ejercicio_' + filename.split(".")[0] + '_' + str(exerciseCounter[filename])))):
+            os.makedirs(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename('Ejercicio_' + filename.split(".")[0] + '_' + str(exerciseCounter[filename]))))
+        #else: modificar el contador
+        return render_template('visor_exercise.html', userRol = actualUserInfo)
+    else:
+        abort(404)
+
+
+@APP.route('/ply_models_do_exercise/<string:filename>')
+@login_required
+def edit_ply_models_exercise(filename,exercise):
+    """
+    Give the visor with the specified model to make an exercise.
+
+    :param str filename: The model we want to visualize.
+
+    :returns: The visor with the selected file to make an exercise, a 404 if the model
+        don't exist.
+    :rtype: flask.Response
+
+    """
+    global actualUserInfo, exerciseCounter
+
+    if exist(filename):
+        return render_template('visor_exercise.html', userRol = actualUserInfo)
+    else:
+        abort(404)
+
+
+@APP.route('/delete/<string:filename>')
+@login_required
+def delete(filename):
+    """
+    Delete dir exercise.
+
+    :param str filename: The filename of the model we want to delete.
+
+    :returns: If the file doen't exist, it response with a 404 error.
+              Whenever the file exists: if there is a custom thumbnail for it, return it;
+              if there isn't, return a default one.
+
+    :rtype: flask.Response
+
+    """
+    global actualUserInfo, exerciseCounter
+
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split("_")[1]), secure_filename(filename))):
+        shutil.rmtree(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split("_")[1]), secure_filename(filename)))
+
+    folders = get_exercise_list_for_model(filename.split("_")[1])
+
+    return render_template('models_solutions_list.html', userRol = actualUserInfo, file = filename.split("_")[1] + '.ply', files = folders)
+
+
 @APP.route('/upload', methods=["GET", "POST"])
 @login_required
 def upload():
@@ -274,6 +440,10 @@ def upload():
             file.save(os.path.join(
                 APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
 
+            #We create a folder to do exercises in the model we are uploading
+            if not os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]))):
+                os.makedirs(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0])))
+
             #Then we encript the uploaded file
             fileToUpload = read_ply(os.path.join(
                 APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
@@ -284,6 +454,13 @@ def upload():
 
             write_ply(os.path.join(
                 APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)), fileToUpload['points'], fileToUpload['mesh'], True)
+
+            flash(gettext("File '%(filename)s' successfully uploaded",
+                          filename=file.filename))
+
+        else:
+            file.save(os.path.join(
+                APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
 
             flash(gettext("File '%(filename)s' successfully uploaded",
                           filename=file.filename))
@@ -322,6 +499,27 @@ def preview(filename):
                                        secure_filename('interrogacion.png'))
     else:
         abort(404)
+
+@APP.route('/_save_json_in_my_folder', methods=["POST"])
+def save_json():
+    """
+    Save the json in a folder.
+
+    :returns: A response with the json.
+    :rtype: flask.Response
+
+    """
+    json_data = request.get_json()
+
+    #If file exists we remove it and the we create the new one
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename('Ejercicio_' + json_data["filename"].split(".")[0] + '_' + str(exerciseCounter[json_data["filename"]])), secure_filename('savedPoints.json'))):
+        os.remove(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename('Ejercicio_' + json_data["filename"].split(".")[0] + '_' + str(exerciseCounter[json_data["filename"]])), secure_filename('savedPoints.json')))
+
+    file = open(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename('Ejercicio_' + json_data["filename"].split(".")[0] + '_' + str(exerciseCounter[json_data["filename"]])), secure_filename('savedPoints.json')), 'w')
+    json.dump(json_data, file)
+    file.close()
+
+    return jsonify(json_data)
 
 @APP.route('/_add_checksum_to_json', methods=["POST"])
 def finish_json():
