@@ -6,8 +6,17 @@
 
 {% block buttonsImport %}
 	<button id="save-points" class="save-button">{{ _('Save') }}</button> {{ _('Save') }}
+	<button id="load-points" class="load-button"></button>
+	
 	<div id="load-hidden-div" style="display: none;">
 		<button id="load-points" class="load-button"></button>
 		<input id="file" type="file"/>
+		<p id="ejercicio"><p>
+		<p id="nombre"><p>
 	</div>
+	
+	<script>
+		document.getElementById("ejercicio").innerHTML = "{{ex}}";
+		document.getElementById("nombre").innerHTML = "{{file}}";
+	</script>
 {% endblock buttonsImport %}
