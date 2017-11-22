@@ -49,7 +49,7 @@ function init() {
 
 	//File route
 	let url = document.URL;
-	let filename = '../static/uploads/' + url.substring(url.lastIndexOf('/') + 1);
+	let filename = '../../static/uploads/' + url.substring(url.lastIndexOf('/') + 1);
 	let extension = filename.substring(filename.lastIndexOf(".") + 1);
 	switch (extension.toLowerCase()) {
 		case "ply":

@@ -17,7 +17,7 @@ APP.config.from_pyfile('config.py', silent=True)
 UPLOAD_FOLDER = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), 'static', 'uploads')
 EXERCISE_FOLDER = os.path.join(os.path.dirname(
-    os.path.realpath(__file__)), 'static', 'exercises')
+    os.path.realpath(__file__)), 'static','uploads', 'exercises')
 APP.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 APP.config['EXERCISE_FOLDER'] = EXERCISE_FOLDER
 
