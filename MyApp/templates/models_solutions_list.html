@@ -13,10 +13,6 @@
 		height: 100%;
 	}
 	
-	#exercise{
-		width:50%;
-	}
-	
 	#img-buttons{
 		float:left;
 		width: 30%;
@@ -45,6 +41,9 @@
 {% endblock extra_css %}
 
 {% block body_content %}
+	<div id="tag" style="display:none">
+		<input type="text" id="tag-content">
+	</div>
 	<div id="container">
 		<div id="img-buttons">
 			<div id="img">
@@ -53,22 +52,23 @@
 			
 			<div id="buttons_placeholder">
 				<a href="{{ url_for('show_ply_models_exercise', filename=file) }}"><img src="../static/uploads/plus-icon.png" alt="Models" height="25" width="50"></a>
-				<button id="unselect-exercise-button" class="unselect-button">{{ _('Unselect all') }}</button>
 			</div>
 		</div>
 		
 		<div id="list">
 			<ol id = "annotation-list">
-			 {% for file in files %}
+			 {% for f in files %}
 				<div id="div-exercise" onmouseover="changeColor(this)" onmouseout="normalColor(this)">
 					<li>
 						<img src="../static/uploads/folder.png" alt="Models" height="40" width="40">
-						<a href="{{ url_for('edit_ply_models_exercise', filename=file) }}">
-							<button id="edit-{{ file.filename }}" style="display:none;" class="edit-button">{{ _('Edit') }}</button>
+						<a href="{{ url_for('edit_ply_models_exercise', exercise=f, filename=file) }}">
+							<button id="edit-button" style="display:none;float:right;" class="edit-button">{{ _('Edit') }}</button>
 						</a>
-						<a href="{{ url_for('delete', filename=file) }}">
-							<button id="remove-{{ file.filename }}" style="display:none;" class="remove-button">{{ _('Remove') }}</button>
+						<a href="{{ url_for('delete', filename=f) }}">
+							<button id="remove-button" style="display:none;float:right;" class="remove-button">{{ _('Remove') }}</button>
 						</a>
+						<button id="edit-name" style="display:none;float:right;" class="edit-name-button" onclick="changeName()">{{ _('Edit Name') }}</button>
+						<p id="name" contenteditable="false">{{f}}<p>
 					</li>
 				</div>
 			{% endfor %}
@@ -79,22 +79,70 @@
 	
 	<script>
 		
-		var previousColor = "white";
+		var prevName;
 		
 		function changeColor(x) {
 			x.style.backgroundColor = "#D6EAF8";
-			for (var i = 0 ; x.getElementsByTagName("button").length; i++){
-				x.getElementsByTagName("button")[i].style.display = "inline";
-				x.getElementsByTagName("button")[i].style.float = "right";
-			}
+			x.getElementsByTagName("button")[0].style.display = "inline";
+			x.getElementsByTagName("button")[1].style.display = "inline";
+			x.getElementsByTagName("button")[2].style.display = "inline";
 		}
 
 		function normalColor(x) {
 			x.style.backgroundColor = "white";
-			for (var i = 0 ; x.getElementsByTagName("button").length; i++){
-				x.getElementsByTagName("button")[i].style.display = "none";
-				x.getElementsByTagName("button")[i].style.float = "right";
-			}
+			x.getElementsByTagName("button")[0].style.display = "none";
+			x.getElementsByTagName("button")[1].style.display = "none";
+			x.getElementsByTagName("button")[2].style.display = "none";
 		}
-</script>
+		
+		function changeName(x) {
+			prevName = document.getElementById("name").innerHTML;
+			let dialog = $( "#tag" );
+			dialog.dialog({
+				title: "Editing...",
+				modal: true,
+				open: function(){
+					$("#tag-content").val(document.getElementById("name").innerHTML).on(
+						"keypress",
+						function(e) {
+							switch(e.keyCode) {
+								case 13:
+									$('.ui-button:contains("Save")').click();
+								break;
+								case 27:
+									$('.ui-button:contains("Close")').click();
+								break;
+							}
+						}
+					);
+				},
+				buttons: {
+					"Save": function(){
+						let finalTagValue = $("#tag-content")[0].value;
+						$.ajax({
+							url: '/_modify_filename',
+							type: "POST",
+							data: JSON.stringify({'name' : finalTagValue , 'prevName' : prevName, 'filename' : "{{file}}"}),
+							dataType: "json",
+							contentType: "application/json; charset=utf-8",
+							success: 
+								function(data){
+									console.log("Exercise name modified");
+								}
+						});
+						$(this).dialog("close");
+						location.reload();
+					},
+					Cancel: function() {
+						$(this).dialog("close");
+					}
+				}
+                    });
+		}
+		
+	</script>
+	
+<script src="{{url_for('static', filename='js/jquery-ui-1.12.1.custom/external/jquery/jquery.js') }}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='js/jquery-ui-1.12.1.custom/jquery-ui.min.css') }}">
+<script src="{{url_for('static', filename='js/jquery-ui-1.12.1.custom/jquery-ui.min.js') }}"></script>
 {% endblock body_content %}
