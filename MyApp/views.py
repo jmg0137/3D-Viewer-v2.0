@@ -367,23 +367,23 @@ def show_ply_models_exercise(filename):
         abort(404)
 
 
-@APP.route('/ply_models_do_exercise/<string:filename>')
+@APP.route('/ply_models_edit_exercise/<string:exercise>/<string:filename>')
 @login_required
-def edit_ply_models_exercise(filename,exercise):
+def edit_ply_models_exercise(exercise, filename):
     """
-    Give the visor with the specified model to make an exercise.
+    Give the visor with the specified exercise to edit an exercise.
 
-    :param str filename: The model we want to visualize.
+    :param str filename: The exercise we want to edit.
 
     :returns: The visor with the selected file to make an exercise, a 404 if the model
         don't exist.
     :rtype: flask.Response
 
     """
-    global actualUserInfo, exerciseCounter
+    global actualUserInfo
 
     if exist(filename):
-        return render_template('visor_exercise.html', userRol = actualUserInfo)
+        return render_template('visor_exercise.html', userRol = actualUserInfo, ex = exercise, file = filename)
     else:
         abort(404)
 
@@ -509,17 +509,62 @@ def save_json():
     :rtype: flask.Response
 
     """
-    json_data = request.get_json()
+    my_json = request.get_json()
+    json_data = my_json['json']
+    exercise = my_json['exercise']
 
     #If file exists we remove it and the we create the new one
-    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename('Ejercicio_' + json_data["filename"].split(".")[0] + '_' + str(exerciseCounter[json_data["filename"]])), secure_filename('savedPoints.json'))):
-        os.remove(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename('Ejercicio_' + json_data["filename"].split(".")[0] + '_' + str(exerciseCounter[json_data["filename"]])), secure_filename('savedPoints.json')))
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json'))):
+        os.remove(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json')))
 
-    file = open(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename('Ejercicio_' + json_data["filename"].split(".")[0] + '_' + str(exerciseCounter[json_data["filename"]])), secure_filename('savedPoints.json')), 'w')
+    file = open(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json')), 'w')
     json.dump(json_data, file)
     file.close()
 
     return jsonify(json_data)
+
+
+@APP.route('/_modify_filename', methods=["POST"])
+def modify_name():
+    """
+    Save the json in a folder.
+
+    :returns: A response with the json.
+    :rtype: flask.Response
+
+    """
+    json_data = request.get_json()
+    newExerciseName = json_data['name']
+    prevName = json_data['prevName']
+
+    #If file exists we remove it and the we create the new one
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(prevName))):
+        os.rename(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(prevName)),os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(newExerciseName)))
+
+    return jsonify(json_data)
+
+
+@APP.route('/_load_json_in_visor', methods=["POST"])
+def load_json():
+    """
+    Loads the json into the visor.
+
+    :returns: A response with the json.
+    :rtype: flask.Response
+
+    """
+    json_data = request.get_json()
+    exercise = json_data['exercise']
+    filename = json_data['filename']
+
+    path = os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(filename.split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json'))
+
+    if os.path.exists(path):
+        new_json = json.load(open(path))
+        return jsonify(new_json)
+    else:
+        return jsonify({"annotations":[],"filename":filename,"measurements":[]})
+
 
 @APP.route('/_add_checksum_to_json', methods=["POST"])
 def finish_json():
