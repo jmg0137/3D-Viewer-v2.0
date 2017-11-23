@@ -18,8 +18,9 @@ export class PointManager {
         this.measurements = measurements;
         this.__initImportButton();
         this.__initExportButton();
-        this.__initSavetButton();
+        this.__initSaveButton();
         this.__initLoadtButton();
+        this.__initPointsLoad();
     }
 
     /**
@@ -110,7 +111,7 @@ export class PointManager {
     /**
      * Inits the save button on the menu.
      */
-    __initSavetButton() {
+    __initSaveButton() {
         let instance = this;
         $( "#save-points").click(
             function exportJSONPoints() {
@@ -131,12 +132,12 @@ export class PointManager {
                             $.ajax({
                                 url: '/_save_json_in_my_folder',
                                 type: "POST",
-                                data: JSON.stringify(json),
+                                data:  JSON.stringify({'json' : JSON.stringify(json), 'exercise' : document.getElementById("ejercicio").innerHTML}),
                                 dataType: "json",
                                 contentType: "application/json; charset=utf-8",
                                 success: 
                                     function (data) {
-                                        console.log("SUCCESS!!");
+                                        console.log("Points Saved!!");
                                     }
                             });
                         }
@@ -153,52 +154,62 @@ export class PointManager {
      */
     __initLoadtButton() {
         let instance = this;
+        var exercise = document.getElementById("ejercicio").innerHTML;
+        var filename = document.getElementById("nombre").innerHTML;
         $( "#load-points").click(
             function () {
-                $("#file").click();
+                $.ajax({
+                    url: '/_load_json_in_visor',
+                    type: "POST",
+                    data: JSON.stringify({'exercise': document.getElementById("ejercicio").innerHTML, 'filename': document.getElementById("nombre").innerHTML}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: 
+                        function (data) {
+                            console.log("SUCCESS!!");
+                            console.log(data);
+                            
+                            //Warn when the file we are importing doesn't match the model.
+                            let url = document.URL;
+                            let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                            let jsonFilename = data["filename"];
+                            if (jsonFilename !== documentFilename) {
+                                $( "#not-same-model-warn").dialog({
+                                    title: "Warning!",
+                                });
+                            }
+
+                            //Load annotations.
+                            let annotations = data["annotations"];
+                            for (let annotation of annotations) {
+                                let point = annotation.points[0];
+                                let tag = annotation.tag;
+                                instance.annotations.addPoint(point, tag);
+                            }
+                            //Load measurements.
+                            let measurements = data["measurements"];
+                            for (let measurement of measurements) {
+                                let point1 = measurement.points[0];
+                                let point2 = measurement.points[1];
+                                let tag = measurement.tag;
+                                instance.measurements.addPoint(point1);
+                                instance.measurements.addPoint(point2, tag);
+                            }
+                        }
+                });
             }
         ).button({
             icon: "ui-icon-arrowthickstop-1-n",
             text: false
         });
-        $( "#file" ).change(
-            function () {
-                //It should only be one file.
-                let file = this.files[0];
-                let json = Utils.loadJSON(file,
-                    function(event){
-                        let text = event.target.result;
-                        let json = JSON.parse(text);
+    }
 
-                        //Warn when the file we are importing doesn't match the model.
-                        let url = document.URL;
-                        let documentFilename = url.substring(url.lastIndexOf('/') + 1);
-                        let jsonFilename = json.filename;
-                        if (jsonFilename !== documentFilename) {
-                            $( "#not-same-model-warn").dialog({
-                                title: "Warning!",
-                            });
-                        }
-
-                        //Load annotations.
-                        let annotations = json.annotations;
-                        for (let annotation of annotations) {
-                            let point = annotation.points[0];
-                            let tag = annotation.tag;
-                            instance.annotations.addPoint(point, tag);
-                        }
-                        //Load measurements.
-                        let measurements = json.measurements;
-                        for (let measurement of measurements) {
-                            let point1 = measurement.points[0];
-                            let point2 = measurement.points[1];
-                            let tag = measurement.tag;
-                            instance.measurements.addPoint(point1);
-                            instance.measurements.addPoint(point2, tag);
-                        }
-                    }
-                );
-            }
-        );
+    /**
+     * Loads points automatically on page load
+     */
+    __initPointsLoad(){
+        $(document).ready(function(){
+            $("#load-points").click();
+        })
     }
 }
