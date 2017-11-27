@@ -44,6 +44,8 @@
 	<div id="tag" style="display:none">
 		<input type="text" id="tag-content">
 	</div>
+	<div id="delete-tag" style="display:none">
+	</div>
 	<div id="container">
 		<div id="img-buttons">
 			<div id="img">
@@ -64,9 +66,7 @@
 						<a href="{{ url_for('edit_ply_models_exercise', exercise=f, filename=file) }}">
 							<button id="edit-button" style="display:none;float:right;" class="edit-button">{{ _('Edit') }}</button>
 						</a>
-						<a href="{{ url_for('delete', filename=f) }}">
-							<button id="remove-button" style="display:none;float:right;" class="remove-button">{{ _('Remove') }}</button>
-						</a>
+						<button id="remove-button" style="display:none;float:right;" class="remove-button" onclick="deleteDialog('{{f}}')">{{ _('Remove') }}</button>
 						<button id="edit-name" style="display:none;float:right;" class="edit-name-button" onclick="changeName()">{{ _('Edit Name') }}</button>
 						<p id="name" contenteditable="false">{{f}}<p>
 					</li>
@@ -95,7 +95,35 @@
 			x.getElementsByTagName("button")[2].style.display = "none";
 		}
 		
-		function changeName(x) {
+		function deleteDialog(ex) {
+			let dialog = $( "#delete-tag" );
+			dialog.dialog({
+				title: "¿Eliminar el ejercicio?",
+				modal: true,
+				buttons: {
+					"Sí": function(){
+						$.ajax({
+							url: '/_delete',
+							type: "POST",
+							data: JSON.stringify({'filename' : ex}),
+							dataType: "json",
+							contentType: "application/json; charset=utf-8",
+							success: 
+								function(data){
+									console.log("Exercise deleted");
+								}
+						});
+						$(this).dialog("close");
+						location.reload();
+					},
+					"No": function() {
+						$(this).dialog("close");
+					}
+				}
+                    });
+		}
+		
+		function changeName() {
 			prevName = document.getElementById("name").innerHTML;
 			let dialog = $( "#tag" );
 			dialog.dialog({
