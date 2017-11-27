@@ -128,11 +128,10 @@ export class PointManager {
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function(data){
-                            //let filename = "saveDataPoints.json";
                             $.ajax({
                                 url: '/_save_json_in_my_folder',
                                 type: "POST",
-                                data:  JSON.stringify({'json' : JSON.stringify(json), 'exercise' : document.getElementById("ejercicio").innerHTML}),
+                                data:  JSON.stringify({'filename' : document.getElementById("nombre").innerHTML, 'exercise' : document.getElementById("ejercicio").innerHTML}),
                                 dataType: "json",
                                 contentType: "application/json; charset=utf-8",
                                 success: 
@@ -167,7 +166,6 @@ export class PointManager {
                     success: 
                         function (data) {
                             console.log("SUCCESS!!");
-                            console.log(data);
                             
                             //Warn when the file we are importing doesn't match the model.
                             let url = document.URL;
