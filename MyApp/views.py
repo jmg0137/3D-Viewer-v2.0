@@ -149,7 +149,7 @@ def index():
     :rtype: flask.Response
 
     """
-    return redirect(url_for('ply_shelf'))
+    return redirect(url_for('login'))
 
 
 @APP.route('/logout')
@@ -227,7 +227,6 @@ def login():
                 login_user(user_loader(email))
 
                 return redirect(url_for('main'))
-                #return redirect(url_for('ply_shelf'))
             else:
                 flash(gettext("User is not coursing this subject"))
                 return redirect(url_for('login'))
@@ -360,9 +359,10 @@ def show_ply_models_exercise(filename):
     if exist(filename):
          #We create a folder to do exercises in the model we are uploading
         if not os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename('Ejercicio_' + filename.split(".")[0] + '_' + str(exerciseCounter[filename])))):
-            os.makedirs(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename('Ejercicio_' + filename.split(".")[0] + '_' + str(exerciseCounter[filename]))))
+            exercise = 'Ejercicio_' + filename.split(".")[0] + '_' + str(exerciseCounter[filename])
+            os.makedirs(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise)))
         #else: modificar el contador
-        return render_template('visor_exercise.html', userRol = actualUserInfo)
+        return render_template('visor_exercise.html', userRol = actualUserInfo, ex = exercise, file = filename)
     else:
         abort(404)
 
@@ -388,9 +388,8 @@ def edit_ply_models_exercise(exercise, filename):
         abort(404)
 
 
-@APP.route('/delete/<string:filename>')
-@login_required
-def delete(filename):
+@APP.route('/_delete', methods=["POST"])
+def delete():
     """
     Delete dir exercise.
 
@@ -403,14 +402,13 @@ def delete(filename):
     :rtype: flask.Response
 
     """
-    global actualUserInfo, exerciseCounter
+    json_data = request.get_json()
+    filename = json_data["filename"]
 
     if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split("_")[1]), secure_filename(filename))):
         shutil.rmtree(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split("_")[1]), secure_filename(filename)))
 
-    folders = get_exercise_list_for_model(filename.split("_")[1])
-
-    return render_template('models_solutions_list.html', userRol = actualUserInfo, file = filename.split("_")[1] + '.ply', files = folders)
+    return jsonify(json_data)
 
 
 @APP.route('/upload', methods=["GET", "POST"])
@@ -509,15 +507,15 @@ def save_json():
     :rtype: flask.Response
 
     """
-    my_json = request.get_json()
-    json_data = my_json['json']
-    exercise = my_json['exercise']
+    json_data = request.get_json()
+    filename = json_data['filename']
+    exercise = json_data['exercise']
 
     #If file exists we remove it and the we create the new one
-    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json'))):
-        os.remove(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json')))
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(filename.split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json'))):
+        os.remove(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(filename.split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json')))
 
-    file = open(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(json_data["filename"].split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json')), 'w')
+    file = open(os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(filename.split(".")[0]), secure_filename(exercise), secure_filename('savedPoints.json')), 'w')
     json.dump(json_data, file)
     file.close()
 
