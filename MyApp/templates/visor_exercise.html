@@ -6,6 +6,9 @@
 
 {% block buttonsImport %}
 	<button id="save-points" class="save-button">{{ _('Save') }}</button> {{ _('Save') }}
+	<a href="{{ url_for('show_ply_models_exercise_templates', filename=file) }}">
+		<button id="cancel-exercise" class="cancel-button">{{ _('Cancel') }}</button>
+	</a>
 	
 	<div id="load-hidden-div" style="display: none;">
 		<button id="load-points" class="load-button"></button>

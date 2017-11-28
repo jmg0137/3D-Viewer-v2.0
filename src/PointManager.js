@@ -19,7 +19,8 @@ export class PointManager {
         this.__initImportButton();
         this.__initExportButton();
         this.__initSaveButton();
-        this.__initLoadtButton();
+        this.__initLoadButton();
+        this.__initCancelButton();
         this.__initPointsLoad();
     }
 
@@ -121,24 +122,15 @@ export class PointManager {
                 let measurements = instance.measurements.toJSON();
                 let json = Object.assign({"filename": documentFilename}, annotations, measurements);
                 $.ajax({
-                    url: '/_add_checksum_to_json',
+                    url: '/_save_json_in_my_folder',
                     type: "POST",
-                    data: JSON.stringify(json),
+                    data:  JSON.stringify({'json' : JSON.stringify(json),'filename': document.getElementById("nombre").innerHTML, 'exercise' : document.getElementById("ejercicio").innerHTML}),
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: 
-                        function(data){
-                            $.ajax({
-                                url: '/_save_json_in_my_folder',
-                                type: "POST",
-                                data:  JSON.stringify({'filename' : document.getElementById("nombre").innerHTML, 'exercise' : document.getElementById("ejercicio").innerHTML}),
-                                dataType: "json",
-                                contentType: "application/json; charset=utf-8",
-                                success: 
-                                    function (data) {
-                                        console.log("Points Saved!!");
-                                    }
-                            });
+                        function (data) {
+                            console.log("Points Saved!!");
+                            console.log(data);
                         }
                 });
             }
@@ -151,7 +143,7 @@ export class PointManager {
     /**
      * Inits the load button on the menu.
      */
-    __initLoadtButton() {
+    __initLoadButton() {
         let instance = this;
         var exercise = document.getElementById("ejercicio").innerHTML;
         var filename = document.getElementById("nombre").innerHTML;
@@ -165,7 +157,7 @@ export class PointManager {
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function (data) {
-                            console.log("SUCCESS!!");
+                            console.log("Points loaded!!");
                             
                             //Warn when the file we are importing doesn't match the model.
                             let url = document.URL;
@@ -198,6 +190,34 @@ export class PointManager {
             }
         ).button({
             icon: "ui-icon-arrowthickstop-1-n",
+            text: false
+        });
+    }
+
+
+    /**
+     * Inits the cancel button on the menu.
+     */
+    __initCancelButton() {
+        let instance = this;
+        var exercise = document.getElementById("ejercicio").innerHTML;
+        var filename = document.getElementById("nombre").innerHTML;
+        $( "#cancel-exercise").click(
+            function () {
+                $.ajax({
+                    url: '/_cancel_started_exercise',
+                    type: "POST",
+                    data: JSON.stringify({'exercise': document.getElementById("ejercicio").innerHTML, 'filename': document.getElementById("nombre").innerHTML}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: 
+                        function (data) {
+                            console.log("Exercise canceled!!");
+                        }
+                });
+            }
+        ).button({
+            icon: "ui-icon-close",
             text: false
         });
     }
