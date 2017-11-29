@@ -570,16 +570,28 @@ def cancel_exercise():
     """
     """
     json_data = request.get_json()
+    actual_json = json_data['json']
     exercise = json_data['exercise']
     filename = json_data['filename']
+    empty_json = {"annotations":[],"filename":filename,"measurements":[]}
 
     path = os.path.join(APP.config['EXERCISE_FOLDER'],secure_filename(filename.split(".")[0]), secure_filename(exercise))
 
-    if not os.path.exists(os.path.join(path, secure_filename('savedPoints.json'))):
+    if not os.path.exists(os.path.join(path, secure_filename('savedPoints.json'))) and (actual_json == empty_json):
         shutil.rmtree(path)
+        return jsonify({"changed": False, "exercise": exercise})
+    else:
 
-    return jsonify(json_data)
+        if os.path.exists(os.path.join(path, secure_filename('savedPoints.json'))):
+            previous_json = json.load(open(os.path.join(path, secure_filename('savedPoints.json'))))
 
+            #if there are any changes, we ask user if he or she wants to save that changes
+            if previous_json == actual_json:
+                return jsonify({"changed": False, "exercise": exercise})
+            else:
+                return jsonify({"changed": True, "exercise": exercise})
+        else:
+            return jsonify({"changed": True, "exercise": exercise})
 
 
 @APP.route('/_add_checksum_to_json', methods=["POST"])

@@ -145,8 +145,6 @@ export class PointManager {
      */
     __initLoadButton() {
         let instance = this;
-        var exercise = document.getElementById("ejercicio").innerHTML;
-        var filename = document.getElementById("nombre").innerHTML;
         $( "#load-points").click(
             function () {
                 $.ajax({
@@ -200,19 +198,57 @@ export class PointManager {
      */
     __initCancelButton() {
         let instance = this;
-        var exercise = document.getElementById("ejercicio").innerHTML;
-        var filename = document.getElementById("nombre").innerHTML;
         $( "#cancel-exercise").click(
-            function () {
+            function exportJSONPoints() {
+                let url = document.URL;
+                let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                let annotations = instance.annotations.toJSON();
+                let measurements = instance.measurements.toJSON();
+                let json = Object.assign({"filename": documentFilename}, annotations, measurements);
                 $.ajax({
                     url: '/_cancel_started_exercise',
                     type: "POST",
-                    data: JSON.stringify({'exercise': document.getElementById("ejercicio").innerHTML, 'filename': document.getElementById("nombre").innerHTML}),
+                    data: JSON.stringify({'json': json, 'exercise': document.getElementById("ejercicio").innerHTML, 'filename': document.getElementById("nombre").innerHTML}),
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function (data) {
                             console.log("Exercise canceled!!");
+                            console.log(data);
+                            if(data['changed']){
+                                let dialog = $( "#confirm-save-tag" );
+                                dialog.dialog({
+                                    title: "¿Desea salir sin guardar los cambios?",
+                                    modal: true,
+                                    buttons: {
+                                        "Sí": function(){
+                                            $.ajax({
+                                                url: '/_delete',
+                                                type: "POST",
+                                                data: JSON.stringify({'filename' : data['exercise']}),
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                success: 
+                                                    function(data){
+                                                        console.log("Exercise deleted");
+                                                    }
+                                            });
+                                            $("#redirect-to-list").click();
+                                            $(this).dialog("close");
+                                        },
+                                        "No": function() {
+                                            $("#save-points").click();
+                                            $("#redirect-to-list").click();
+                                            $(this).dialog("close");
+                                        },
+                                        "Cancelar": function() {
+                                            $(this).dialog("close");
+                                        }
+                                    }
+                                        });
+                            }else{
+                                $("#redirect-to-list").click();
+                            }
                         }
                 });
             }
