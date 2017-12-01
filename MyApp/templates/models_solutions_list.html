@@ -147,19 +147,24 @@
 				buttons: {
 					"Save": function(){
 						let finalTagValue = $("#tag-content")[0].value;
-						$.ajax({
-							url: '/_modify_filename',
-							type: "POST",
-							data: JSON.stringify({'name' : finalTagValue , 'prevName' : prevName, 'filename' : "{{file}}"}),
-							dataType: "json",
-							contentType: "application/json; charset=utf-8",
-							success: 
-								function(data){
-									console.log("Exercise name modified");
-								}
-						});
-						$(this).dialog("close");
-						location.reload();
+						let expreg = new RegExp("^[a-zA-Z0-9\\-\\_\\s]*$");
+						if(expreg.test(finalTagValue)){
+							$.ajax({
+								url: '/_modify_filename',
+								type: "POST",
+								data: JSON.stringify({'name' : finalTagValue , 'prevName' : prevName, 'filename' : "{{file}}"}),
+								dataType: "json",
+								contentType: "application/json; charset=utf-8",
+								success: 
+									function(data){
+										console.log("Exercise name modified");
+									}
+							});
+							$(this).dialog("close");
+							location.reload();
+						}else{
+							alert("El nombre del archivo solo puede contener masyúsculas, minúscula, números, guiones, barras bajas y espacios");
+						}
 					},
 					Cancel: function() {
 						$(this).dialog("close");
