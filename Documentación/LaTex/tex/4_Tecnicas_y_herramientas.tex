@@ -1,7 +1,7 @@
 \capitulo{4}{Técnicas y herramientas}
 
 \section{Moodle}\label{sec:moodle-local}
-Aunque nuestra aplicación esté orientada a ser ejecutada con fin de poder dar una docencia online desde la \textit{API} de UBUVirtual, cabe mencionar \textit{Moodle} como herramienta ya que ha sido instalada localmente con el fin de poder realizar pruebas sin tener que depender un super usuario que nos proporcionase las asignaturas, cursos, etc, que necesitamos en cada caso.
+Aunque nuestra aplicación esté orientada a impartir una docencia online desde la \textit{API} de UBUVirtual, cabe mencionar \textit{Moodle} como una herramienta.Esto es debido a que ha sido instalada de manera local con el fin no tener que depender un super usuario que nos proporcione los recursos necesarios para las pruebas pertienentes (asignaturas, cursos, etc) que necesitamos en cada caso.
 
 Se trata de una herramienta de uso educativo virtual, teniendo las capacidades de gestionar cursos, asignaturas y demás funcionalidades que proporciona ayuda a los profesores a crear comunidades de aprendizaje en línea. Se trata de una herramienta escalable, personalizable, económica y segura a la par que flexible. Dentro del gran número de funcionalidades podemos destacar las siguientes:
 
@@ -15,44 +15,48 @@ Se trata de una herramienta de uso educativo virtual, teniendo las capacidades d
 	\item Implementación de aulas virtuales
 \end{itemize}
 
-Moodle ofrece ciertas características de administración, dentro de las cuales entran los roles de usuario, que tienen un papel importante en nuestra \textit{API}(sección~\ref{sec:roles}). Los privilegios de cada uno de los roles son diferentes y cada uno tiene una funcionalidad diferente y es por esto que necesitábamos una instalación local, para poder probar cada uno de los roles.~\cite{wiki:moodle}
-\section{Sublime Text}
-Para la edición del los diferentes \textit{scripts} utilizaremos este editor de texto ya que, además de ser gratuito (aunque un tanto cargante con solicitar la compra de la versión de pago), es intuitivo y nos proporciona una interfaz cómoda para trabajar,además de una función de auto completar altamente útil
+Moodle ofrece ciertas características de administración, dentro de las cuales entran los roles de usuario, que tienen un papel importante en nuestra \textit{API} (sección~\ref{sec:roles}). Los privilegios de cada uno de los roles son diferentes y cada uno tiene una funcionalidad diferente y es por esto que necesitábamos una instalación local, para poder probar cada uno de los roles~\cite{wiki:moodle}.
 
-\section{Tex Studio}
-TeXstudio es un editor de \textit{LaTeX} de código abierto y multiplataforma con una interfaz similar a \textit{Texmaker}. Esta herramienta es un IDE de \textit{LaTeX} que proporciona soporte de escritura incluyendo la corrección ortográfica, plegado de código y resaltado de sintaxis~\cite{wiki:texstudio}
+\subsection{Learning Managment Systems}
+\section{Sublime Text}
+Para la edición del los diferentes \textit{scripts} utilizaremos este editor de texto ya que, además de ser gratuito (aunque un tanto cargante con solicitar la compra de la versión de pago), es intuitivo y nos proporciona una interfaz cómoda para trabajar,además de una función de auto completar altamente útil.
+
+\section{\TeX Studio}
+\TeX studio es un editor de \LaTeX de código abierto y multiplataforma con una interfaz similar a \TeX maker. Esta herramienta es un IDE de \LaTeX que proporciona soporte de escritura incluyendo la corrección ortográfica, plegado de código y resaltado de sintaxis~\cite{wiki:texstudio}.
 
 
 \section{JSONMate}
 Hemos utilizado esta herramienta, la cual en realidad es una página web que nos ayuda a interpretar la información obtenida en formato \textit{JSON} y simplificarnos su vista~\cite{json:jsnomate}.
 
 \section{PuTTY}
-\textit{PuTTY} es un cliente \textit{SSH, Telnet, rlogin, y TCP raw} con licencia libre disponible para \textit{Windows} y en varias plataformas de \textit{Unix} (Versión \textit{Mac OS}). Hemos utilizado esta herramienta para acceder al servidor arquimedes (sección \ref{sec:arquimedes}) desde nuestra máquina con \textit{Windows}, ya que desde \textit{Linux} realizamos las llamadas mediante el comando \textit{\textbf{ssh}}~\cite{wiki:putty}
+\textit{PuTTY} es un cliente \textit{SSH, Telnet, rlogin, y TCP raw} con licencia libre disponible para \textit{Windows} y en varias plataformas de \textit{Unix} (Versión \textit{Mac OS}). Hemos utilizado esta herramienta para acceder al servidor arquimedes (sección \ref{sec:arquimedes}) desde nuestra máquina con \textit{Windows}, ya que desde \textit{Linux} realizamos las llamadas mediante el comando \textit{\textbf{ssh}}~\cite{wiki:putty}.
 
 \section{Servidor arquimedes}\label{sec:arquimedes}
-Se trata de un servidor proporcionado por la Universidad de Burgos para poder desplegar nuestra aplicación. Este servidor contiene una máquina con un sistema operativo \textit{Ubuntu} 16.04.
+Se trata de un servidor proporcionado por la Universidad de Burgos para poder desplegar nuestra aplicación. Este servidor contiene una máquina con un sistema operativo \textit{Ubuntu} 16.04\footnote{\url{https://arquimedes.ubu.es/}}.
 
 \section{Comparativa servidores para desplegar Flask}
-Dado que la Universidad de Burgos nos ha dotado con un servidor (~\ref{sec:arquimedes}) tenemos que elegir la manera de desplegar nuestra \textit{API Flask}, con lo cual hemos realizado una comparativa con diversas herramientas para desplegarla con el fin de encontrar la mejor manera de hacerlo.
+Dado que la Universidad de Burgos nos ha dotado con un servidor (ver sección ~\ref{sec:arquimedes}) tenemos que elegir la manera de desplegar nuestra \textit{API Flask}, para lo cual hemos realizado una comparativa con diversas herramientas para desplegarla con el fin de encontrar la mejor manera de hacerlo.
 
 A continuación, mostraremos una tabla con las diferentes herramientas seleccionadas con el fin de elegir la que mejor se amolde a nuestro caso:
 
-\begin{table}
-	\centering
-	\caption{Tabla comparativa servidores}
-	\label{serverTable}
-	\begin{tabular}{p{2.0cm} p{3.0cm} p{3.0cm} p{3.0cm} p{3.0cm}}
-		\toprule
-		  & \textbf{Apache} & \textbf{uWSGI} & \textbf{Stand-Alone (Gunicorn)} & \textbf{Stand-Alone (Twisted Web)} \\
-		\midrule
-		\textbf{¿Por qué utilizarlo?} & En el caso de tener experiencia utilizando Apache, así como que se tenga una dependencia del mismo, esto significará \textbf{estabilidad} en el entorno de producción de la aplicación, teniendo gran variedad de módulos estable sy completos. A su vez, es un software muy probado y fiable, teneindo gran variedad de información en la web. & Soporta aplicaciones Python por completo corriendo en WSGI, pudiendo sus componentes realizar muchas más funciones que correr la aplicación, con la correspondiente bajón en el uso de la memoria. Como \textbf{desventaja} hemos considerado que, como está actualmente en desarrollo, podría conllevar a un fallo que aún no se halla contemplado, teniendo a su vez una convención de nombres confusa. & \textbf{Gunicorn}: Si se desea extender de \textit{Apache} utilizando Python(siempre y cuando sea necesario) y programarlo para alguna tarea en concreto. Además, tiene la ventaja de ser sencillo de ejecutar si no se necesita extender de \textit{Apache} & \textbf{Twisted Web}: Si se desea extender de \textit{Apache} utilizando Python(siempre y cuando sea necesario ) siendo simple, estable y maduro. A su vez, puede soportar clientes virtuales.\\
-		\bottomrule
-	\end{tabular}
-\end{table}
+\begin{landscape}
+	\begin{table}
+		\centering
+		\caption{Tabla comparativa servidores}
+		\label{serverTable}
+		\begin{tabular}{p{2.0cm} p{3.0cm} p{3.0cm} p{3.0cm} p{3.0cm}}
+			\toprule
+			  & \textbf{Apache} & \textbf{uWSGI} & \textbf{Stand-Alone (Gunicorn)} & \textbf{Stand-Alone (Twisted Web)} \\
+			\midrule
+			\textbf{¿Por qué utilizarlo?} & En el caso de tener experiencia utilizando Apache, así como que se tenga una dependencia del mismo, esto significará \textbf{estabilidad} en el entorno de producción de la aplicación, teniendo gran variedad de módulos estable sy completos. A su vez, es un software muy probado y fiable, teneindo gran variedad de información en la web. & Soporta aplicaciones Python por completo corriendo en WSGI, pudiendo sus componentes realizar muchas más funciones que correr la aplicación, con la correspondiente bajón en el uso de la memoria. Como \textbf{desventaja} hemos considerado que, como está actualmente en desarrollo, podría conllevar a un fallo que aún no se halla contemplado, teniendo a su vez una convención de nombres confusa. & \textbf{Gunicorn}: Si se desea extender de \textit{Apache} utilizando Python(siempre y cuando sea necesario) y programarlo para alguna tarea en concreto. Además, tiene la ventaja de ser sencillo de ejecutar si no se necesita extender de \textit{Apache} & \textbf{Twisted Web}: Si se desea extender de \textit{Apache} utilizando Python(siempre y cuando sea necesario ) siendo simple, estable y maduro. A su vez, puede soportar clientes virtuales.\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+\end{landscape}
 
-\section{"Librería" Pyntcloud}
-La palabra librería se encuentra entrecomillada ya que no es una librería en si misma sino una serie de recursos que en nuestro caso han sido utilizados para la lectura de os archivos \textit{PLY}, tanto fomarto \textit{ASCII} como \textit{Binario} (ver sección FORMATO PLY)\footnote{\url{https://github.com/daavoo/pyntcloud/blob/master/pyntcloud/io/ply.py}}.
+\section{<<Librería>> Pyntcloud}
+La palabra librería se encuentra entrecomillada ya que no es una librería en sí misma, sino una serie de recursos que en nuestro caso han sido utilizados para la lectura de os archivos \textit{PLY}, tanto formato \textit{ASCII} como \textit{Binario} (ver sección FORMATO PLY)\footnote{\url{https://github.com/daavoo/pyntcloud/blob/master/pyntcloud/io/ply.py}}.
 
-De esta manera, los modelos se leerán tanto en formato \textit{ASCII} como en \textit{Binario} almacenando los vértices y las caras por separado en dos \textit{DataFrames} diferentes. A su vez, diferencia entre los modelos con color a los modelos en escala de grises utilizando estructuras como las que se aprecia en las figuras~\ref{fig:dataframe-ascii} y~\ref{fig:dataframe-binary}:
+De esta manera, los modelos se leerán tanto en formato \textit{ASCII} como en \textit{Binario} almacenando los vértices y las caras por separado en dos \textit{DataFrames} diferentes. A su vez, diferencia entre los modelos con color a los modelos en escala de grises utilizando estructuras como las que se aprecia en las figuras~\ref{fig:dataframeColor} y~\ref{fig:dataframeNoColor}:
 \imagen{dataframeColor}{DataFrame que contiene los vértices y colores}
 \imagen{dataframeNoColor}{DataFrame que contiene únicamente los vértices}
