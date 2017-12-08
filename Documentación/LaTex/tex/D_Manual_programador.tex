@@ -17,7 +17,7 @@ A su vez, para que podamos acceder a dichas funcionalidades, además de tener qu
 Como se mencionó en los aspectos relevantes de la memoria, inicialmente se tenía una idea de realizar una comprobación de la base de datos para obtener los roles de usuario. Posteriormente se decidió que obtener dichos roles directamente de \textit{UBUVirtual} era más correcto.
 
 Para ellos utilizamos las funciones proporcionadas por \textit{Moodle} para realizar peticiones a nuestra \textit{API Rest} (véase la sección de \textit{Conceptos Teóricos}), que en este caso es UBUVirtual. En dicho listado de funciones (~\cite{moodle:web-service-api-functions}) encontramos la función \textit{core enrol get enrolled users}, la cual nos permitirá conocer los usuarios de la asignatura, así como su rol en la misma y más información variada de cada uno de los participantes. Dicha función nos muestra esta información en forma de diccionario \textit{JSON} desde el que buscaremos al usuario correspondiente para así conocer su rol en la asignatura correspondiente. Dicha información nos es presentada con la estructura definida en la figura~\ref{fig:user-info-JSON}:
-\imagen{user-info-JSON}{Estructura de la información proporcionada por la API en formato JSON}
+\imagen{user-info-JSON}{Estructura de la información proporcionada por la API en formato JSON.}{0.9}
 
 Como se puede apreciar en el campo \textit{roles} nos encontramos con el rol correspondiente del usuario en cuestión, que en este caso es \textit{Profesor} y el id de dicho rol es $3$.
 
@@ -25,7 +25,7 @@ Como se puede apreciar en el campo \textit{roles} nos encontramos con el rol cor
 Ya que la idea inicial era la de obtener los modelos a través de \textit{UBUVirtual} mediante recursos, cabe mencionar como conseguimos obtenerlos aunque la idea no prosperase.
 
 Para ello, recurrimos de nuevo a las funciones \textit{API Rest} siendo esta vez la función \textit{mod resource get resources by courses} la elegida ~\cite{moodle:web-service-api-functions}. Dicha función nos ofrece la información de los recursos presentes en la \textit{API} de UBUVirtual en los cursos correspondientes. En el caso de no seleccionar un curso en concreto, nos devuelve cada uno de los recursos a los que dicho usuario puede acceder. La información resultante tiene la estructura definida en la figura~\ref{fig:JSON-resources}:
-\imagen{JSON-resources}{Estructura de la información proporcionada por la API en formato JSON}
+\imagen{JSON-resources}{Estructura de la información proporcionada por la API en formato JSON.}{0.9}
 
 De esta manera podemos acceder al nombre de recurso con su correspondiente extensión y comprobar que es del curso correspondiente mediante el campo \textit{course}.
 
@@ -59,15 +59,15 @@ Siendo la manera de generar los números aleatorios la mencionada en la sección
 Una vez conocidos estos datos, decidimos modificar únicamente los valores que ocupan posiciones pares, ya que la encriptación del modelo es suficiente para conservar su seguridad como podemos observar a continuación y el tiempo de codificación es menor:
 
 Teniendo un modelo inicial como el de la figura~\ref{fig:skull-corrected-notencripted}:
-\imagen{skull-corrected-notencripted}{Modelo de partida}
+\imagen{skull-corrected-notencripted}{Modelo de partida.}{0.9}
 
 Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-corrected-encripted}:
-\imagen{skull-corrected-encripted}{Modelo de encriptado}
+\imagen{skull-corrected-encripted}{Modelo de encriptado.}{0.9}
 
 Como se puede apreciar, el modelo encriptado es lo suficientemente difuso como para poder obtener mediciones o datos del mismo en caso de que este fuera robado de la carpeta de almacenamiento de la aplicación. Pero a partir de aquí nos surge el problema relacionado con el redondeo de los decimales, así como de la cantidad de decimales que se devuelven al realizar un \textit{casteo} a otra clase (por ejemplo de \textit{str a float} en \textit{Python}).
 
 Tras realizar las operaciones de codificación del modelo, procedimos a comprobar que los valores obtenidos dividido entre los valores originales nos devolvieran el multiplicando (nuestro número aleatorio~\ref{sec:numero-aleatorio}) y es aquí cuando nos damos cuenta de que no podemos utilizar los valores en coma flotante de los vértices ya que al multiplicar o dividir, los valores de los mismo son corrompidos por los redondeos y el número de decimales. Por ejemplo, para un multiplicando de $0,7$, al dividir el valor obtenido entre el valor inicial obtenemos que el multiplicando es $0.7129$, con lo que podemos concluir que esta no es una manera viable de encriptar los modelos. A continuación mostramos el modelo de la figura~\ref{fig:skull-corrected-notencripted} desencriptado tras modificar sus vértices en la figura~\ref{fig:skull-modified-floats}:
-\imagen{skull-modified-floats}{Modelo desencriptado utilizando los valores de los vértices}
+\imagen{skull-modified-floats}{Modelo desencriptado utilizando los valores de los vértices.}{0.9}
 
 \subsubsection{Para la modificación de los valores de las caras}
 Tras el resultado nefasto de modificar los valores de los vértices, decidimos que podríamos alterar los valores de las caras formadas por los vértices, las cuales son enteras y no tendremos el problema de los decimales. En este caso, siendo la manera de generar los números aleatorios la mencionada en la sección~\ref{sec:numero-aleatorio} y la manera de modificar los valores de las caras: \text{valor de la cara * (número aleatorio obtenido * $10$) + (número aleatorio obtenido * $100$)} habiendo también realizado un estudio de los tiempos de codificación de los modelos, teniendo en cuanta que el número de caras en el modelo cogido de ejemplo es $248\,999$ mientras que el número de vértices es de $126\,720$:
@@ -87,7 +87,7 @@ Tras el resultado nefasto de modificar los valores de los vértices, decidimos q
 Una vez conocidos estos datos, decidimos modificar únicamente los valores que ocupan posiciones múltiplos de cuatro. Con esta modificación, la encriptación del modelo es suficiente para conservar su seguridad (el modelo no se llega a mostrar en el navegador ya que no es capaz de dibujarlo) y el tiempo de codificación es menor. De este modo obtenemos tanto una mejor codificación en lo relacionado con la seguridad como de precisión de resultados tras la decodificación. Por lo tanto, concluiremos adjudicando a las \textbf{caras} la encriptación en lugar de a los \textbf{vértices}.
 
 Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-corrected-encripted}:
-\imagen{skull-corrected-encripted}{Modelo de encriptado}
+\imagen{skull-corrected-encripted}{Modelo de encriptado.}{0.9}
 
 \subsection{Ejecución de nuestra aplicación en arquimedes}
 Hay un script que ejecuta la aplicación. Desde Linux con el comando ssh (usuario y contraseña), en windows con putty y lo mismo. Una vez que se esté ejecutando, accederemos a la aplicación en la dirección url: \url{https://arquimedes.ubu.es/visor3d/}.
