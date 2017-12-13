@@ -149,7 +149,7 @@ def index():
     :rtype: flask.Response
 
     """
-    return redirect(url_for('login'))
+    return redirect(url_for('main'))
 
 
 @APP.route('/logout')
@@ -162,6 +162,10 @@ def logout():
     :rtype: flask.Response
 
     """
+    global actualUserInfo
+
+    #Eliminamos al usuario
+    actualUserInfo.pop(current_user.id, None)
     logout_user()
     return redirect((url_for('index')))
 
@@ -218,6 +222,10 @@ def login():
             for field in responseRol:
                 if field['email'] == email:
                     rol = field['roles'][0]['name']
+
+            if email in actualUserInfo.keys():
+                flash(gettext("Please close all open sessions before login"))
+                return redirect(url_for('login'))
 
             #Set role for current user
             actualUserInfo[email] = rol
@@ -404,9 +412,10 @@ def delete():
     """
     json_data = request.get_json()
     filename = json_data["filename"]
+    exercise = json_data["exercise"]
 
-    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split("_")[1]), secure_filename(filename))):
-        shutil.rmtree(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split("_")[1]), secure_filename(filename)))
+    if not sos.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise), secure_filename("savedPoints.json"))):
+        shutil.rmtree(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise)))
 
     return jsonify(json_data)
 
@@ -564,6 +573,30 @@ def load_json():
     else:
         return jsonify({"annotations":[],"filename":filename,"measurements":[]})
 
+
+@APP.route('/get_user_rol', methods=["POST"])
+def get_current_user_rol():
+    """
+    Return the current user rol
+
+    :returns: A response with the json
+    :rtype: flask.Response
+
+    """
+    global actualUserInfo
+    return jsonify({"rol": actualUserInfo[current_user.id]})
+
+
+@APP.route('/get_user_email', methods=["POST"])
+def get_current_user_email():
+    """
+    Return the current user email
+
+    :returns: A response with the json
+    :rtype: flask.Response
+
+    """
+    return jsonify({"email": current_user.id})
 
 @APP.route('/_cancel_started_exercise', methods=["POST"])
 def cancel_exercise():

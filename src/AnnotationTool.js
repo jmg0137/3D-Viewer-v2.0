@@ -64,7 +64,16 @@ export class AnnotationTool extends AbstractTool {
      * @point {THREE.Vector3} point - Coordinates where to add a sphere.
      */
     addPoint(point, annotation) {
-        let annotationElement = new AnnotationElement(this.myScene, Utils.getColor("annotation-standard"), Utils.getColor("annotation-highlighted"));
+        let annotationElement;
+        if(annotation != undefined){
+            if(!annotation.includes("@student-")){
+                annotationElement = new AnnotationElement(this.myScene, Utils.getColor("annotation-standard"), Utils.getColor("annotation-highlighted"));
+            } else {
+                annotationElement = new AnnotationElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
+            }
+        } else {
+            annotationElement = new AnnotationElement(this.myScene, Utils.getColor("annotation-standard"), Utils.getColor("annotation-highlighted"));
+        }
         annotationElement.add(point);
         this.elements.push(annotationElement);
         let lastIndex = this.elements.length - 1,

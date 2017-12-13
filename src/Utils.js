@@ -33,6 +33,8 @@ export class Utils {
         const defaultLineColor = new THREE.Color(0x0000ff);
         const measurementStandard = new THREE.Color(0xff0000);
         const measurementHighlighted = new THREE.Color(0x00ff00);
+        const studentExerciseStandard = new THREE.Color(0x2818B1);
+        const studentExerciseHighlighted = new THREE.Color(0x33CCCC);
 
         switch (ref) {
             case "annotation-standard":
@@ -45,6 +47,10 @@ export class Utils {
                 return measurementStandard;
             case "measurement-highlighted":
                 return measurementHighlighted;
+            case "student-standard":
+                return studentExerciseStandard;
+            case "student-highlighted":
+                return studentExerciseHighlighted;
             default:
                 console.warn("Warning, no color defined for " + ref);
                 //Default white

@@ -42,8 +42,10 @@
 
 {% block body_content %}
 	<div id="tag" style="display:none">
+		<p id="passRestrictions"> El nombre solo puede contener mayúsculas, minúsculas, números, guiones y barras bajas <p>
 		<input type="text" id="tag-content">
 	</div>
+
 	<div id="delete-tag" style="display:none">
 	</div>
 	<div id="container">
@@ -163,7 +165,7 @@
 							$(this).dialog("close");
 							location.reload();
 						}else{
-							alert("El nombre del archivo solo puede contener masyúsculas, minúscula, números, guiones, barras bajas y espacios");
+							document.getElementById("tag-content").style.backgroundColor = "#ff3333"
 						}
 					},
 					Cancel: function() {

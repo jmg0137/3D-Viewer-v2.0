@@ -70,8 +70,17 @@ export class MeasurementTool extends AbstractTool {
      */
     addPoint(point, tag) {
         let lastElement = this.elements.slice(-1).pop();
+        let measurement;
         if (!lastElement || lastElement.isComplete()) {
-            let measurement = new MeasurementElement(this.myScene, Utils.getColor("measurement-standard"), Utils.getColor("measurement-highlighted"))
+            if(tag != undefined){
+                if(!tag.includes("@student-")){
+                    measurement = new MeasurementElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
+                } else {
+                    measurement = new MeasurementElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
+                }
+            } else {
+                measurement = new MeasurementElement(this.myScene, Utils.getColor("measurement-standard"), Utils.getColor("measurement-highlighted"));
+            }
             this.elements.push(measurement);
             lastElement = this.elements.slice(-1).pop();
         }

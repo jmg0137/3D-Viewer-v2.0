@@ -22,6 +22,7 @@ export class PointManager {
         this.__initLoadButton();
         this.__initCancelButton();
         this.__initPointsLoad();
+        this.__initResetButton();
     }
 
     /**
@@ -69,9 +70,11 @@ export class PointManager {
                             let point1 = measurement.points[0];
                             let point2 = measurement.points[1];
                             let tag = measurement.tag;
-                            instance.measurements.addPoint(point1);
+                            instance.measurements.addPoint(point1,'');
                             instance.measurements.addPoint(point2, tag);
                         }
+
+                        $("#file").val('');
                     }
                 );
             }
@@ -85,21 +88,57 @@ export class PointManager {
         let instance = this;
         $( "#export-points").click(
             function exportJSONPoints() {
-                let url = document.URL;
-                let documentFilename = url.substring(url.lastIndexOf('/') + 1);
-                let annotations = instance.annotations.toJSON();
-                let measurements = instance.measurements.toJSON();
-                let json = Object.assign({"filename": documentFilename}, annotations, measurements);
                 $.ajax({
-                    url: '/_add_checksum_to_json',
+                    url: '/get_user_rol',
                     type: "POST",
-                    data: JSON.stringify(json),
+                    data: JSON.stringify({}),
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function(data){
-                            let filename = "pointsExport.json";
-                            Utils.saveTextAs(JSON.stringify(data), filename)
+                            let url = document.URL;
+                            let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                            let annotations = instance.annotations.toJSON();
+                            let measurements = instance.measurements.toJSON();
+                            let rol = data['rol'];
+
+                            $.ajax({
+                                url: '/get_user_email',
+                                type: "POST",
+                                data: JSON.stringify({}),
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8",
+                                success: 
+                                    function(data){
+                                        let email = data["email"]
+
+                                        if(rol != "Profesor"){
+                                            for (let annotation of annotations["annotations"]) {
+                                                let prevAnnotationTag = annotation.tag;
+                                                annotation.tag = "@student-" + email.split("@")[0] + "-" + prevAnnotationTag;
+                                            }
+            
+                                            for (let measurement of measurements["measurements"]) {
+                                                let prevMeasurementTag = measurement.tag;
+                                                measurement.tag = "@student-" + email.split("@")[0] + "-" + prevMeasurementTag;
+                                            }
+                                        }
+
+                                        let json = Object.assign({"filename": documentFilename}, annotations, measurements);
+                                        $.ajax({
+                                            url: '/_add_checksum_to_json',
+                                            type: "POST",
+                                            data: JSON.stringify(json),
+                                            dataType: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            success: 
+                                                function(data){
+                                                    let filename = "pointsExport.json";
+                                                    Utils.saveTextAs(JSON.stringify(data), filename)
+                                                }
+                                        });
+                                    }
+                            });
                         }
                 });
             }
@@ -214,18 +253,22 @@ export class PointManager {
                     success: 
                         function (data) {
                             console.log("Exercise canceled!!");
-                            console.log(data);
                             if(data['changed']){
                                 let dialog = $( "#confirm-save-tag" );
                                 dialog.dialog({
-                                    title: "¿Desea salir sin guardar los cambios?",
+                                    title: "¿Desea guardar los cambios?",
                                     modal: true,
                                     buttons: {
                                         "Sí": function(){
+                                            $("#save-points").click();
+                                            $("#redirect-to-list").click();
+                                            $(this).dialog("close");
+                                        },
+                                        "No": function() {
                                             $.ajax({
                                                 url: '/_delete',
                                                 type: "POST",
-                                                data: JSON.stringify({'filename' : data['exercise']}),
+                                                data: JSON.stringify({'filename' : document.getElementById("nombre").innerHTML, 'exercise': data["exercise"]}),
                                                 dataType: "json",
                                                 contentType: "application/json; charset=utf-8",
                                                 success: 
@@ -233,11 +276,6 @@ export class PointManager {
                                                         console.log("Exercise deleted");
                                                     }
                                             });
-                                            $("#redirect-to-list").click();
-                                            $(this).dialog("close");
-                                        },
-                                        "No": function() {
-                                            $("#save-points").click();
                                             $("#redirect-to-list").click();
                                             $(this).dialog("close");
                                         },
@@ -256,6 +294,37 @@ export class PointManager {
             icon: "ui-icon-close",
             text: false
         });
+    }
+
+    /**
+     * Reset the exercise to the begining
+     */
+    __initResetButton(){
+        let instance = this;
+        $(document).ready(function(){
+            $("#reset-anotations-mesaurements").click(
+                function resetExercise() {
+
+                    //Removing Annotations
+                    var i;
+                    for (i = instance.annotations.elements.length - 1; i >= 0 ; --i){
+                        instance.annotations.removeParticle(instance.annotations.elements[i]);
+                    }
+
+                    //Removing Measurements
+                    var j;
+                    for (j = instance.measurements.elements.length - 1; j >= 0 ; --j){
+                        instance.measurements.removeParticle(instance.measurements.elements[j]);
+                    }
+
+                    //Loading starting points
+                    $("#load-points").click();
+                }
+            ).button({
+                icon: "ui-icon-refresh",
+                text: false
+            });
+        })
     }
 
     /**
