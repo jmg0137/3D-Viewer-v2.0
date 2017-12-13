@@ -1,1 +1,1 @@
-{"filename": "filedePrueba.ply", "annotations": [], "measurements": []}
+{"filename": "filedePrueba.ply", "annotations": [{"tag": "an annotation", "points": [{"x": -10.81174771960957, "y": 21.469040617537956, "z": 77.95805462948985}]}, {"tag": "an annotation", "points": [{"x": -9.771498798222567, "y": 6.271260048016259, "z": 83.07646746841947}]}], "measurements": [{"tag": "a measurement", "points": [{"x": -0.2893381871394034, "y": 12.875548558357181, "z": 83.77445895855624}, {"x": 14.69806361066902, "y": 26.925186481386405, "z": 78.90281233546649}]}]}
