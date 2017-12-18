@@ -73,7 +73,7 @@ export class MeasurementTool extends AbstractTool {
         let measurement;
         if (!lastElement || lastElement.isComplete()) {
             if(tag != undefined){
-                if(!tag.includes("@student-")){
+                if(!tag.includes("@")){
                     measurement = new MeasurementElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
                 } else {
                     measurement = new MeasurementElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
@@ -234,13 +234,20 @@ export class MeasurementTool extends AbstractTool {
                             "Save": function(){
                                 let editingLi = $("#measurement-list li[uuid='" + uuid + "']")[0];
                                 let finalTagValue = $("#tag-content")[0].value;
-                                editingLi.attributes.tag.value = finalTagValue;
-                                let distance = editingLi.attributes.distance.value;
-                                editingLi.textContent = finalTagValue + " " + distance;
-                                instance.__changeTagValue(uuid, finalTagValue);
-                                $(this).dialog("close");
+                                let expreg = new RegExp("^[a-zA-Z0-9\\-\\_\\s]*$");
+                                if(expreg.test(finalTagValue)){
+                                    editingLi.attributes.tag.value = finalTagValue;
+                                    let distance = editingLi.attributes.distance.value;
+                                    editingLi.textContent = finalTagValue + " " + distance;
+                                    instance.__changeTagValue(uuid, finalTagValue);
+                                    document.getElementById("tag-content").style.backgroundColor = "#FFFFFF"
+                                    $(this).dialog("close");
+                                }else{
+                                    document.getElementById("tag-content").style.backgroundColor = "#ff3333"
+                                }
                             },
                             Cancel: function() {
+                                document.getElementById("tag-content").style.backgroundColor = "#FFFFFF"
                                 $(this).dialog("close");
                             }
                         }

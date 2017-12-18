@@ -115,12 +115,12 @@ export class PointManager {
                                         if(rol != "Profesor"){
                                             for (let annotation of annotations["annotations"]) {
                                                 let prevAnnotationTag = annotation.tag;
-                                                annotation.tag = "@student-" + email.split("@")[0] + "-" + prevAnnotationTag;
+                                                annotation.tag = "@" + email.split("@")[0] + "-" + prevAnnotationTag;
                                             }
             
                                             for (let measurement of measurements["measurements"]) {
                                                 let prevMeasurementTag = measurement.tag;
-                                                measurement.tag = "@student-" + email.split("@")[0] + "-" + prevMeasurementTag;
+                                                measurement.tag = "@" + email.split("@")[0] + "-" + prevMeasurementTag;
                                             }
                                         }
 
@@ -168,8 +168,6 @@ export class PointManager {
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function (data) {
-                            console.log("Points Saved!!");
-                            console.log(data);
                         }
                 });
             }
@@ -194,7 +192,6 @@ export class PointManager {
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function (data) {
-                            console.log("Points loaded!!");
                             
                             //Warn when the file we are importing doesn't match the model.
                             let url = document.URL;
@@ -252,7 +249,6 @@ export class PointManager {
                     contentType: "application/json; charset=utf-8",
                     success: 
                         function (data) {
-                            console.log("Exercise canceled!!");
                             if(data['changed']){
                                 let dialog = $( "#confirm-save-tag" );
                                 dialog.dialog({
@@ -273,7 +269,6 @@ export class PointManager {
                                                 contentType: "application/json; charset=utf-8",
                                                 success: 
                                                     function(data){
-                                                        console.log("Exercise deleted");
                                                     }
                                             });
                                             $("#redirect-to-list").click();

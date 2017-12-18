@@ -66,7 +66,7 @@ export class AnnotationTool extends AbstractTool {
     addPoint(point, annotation) {
         let annotationElement;
         if(annotation != undefined){
-            if(!annotation.includes("@student-")){
+            if(!annotation.includes("@")){
                 annotationElement = new AnnotationElement(this.myScene, Utils.getColor("annotation-standard"), Utils.getColor("annotation-highlighted"));
             } else {
                 annotationElement = new AnnotationElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
@@ -266,12 +266,19 @@ export class AnnotationTool extends AbstractTool {
                         buttons: {
                             "Save": function(){
                                 let editingLi = $("#annotation-list li[uuid='" + uuid + "']")[0];
+                                let expreg = new RegExp("^[a-zA-Z0-9\\-\\_\\s]*$");
                                 let finalTagValue = $("#tag-content")[0].value;
-                                editingLi.textContent = finalTagValue;
-                                instance.__changeTagValue(uuid, finalTagValue);
-                                $(this).dialog("close");
+                                    if(expreg.test(finalTagValue)){
+                                        editingLi.textContent = finalTagValue;
+                                        instance.__changeTagValue(uuid, finalTagValue);
+                                        document.getElementById("tag-content").style.backgroundColor = "#FFFFFF"
+                                        $(this).dialog("close");
+                                    }else{
+                                        document.getElementById("tag-content").style.backgroundColor = "#ff3333"
+                                    }
                             },
                             Cancel: function() {
+                                document.getElementById("tag-content").style.backgroundColor = "#FFFFFF"
                                 $(this).dialog("close");
                             }
                         }
