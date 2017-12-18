@@ -1,6 +1,5 @@
 import sys
 import os
-sys.path.append(os.path.abspath('/var/www/3D-Viewer-v2.0/MyApp'))
 sys.path.append(os.path.abspath('/var/www/3D-Viewer-v2.0'))
 
 activate_this = '/var/www/3D-Viewer-v2.0/mi_venv/bin/activate_this.py'
