@@ -197,7 +197,7 @@ def login():
 
         #We take the login response
         responseLogin = requests.get(
-                        base_url_miMoodle + api_endpoint,
+                        base_url + api_endpoint,
                         params=paramsLogin, verify = False
                 ).json()
 
@@ -210,11 +210,11 @@ def login():
             paramsRol = {"wstoken": userToken,
                       "moodlewsrestformat": format,
                       "wsfunction": wsfunction,
-                      "courseid": courseid_miMoodle}
+                      "courseid": courseid}
 
             #We take the rol response
             responseRol = requests.get(
-                            base_url_miMoodle + api_function_endpoint,
+                            base_url + api_function_endpoint,
                             params=paramsRol, verify = False
                     ).json()
 
