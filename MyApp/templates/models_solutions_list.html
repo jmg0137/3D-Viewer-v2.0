@@ -32,12 +32,18 @@
 	
 	#list{
 		float:left;
-		width: 70%;
+		width: 50%;
 		height: 100%;
 		padding:auto;
 		margin:auto;
 	}
 	
+	html {
+		background-image: url("../static/images/fondo_ejercicios.png");
+		background-size: auto;
+		width: 100%;
+		heigth: 100%;
+	}
 {% endblock extra_css %}
 
 {% block body_content %}
@@ -55,7 +61,7 @@
 			</div>
 			
 			<div id="buttons_placeholder">
-				<a href="{{ url_for('show_ply_models_exercise', filename=file) }}"><img src="../static/uploads/plus-icon.png" alt="Models" height="25" width="50"></a>
+				<a href="{{ url_for('show_ply_models_exercise', filename=file) }}"><img src="../static/images/plus-icon.png" alt="Models" height="25" width="50"></a>
 			</div>
 		</div>
 		
@@ -64,7 +70,7 @@
 			 {% for f in files %}
 				<div id="div-exercise" onmouseover="changeColor(this)" onmouseout="normalColor(this)">
 					<li>
-						<img src="../static/uploads/folder.png" alt="Models" height="40" width="40">
+						<img src="../static/images/folder.png" alt="Models" height="40" width="40">
 						<a href="{{ url_for('edit_ply_models_exercise', exercise=f, filename=file) }}">
 							<button id="edit-button" style="display:none;float:right;" class="edit-button">{{ _('Edit') }}</button>
 						</a>
