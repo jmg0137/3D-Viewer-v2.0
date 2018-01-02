@@ -6,6 +6,22 @@
 
 {% block title %}{{ _('Exercise Templates') }}{% endblock title %}
 
+{% block extra_css %}
+
+    img {
+        height: 256px;
+        width: 256px;
+    }
+	
+	html {
+		background-image: url("../static/images/model_list.png");
+		background-size: cover;
+		width: 100%;
+		heigth: 100%;
+	}
+	
+{% endblock extra_css %}
+
 {% block body_content %}
     {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
@@ -16,4 +32,7 @@
             <img src="{{ url_for('preview', filename=file) }}">
         </a>
     {% endfor %}
+	
+	{% block model_delete %}
+	{% endblock model_delete %}
 {% endblock body_content %}

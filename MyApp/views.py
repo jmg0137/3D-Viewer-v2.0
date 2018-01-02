@@ -197,7 +197,7 @@ def login():
 
         #We take the login response
         responseLogin = requests.get(
-                        base_url + api_endpoint,
+                        base_url_miMoodle + api_endpoint,
                         params=paramsLogin, verify = False
                 ).json()
 
@@ -210,11 +210,11 @@ def login():
             paramsRol = {"wstoken": userToken,
                       "moodlewsrestformat": format,
                       "wsfunction": wsfunction,
-                      "courseid": courseid}
+                      "courseid": courseid_miMoodle}
 
             #We take the rol response
             responseRol = requests.get(
-                            base_url + api_function_endpoint,
+                            base_url_miMoodle + api_function_endpoint,
                             params=paramsRol, verify = False
                     ).json()
 
@@ -275,7 +275,10 @@ def ply_shelf():
     global actualUserInfo
     allowed_model_extensions = APP.config['ALLOWED_MODEL_EXTENSIONS']
     models = get_models_list_with_extensions(allowed_model_extensions)
-    return render_template('ply_models.html', files = models, userRol = actualUserInfo)
+    if(actualUserInfo[current_user.id] == "Profesor"):
+        return render_template('ply_models.html', files = models, userRol = actualUserInfo)
+    else:
+        return render_template('ply_models_user.html', files = models, userRol = actualUserInfo)
 
 
 @APP.route('/ply_models/<string:filename>')
@@ -401,24 +404,59 @@ def delete():
     """
     Delete dir exercise.
 
-    :param str filename: The filename of the model we want to delete.
+    :returns: json dictionary
 
-    :returns: If the file doen't exist, it response with a 404 error.
-              Whenever the file exists: if there is a custom thumbnail for it, return it;
-              if there isn't, return a default one.
-
-    :rtype: flask.Response
+    :rtype: json
 
     """
     json_data = request.get_json()
     filename = json_data["filename"]
     exercise = json_data["exercise"]
 
-    if not sos.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise), secure_filename("savedPoints.json"))):
+    if not os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise), secure_filename("savedPoints.json"))):
         shutil.rmtree(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise)))
 
     return jsonify(json_data)
 
+@APP.route('/_delete_exercise', methods=["POST"])
+def force_delete():
+    """
+    Delete dir exercise.
+
+    :returns: json dictionary
+
+    :rtype: json
+
+    """
+    json_data = request.get_json()
+    filename = json_data["filename"]
+    exercise = json_data["exercise"]
+
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise))):
+        shutil.rmtree(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]), secure_filename(exercise)))
+
+    return jsonify(json_data)
+
+@APP.route('/_delete_model', methods=["POST"])
+def delete_model():
+    """
+    Delete model.
+
+    :returns: json dictionary
+
+    :rtype: json
+
+    """
+    json_data = request.get_json()
+    filename = json_data["filename"]
+
+    if os.path.exists(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename))):
+        os.remove(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename)))
+
+    if os.path.exists(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename.split(".")[0] + ".png"))):
+        os.remove(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename.split(".")[0] + ".png")))
+
+    return jsonify(json_data)
 
 @APP.route('/upload', methods=["GET", "POST"])
 @login_required

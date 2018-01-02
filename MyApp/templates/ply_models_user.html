@@ -1,0 +1,10 @@
+{% extends "ply_models.html" %}
+
+{% block model_delete %}
+		{% for file in files %}
+			<a href="{{ url_for('show_ply_models', filename=file) }}">
+				<img src="{{ url_for('preview', filename=file) }}">
+			</a>
+		{% endfor %}
+
+{% endblock model_delete %}
