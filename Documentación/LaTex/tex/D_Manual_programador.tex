@@ -3,6 +3,94 @@
 \section{Introducción}
 
 \section{Estructura de directorios}
+\noindent Para comenzar, mostraremos los archivos existentes en la raíz del proyecto. Cabe mencionar que la estructura de la versión anterior del visor ha sido modificada ya que no seguía una estructura correcta para su despliegue en un servidor. Por ello, la aplicación en sí se encuentra en la raíz.
+
+\begin{itemize}
+	\item \textbf{.gitignore} Posee los diferentes elementos que el sistema \textit{GIT} debe evitar revisar.
+	\item \textbf{activate\_this.py} Archivo que deberá ser movido por el operador del servidor a la carpeta \texttt{mi\_venv/bin/} con el fin de que Apache adquiera las dependencias de instaladas en el entorno virtual.
+	\item \textbf{config.py} Archivo de configuración predeterminada. Estos parámetros se verán sobrescritos por los añadidos en \texttt{instance/config.py}.
+	\item \textbf{host\_config.txt} Configuración de Apache para la máquina proporcionada como servidor.
+	\item \textbf{install\_run.bat} \textit{Script} para Windows que genera un entorno virtual, lo registra, instala las dependencias Python, y lanza el servidor.
+	\item \textbf{install\_run.sh} El mismo \textit{script}, pero para Linux.
+	\item \textbf{jsconfig.json} Archivo de configuración para \textit{VSCode}.
+	\item \textbf{MyApp.wsgi} Archivo que sirve de configuración para que Apache (\textit{mod\_wsgi}) sepa que tiene que ejecutar.
+	\item \textbf{package.json} Define las dependencias y comandos disponibles llamándolo desde npm (Node).
+	\item \textbf{requirements.txt} Requisitos de los módulos para Python.
+	\item \textbf{rollup.config.js} Configuración para el \textit{plugin} que empaqueta el código.
+	\item \textbf{runserver.py} \textit{Script} que carga el módulo principal para lanzar el servidor.
+	\item \textbf{runtime.txt} Fichero que contiene el entorno de ejecución de la aplicación.
+	\item \textbf{tyings.json} Configuración IntelliSense de Visual Studio Code.
+\end{itemize}
+
+A continuación, mostraremos las diferentes carpetas dentro de la raíz del proyecto, pasando a su posterior despliegue:
+
+\begin{itemize}
+	\item Documentación
+	\item instance
+	\item mi\_venv
+	\item MyApp
+	\item node modules
+	\item Resources
+	\item src
+	\item typings
+\end{itemize}
+
+\noindent Entraremos a partir de ahora en detalle.
+
+\subsection{Documentación}
+En ella tendremos el conjunto de documentaciones generadas para el proyecto, cuyas carpetas son:
+\begin{itemize}
+	\item \textbf{javascript} En ella tenemos la documentación generada para la parte Javascript, esto es, toda la lógica e interfaz del visor.
+	\item \textbf{LaTex} Contiene la memoria y anexos del proyecto.
+	\item \textbf{python} Posee la documentación generada mediante Sphinx\footnote{\url{http://www.sphinx-doc.org/en/stable/}} para el servidor.
+\end{itemize}
+
+\subsection{instance}
+Aunque no es un directorio incluido en el repositorio, debemos mencionarlo, puesto que en él incluiremos algunas configuraciones propias de la instancia que estemos desplegando o desarrollando y que no queramos incluir en la versión que subamos al servidor. Algunos archivos de utilidad que meteremos son:
+\begin{itemize}
+	\item \textbf{config.py} En este archivo incluiremos algunos parámetros de configuración que debemos sobrescribir, como el estado de \texttt{<<DEBUG>>}, o el secreto de aplicación \texttt{<<SECRET\_KEY>>}.
+	\item \textbf{users\_to\_import.csv} Es la ruta por defecto para el archivo \textit{CSV} que nos permite importar la lista de usuarios a los que queremos dar permiso.
+\end{itemize}
+
+\subsection{mi\_venv}
+Entorno virtual en e que se instalarán las dependencias correspondientes para la posterior ejecución de la aplicación.
+
+\subsection{MyApp}
+En él está la aplicación en sí misma, casi toda la lógica de negocio y toda la visualización. Dicha carpeta contiene:
+\begin{itemize}
+	\item \textbf{sql\_scripts} Incluye los \textit{scripts} de utilidad para la base de datos.
+	\item \textbf{static} Directorio para cargar elementos estáticos de las páginas.
+	\begin{itemize}
+		\item \textbf{images} Contiene las imágenes utilizadas en la aplicación.
+		\item \textbf{js} \textit{Scripts} que importaremos. Aquí tendremos el código JavaScript una vez transpilado, y por tanto, gran parte de la lógica del visor.
+		\item \textbf{uploads} En este directorio terminan los modelos, además de los \textit{PNG} como sus miniaturas.A su vez contiene:
+		\begin{itemize}
+			\item \textbf{exercises} Incluye los ejercicios realizados por el profesor que servirá de ayuda a la hora de corregir.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{templates} En él se encuentran las plantillas en formato jinja2\footnote{\url{http://jinja.pocoo.org/}}.
+	\item \textbf{translations} En este directorio encontraremos los ficheros plantilla para poder realizar la traducción con Babel.
+	\item \textbf{babel.cfg} Configuración con la que Babel busca las etiquetas identificadoras.
+	\item \textbf{forms.py} Contiene constructores de los diferentes formularios.
+	\item \textbf{\_\_init\_\_.py} Constructor del módulo.
+	\item \textbf{messages.pot} Binario con las traducciones de Babel ya realizadas
+	\item \textbf{read\_write\_ply.py} Archivo que contiene el código necesario para posibilitar la lectura de archivos \textit{.PLY}.
+	\item \textbf{User.py} Clase necesaria para la gestión de usuarios.
+	\item \textbf{users.db} Base de datos que alberga la información de los usuarios admitidos.
+	\item \textbf{views.py} Contiene los diferentes \textit{endpoints} de nuestro servidor.
+\end{itemize}
+
+\subsection{node modules}
+Contiene el conjunto de dependencias \textit{Node}.
+
+\subsection{Resources}
+Contiene algunos recursos que no sabíamos donde meter, pues no pertenecen estrictamente a ninguna de las partes anteriores. Entre sus elementos se encuentran los archivos <<fuente>> de los diagramas, o los generadores de informes para los archivos \textit{PLY}, que posiblemente integremos en un futuro sobre el servidor.
+
+\subsection{src}
+Código fuente de JavaScript sin compilar.
+
+\subsection{typings}
+Archivos de configuración para nuestro \textit{IDE} (Visual Studio Code).
 
 \section{Manual del programador}\label{sec:manual-programador}
 

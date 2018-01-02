@@ -1,11 +1,62 @@
 \apendice{Especificación de Requisitos}
 
 \section{Introducción}
+Se expondrán en esta sección los distintos objetivos que la aplicación debe lograr, así como los requisitos que debe cumplir.
 
 \section{Objetivos generales}
+Como objetivos generales de nuestro proyecto tendremos:
+\begin{itemize}
+	\item Diferenciar en nuestra aplicación entre los diferentes roles de usuario, cada uno con sus distintas funcionalidades.
+	\item Añadir restricciones en el uso de caracteres para anotaciones, medidas y ejercicios.
+	\item Facilitar la navegabilidad durante el uso de la aplicación.
+	\item Creación de una interfaz que permita al profesor facilidad para corregir ejercicios de alumnos.
+	\item Proporcionar seguridad para los modelos debido a su unicidad a la hora de ser alojados en el servidor web.
+	\item Desplegar nuestra aplicación en un servidor web.
+\end{itemize}
 
 \section{Catalogo de requisitos}
+A continuación, listaremos el conjunto de requisitos funcionales extraídos a partir de los objetivos generales del proyecto.
+
+\subsection{Requisitos funcionales}
+\begin{itemize}
+	\item 
+\end{itemize}
+
+\subsection{Requisitos no funcionales}\\
+\begin{itemize}
+	\item \textbf{RF-1 Gestión de roles}: la aplicación debe ser capaz de diferenciar entre roles de usuarios.
+	\begin{itemize}
+		\item \textbf{RF-1.1 Exportación de puntos}: la aplicación debe ser capaz de exportar la medidas y anotaciones hechas en un modelos diferenciando entre roles.
+		\item \textbf{RF-1.2 Importación de puntos}: la aplicación debe ser capaz de importar la medidas y anotaciones hechas en un modelos diferenciando entre roles.
+	\end{itemize}
+	\item \textbf{RF-2 Gestión de ejercicios}: la aplicación debe ser capaz de manejar un listado de ejercicios de cada modelo.
+	\begin{itemize}
+		\item \textbf{RF-2.1 Añadir ejercicios}: el usuario debe poder añadir un ejercicio.
+		\item \textbf{RF-2.2 Eliminar ejercicios}: el usuario debe poder eliminar un ejercicio.
+		\item \textbf{RF-2.3 Modificar ejercicios}: el usuario debe poder modificar un ejercicio.
+		\item \textbf{RF-2.4 Editar nombre ejercicio}: el usuario debe poder editar el nombre de un ejercicio.
+		\item \textbf{RF-2-5 Salvado de ejercicio}: el usuario debe poder guardar los cambios acaecidos en el ejercicio.
+		\item \textbf{RF-2-5 Visualizar ejercicio}: el usuario debe poder visualizar el ejercicio en cuestión.
+	\end{itemize}
+	\item \textbf{RF-3 Gestión de modelos}: la aplicación debe ser capaz de mostrar de una pasada los diferentes modelos disponibles.
+	\begin{itemize}
+		\item \textbf{RF-3.1 Añadir modelos}: la aplicación debe ser capaz de encriptar y desencriptar los modelos para aumentar la seguridad de estos.
+	\end{itemize}
+\end{itemize}
+
+\subsection{Requisitos no funcionales}
+\begin{itemize}
+	\item \textbf{RNF-1 Usabilidad}: el conjunto de elementos visuales de la interfaz deben ser intuitivos y conocidos por el usuario medio, permitiendo un rápido aprendizaje.
+	\item \textbf{RNF-2 Mantenibilidad}: la aplicación debe desarrollarse siguiendo alguna técnica que permita facilidad de mantenimiento e incorporación de nuevas características, así como corrección de errores.
+	\item \textbf{RNF-3 Soporte}: la aplicación debe poder emplearse sobre un amplio conjunto de navegadores.
+	\item \textbf{RNF-4 Internacionalización}: la aplicación debe estar diseñada para soportar diferentes idiomas.
+	\item \textbf{RNF-5 Control de acceso}: la aplicación debe soportar control de acceso de usuarios.
+	\item \textbf{RNF-6 Despliegue}: la aplicación debe estar desplegada de manera que sea accesible sin necesidad de una ejecución local.
+\end{itemize}
 
 \section{Especificación de requisitos}
+
+\subsection{Actores}
+En nuestro caso solamente tendremos dos actores, que serán el alumno y el profesor(administrador).
 
 

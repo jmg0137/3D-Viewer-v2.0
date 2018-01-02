@@ -1,6 +1,8 @@
 \capitulo{4}{Técnicas y herramientas}
 
 \section{Moodle}\label{sec:moodle-local}
+Previo a centrarnos en \textit{Moodle} en particular, tendremos que saber que se trata de un sistema de gestión de aprendizaje(\textit{Learning Management System}). Estos sistemas se utilizan para administrar y gestionar las actividades de formación no presencial, permitiendo un trabajo asíncrono entre los participantes. Dentro de sus competencias encontramos la gestión de usuarios, gestión de recursos o material docente, actividades de formación, seguimiento en el proceso de aprendizaje de los participantes, realizar evaluaciones, foros de consulta, etc~\cite{wiki:sistemaGestionAprendizaje}. Una vez conocido esto, indaguemos en porqué \textit{Moodle} forma parte de este apartado.
+
 Aunque nuestra aplicación esté orientada a impartir una docencia online desde la \textit{API} de UBUVirtual, cabe mencionar \textit{Moodle} como una herramienta.Esto es debido a que ha sido instalada de manera local con el fin no tener que depender un super usuario que nos proporcione los recursos necesarios para las pruebas pertienentes (asignaturas, cursos, etc) que necesitamos en cada caso.
 
 Se trata de una herramienta de uso educativo virtual, teniendo las capacidades de gestionar cursos, asignaturas y demás funcionalidades que proporciona ayuda a los profesores a crear comunidades de aprendizaje en línea. Se trata de una herramienta escalable, personalizable, económica y segura a la par que flexible. Dentro del gran número de funcionalidades podemos destacar las siguientes:
@@ -17,7 +19,6 @@ Se trata de una herramienta de uso educativo virtual, teniendo las capacidades d
 
 Moodle ofrece ciertas características de administración, dentro de las cuales entran los roles de usuario, que tienen un papel importante en nuestra \textit{API} (sección~\ref{sec:roles}). Los privilegios de cada uno de los roles son diferentes y cada uno tiene una funcionalidad diferente y es por esto que necesitábamos una instalación local, para poder probar cada uno de los roles~\cite{wiki:moodle}.
 
-\subsection{Learning Managment Systems}
 \section{Sublime Text}
 Para la edición del los diferentes \textit{scripts} utilizaremos este editor de texto ya que, además de ser gratuito (aunque un tanto cargante con solicitar la compra de la versión de pago), es intuitivo y nos proporciona una interfaz cómoda para trabajar,además de una función de auto completar altamente útil.
 
@@ -34,7 +35,7 @@ Hemos utilizado esta herramienta, la cual en realidad es una página web que nos
 \section{Servidor arquimedes}\label{sec:arquimedes}
 Se trata de un servidor proporcionado por la Universidad de Burgos para poder desplegar nuestra aplicación. Este servidor contiene una máquina con un sistema operativo \textit{Ubuntu} 16.04\footnote{\url{https://arquimedes.ubu.es/}}.
 
-\section{Comparativa servidores para desplegar Flask}
+\section{Comparativa servidores para desplegar Flask}\label{sec:comparativa-servidores}
 Dado que la Universidad de Burgos nos ha dotado con un servidor (ver sección ~\ref{sec:arquimedes}) tenemos que elegir la manera de desplegar nuestra \textit{API Flask}, para lo cual hemos realizado una comparativa con diversas herramientas para desplegarla con el fin de encontrar la mejor manera de hacerlo.
 
 A continuación, mostraremos una tabla con las diferentes herramientas seleccionadas con el fin de elegir la que mejor se amolde a nuestro caso:
