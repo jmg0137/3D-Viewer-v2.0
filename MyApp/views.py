@@ -4,7 +4,7 @@ import shutil
 import time, json, hashlib
 import requests
 from flask import request, render_template, flash, abort, \
-    send_from_directory, redirect, url_for, jsonify
+    send_from_directory, redirect, url_for, jsonify, session
 from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
@@ -158,6 +158,8 @@ def logout():
     """
     Log out a user of the session and redirects it to the main view.
 
+    :param boolean forced: Tells us if a user is forced to logout or if he logged out by itself.
+
     :returns: The response with '/' destination.
     :rtype: flask.Response
 
@@ -224,23 +226,24 @@ def login():
                     rol = field['roles'][0]['name']
 
             if email in actualUserInfo.keys():
-                flash(gettext("Please close all open sessions before login"))
-                return redirect(url_for('login'))
+                flash(gettext("Only one session permited, close session and please log in again"))
+                actualUserInfo.pop(email, None)
+                return redirect(url_for('logout'))
 
             #Set role for current user
             actualUserInfo[email] = rol
        
             if actualUserInfo[email] != None:
-                user = user_loader(email)
-                login_user(user_loader(email))
+                user = User(email)
+                login_user(user)
 
                 return redirect(url_for('main'))
             else:
                 flash(gettext("User is not coursing this subject"))
-                return redirect(url_for('login'))
+                return redirect(url_for('index'))
         else:
             flash(gettext("User or password incorrect"))
-            return redirect(url_for('login'))
+            return redirect(url_for('index'))
     else:
         return render_template('login.html', form=form)
 
