@@ -1,5 +1,21 @@
 {% extends "ply_models.html" %}
 
+{% block extra_css %}
+
+    img {
+        height: 256px;
+        width: 256px;
+    }
+	
+	html {
+		background-image: url("../static/images/model_list.png");
+		background-size: cover;
+		width: 100%;
+		heigth: 100%;
+	}
+	
+{% endblock extra_css %}
+
 {% block model_delete %}
 		{% for file in files %}
 			<a href="{{ url_for('show_ply_models', filename=file) }}">

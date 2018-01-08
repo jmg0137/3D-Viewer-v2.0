@@ -18,7 +18,7 @@
 
 	div {
 		height: 256px;
-        width: 256px;
+        width: 260px;
 		float: left;
 	}
     img {
@@ -51,13 +51,13 @@
 				<a href="{{ url_for('show_ply_models', filename=file) }}">
 					<img src="{{ url_for('preview', filename=file) }}">
 				</a>
-				<button id="remove-button" style="display:none;position:absolute;font-size:24px;color:#0000cc;" class="remove-button" onclick="deleteDialog('{{file}}')"><i class="fa fa-trash"></i></button>
+				<button id="remove-button" style="display:none;position:absolute;font-size:24px;color:#069;opacity:0.8;" class="remove-button" onclick="deleteDialog('{{file}}')"><i class="fa fa-trash"></i></button>
 			</div>
 		{% endfor %}
 		
 	{% endblock model_delete %}
 	<script>
-		
+		console.log(request.session.session_key);
 		var prevName;
 		
 		function displayButton(x) {
