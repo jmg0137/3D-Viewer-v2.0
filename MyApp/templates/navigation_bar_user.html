@@ -3,5 +3,7 @@
 <ul id="nav">
 	{% block breadcrumbUser %}
 	{% endblock breadcrumbUser %}
-	<li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+	{% block userOptions %}
+		<li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+	{% endblock userOptions %}
 </ul>

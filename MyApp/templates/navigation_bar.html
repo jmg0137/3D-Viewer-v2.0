@@ -9,8 +9,10 @@
         <ul id="nav">
 			{% block breadcrumb %}
 			{% endblock breadcrumb %}
-			<li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
-            <li class="align-right"><a href="{{ url_for('upload') }}">{{ _('Upload') }}</a></li>
+			{% block userOptions %}
+				<li class="align-right"><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+				<li class="align-right"><a href="{{ url_for('upload') }}">{{ _('Upload') }}</a></li>
+			{% endblock userOptions %}
         </ul>
         <style type="text/css">
             body {
