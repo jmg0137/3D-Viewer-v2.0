@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-08 21:52+0100\n"
+"POT-Creation-Date: 2018-01-13 12:44+0100\n"
 "PO-Revision-Date: 2017-05-22 14:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -64,7 +64,9 @@ msgstr "No estás autorizado, contacta con el administrador"
 
 #: views.py:229
 msgid "Only one session permited, close session and please log in again"
-msgstr "Solamente se permite una sesión, por favor cierra la sesión y logueate otra vez"
+msgstr ""
+"Solamente se permite una sesión, por favor cierra la sesión y logueate "
+"otra vez"
 
 #: views.py:242
 msgid "User is not coursing this subject"
