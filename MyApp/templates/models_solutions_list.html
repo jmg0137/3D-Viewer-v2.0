@@ -62,7 +62,7 @@
 			</div>
 			
 			<div id="buttons_placeholder">
-				<a href="{{ url_for('show_ply_models_exercise', filename=file) }}"><img src="../static/images/plus-icon.png" alt="Models" height="25" width="50"></a>
+				<a href="{{ url_for('show_ply_models_exercise', filename=file) }}"><img src="../static/images/plus-icon.png" alt="Models" height="50" width="100"></a>
 			</div>
 		</div>
 		
@@ -73,10 +73,10 @@
 					<li>
 						<img src="../static/images/folder.png" alt="Models" height="40" width="40">
 						<a href="{{ url_for('edit_ply_models_exercise', exercise=f, filename=file) }}">
-							<button id="edit-button" style="display:none;float:right;font-size:23px;color:#069;opacity:0.8;" class="edit-button"><i class="material-icons">build</i></button>
+							<button id="edit-button" style="display:none;float:right;font-size:23px;color:#069;opacity:0.8;" class="edit-button" data-toggle="tooltip" title="Editar ejercicio"><i class="material-icons">build</i></button>
 						</a>
-						<button id="remove-button" style="display:none;float:right;font-size:24px;color:#069;opacity:0.8;" class="remove-button" onclick="deleteDialog('{{file}}','{{f}}')"><i class="fa fa-trash"></i></button>
-						<button id="edit-name" style="display:none;float:right;font-size:23px;color:#069;opacity:0.8;" class="edit-name-button" onclick="changeName()"><i class="material-icons">mode_edit</i></button>
+						<button id="remove-button" style="display:none;float:right;font-size:24px;color:#069;opacity:0.8;" class="remove-button" onclick="deleteDialog('{{file}}','{{f}}')" data-toggle="tooltip" title="Eliminar ejercicio"><i class="fa fa-trash"></i></button>
+						<button id="edit-name" style="display:none;float:right;font-size:23px;color:#069;opacity:0.8;" class="edit-name-button" onclick="changeName()" data-toggle="tooltip" title="Editar nombre"><i class="material-icons">mode_edit</i></button>
 						<p id="name" contenteditable="false">{{f}}<p>
 					</li>
 				</div>
