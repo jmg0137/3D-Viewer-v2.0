@@ -177,8 +177,48 @@ Una vez conocidos estos datos, decidimos modificar únicamente los valores que o
 Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-corrected-encripted}:
 \imagen{skull-corrected-encripted}{Modelo de encriptado.}{0.9}
 
-\subsection{Ejecución de nuestra aplicación en arquimedes}
-Hay un script que ejecuta la aplicación. Desde Linux con el comando ssh (usuario y contraseña), en windows con putty y lo mismo. Una vez que se esté ejecutando, accederemos a la aplicación en la dirección url: \url{https://arquimedes.ubu.es/visor3d/}.
+\section{Configuración de  <<Arquímedes>>}
+Debido a que no tenemos los permisos necesarios para configurar el servidor personalmente, tenemos que depender de u operador que realice las operaciones que le sean indicadas. Esto conlleva una pérdida considerable de tiempo y por ello a llevado, entre otras razones, más tiempo del programado para dicha tarea. Por un lado detallaremos como hemos configurado nuestra máquina personal para posteriormente poder facilitar las instrucciones necesarias a nuestro operador. Por otro lado, incluiremos las modificaciones realizadas para poder adaptar la configuración de nuestra máquina a la del servidor <<Arquímedes>>.
+
+\subsection{Configuración de nuestra máquina personal}
+Primero de todo mencionar que la máquina a configurar se compondrá de un sistema operativo \textit{Linux} en su versión 16.04~\footnote{\url{https://es.wikipedia.org/wiki/Ubuntu\#Ubuntu\_16.04}}. Para poder empezar, primero tuvimos que elegir de qué manera queríamos desplegar nuestra aplicación y con qué herramienta, como se mencionó en la sección de \textit{Técnicas y Herramientas} de la Memoria.
+
+Primero instalaremos \textit{Apache} en nuestra máquina con el comando:
+
+\noindent\verb|apt-get install apache2|
+
+Paso siguiente instalaremos la librería \textit{mod\_wsgi}:
+
+\noindent\verb|apt-get install libapache2-mod-wsgi-py3|
+
+Una vez instalado esto, deberá aparecernos en la dirección \texttt{<</var>>} una carpeta llamada \textbf{\textit{www}}. En mi caso he introducido mi aplicación directamente en dicha carpeta, pero no es necesario, simplemente ha sido por comodidad ya que posteriormente podremos referenciar cualquier ruta (teniendo que ser ésta absoluta).
+
+Seguidamente y dependiendo de si estamos desplegando nuestra aplicación en \textit{Windows} \textit{Linux}, deberemos ejecutar los comandos desde la carpeta raíz del proyecto:
+
+\noindent\verb|python3 -m venv mi_venv|
+
+\noindent\verb|pip3 install -r requirements.txt|
+
+Esto es debido a que si trabajamos desde \textit{Windows} nuestro entorno virtual no tendrá la carpeta \texttt{<<../mi\_venv/bin>>} y dicho comando creará ese directorio. Este paso se debe a que necesitamos meter en dicho directorio el archivo \textit{activate\_this.py}~\footnote{\url{text}}https://github.com/pypa/virtualenv/blob/master/virtualenv\_embedded/activate\_this.py situado en la carpeta raíz del proyecto. Dicho archivo contiene la configuración necesaria para que \textit{Apache} pueda obtener las dependencias instaladas en el entorno virtual ya que, por defecto, dichas dependencias deberían estar instaladas en la máquina. nuestra aplicación deberá constar de un archivo con extensión \textit{.wsgi} que será el que le diga a \textit{Apache} lo que debe hacer con nuestra aplicación y cómo hacerlo.
+
+En este archivo (situado en la raíz del proyecto) se deberá incluir nuestra aplicación como variable del sistema, así como realizar la lectura y ejecución del archivo \textit{activate\_this.py} mencionado anteriormente. Finalmente dicho archivo de configuración contendrá la ejecución de nuestro programa (\textit{APP.run})~\footnote{\url{https://gist.github.com/LeZuse/4032238}}. Importante mencionar que en la línea de nuestro fichero \textit{.wsgi} \noindent\verb|from MyApp import APP as application|, la última parte (\textit{as application}) es necesaria para el \textit{Apache} conozca qué va a ser la aplicación.
+
+Posteriormente nos dirigiremos a la carpeta: \texttt{<</etc/apache2/sites-available>>} en la que deberemos modificar el archivo \textit{000-default.conf} que contiene la configuración por defecto de \textit{Apache}. Dicha configuración será sustituida por la proporcionada en el archivo \textit{host\_config.txt} situado en la carpeta raíz del proyecto. Para comprender mejor este archivo de configuración, mencionaremos qué es cada uno de sus componentes al margen de los comentarios que trae el archivo por defecto:
+
+\begin{itemize}
+	\item \textbf{ServerName}: Dirección en la que el servidor se ejecutará.
+	\item \textbf{ServerAlias}: Alias de la dirección anterior.
+	\item \textbf{ServerAdmin}: Administrador del servidor.
+	\item \textbf{DocumentRoot}: Carpeta contenedora de los archivo que componen la aplicación. Aquí pondremos la dirección absoluta de la carpeta \textit{MyApp} incluida en nuestro proyecto.
+	\item \textbf{WSGIScriptAlias /<<dirección elegida>>}: Ejecución en la <<dirección elegida>>(\textit{/visor3d} por ejemplo ejecutara el contenido de \textit{MyApp.wsgi} para que se pueda acceder desde \textit{ServerName/visor3d}) utilizando la ruta absoluta del fichero \textit{.wsgi} y encontrar las dependencias necesarias.
+	\item \textbf{Directory <<directorio>>}: conjunto de acciones que serán aplicadas al directorio especificado, figurando aquí la dirección absoluta de la ubicación de nuestro proyecto.
+\end{itemize}
+
+Un vez hecho esto, deberemos hacer \textit{reset} al servicio de apache con el comando:
+
+\noindent\verb|service apache2 restart|
+
+Siguiendo estos pasos, podremos acceder a nuestra aplicación desde nuestro navegador en el \textit{localhost/<<nombre dado>>} si estamos en la máquina configurada y desde el
 
 \section{Compilación, instalación y ejecución del proyecto}
 
