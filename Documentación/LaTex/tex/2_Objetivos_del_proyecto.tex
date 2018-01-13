@@ -1,3 +1,27 @@
 \capitulo{2}{Objetivos del proyecto}
 
-Este apartado explica de forma precisa y concisa cuales son los objetivos que se persiguen con la realización del proyecto. Se puede distinguir entre los objetivos marcados por los requisitos del software a construir y los objetivos de carácter técnico que plantea a la hora de llevar a la práctica el proyecto.
+Objetivo de Alberto.
+Dentro de nuestros objetivos estará la gestión de roles de usuario otorgando funcionalidades diferentes dependiendo el rol de dicho usuario dentro de la asignatura. También incluiremos en la aplicación una página en la que el profesor de la asignatura pueda corregir los ejercicios docentes de manera sencilla y clara visualmente. Para ello, se utilizará el visor de modelos con el fin comparar las soluciones de los ejercicios (resueltas por el profesor) con las soluciones propuestas por los alumnos a dichos ejercicios.
+
+A su vez, nos centraremos principalmente en proporcionar seguridad a los modelos que estarán albergados en el servidor debido a su unicidad y dificultad de encontrar. Esto es muy importante ya que una vez que estos modelos estén subidos a nuestro servidor, podrán ser accesibles a ciertas amenazas como podría ser su eliminación.
+
+\section{Gestionar roles de usuario}
+Previo a penetrar en el resto de los objetivos deberemos establecer qué funcionalidades tiene cada usuario dependiendo de su rol, aunque en nuestra aplicación definiremos dos clases de usuarios (siendo los posibles usuarios los proporcionados por \textit{Moodle}):
+
+\begin{itemize}
+	\item \textbf{Profesor}: Este será el \textit{superusuario} de la aplicación teniendo acceso a todas las funcionalidades posibles que se integren en el proyecto. Podrá acceder a visualizar modelos, realización de ejercicios, subida y eliminado de los modelos al servidor en el que estará aojada la aplicación, etc.
+	
+	\item \textbf{Cualquier otro usuario}: Este apartado engloba los usuarios de tipo Estudiante, Invitado, Creador del curso, Mánager y Profesor sin permiso de edición, es decir, cualquier usuario que no sea Profesor estrá en este grupo. Dicho grupo simplemente tiene la opción de visualizar los modelos que se encuentren en la aplicación, así como hacer uso de las herramientas incluidas en el mismo (anotaciones, medidas, importación y exportación de puntos, etc).
+\end{itemize}
+
+\section{Añadir restricciones de escritura para usuarios}
+Otro aspecto importante a tener en cuenta dentro de la aplicación es que el usuario puede almacenar nombres de anotaciones, medidas, ejercicios, etc de manera autónoma sin ningún tipo de control. Esto puede suponer un problema ya que si el profesor guarda el nombre de un ejercicio como \textbf{.ejercicio\_numero\_1} podría interpretarse por parte del sistema operativo como que dicho nombre en realidad es una extensión. Dicho problema supondría la pérdida del fichero que alberga el ejercicio y por consiguiente la pérdida del mismo. A su vez, si un alumno o profesor exporta los nombres de anotaciones y medidas incluyendo algún carácter especial como puede ser un <<@>> nos causaría otro problema importante relacionado con la corrección de ejercicios por parte del profesor. Esto es debido a que las anotaciones  de alumnos a la hora de ser exportadas se guardan con ciertos caracteres especiales (los cuales son los restringidos) para que al importarlos, el visor sea capaz de diferenciar entre importaciones de alumnos y profesores.
+
+\section{Posibilitar plataforma de ejercicios para el profesor}
+Con el fin de que el profesor pueda realizar pruebas a sus alumnos en la docencia online del grado se quiere incluir en la aplicación un apartado que permita al profesor realizar y albergar ejercicios propuestos por el mismo. De esta manera, este profesor podrá presentar ejercicios a los alumnos y, tras recibir una solución a dichos ejercicios, poder cotejarlas con los ejercicios previamente resueltos en la aplicación. Dentro de la herramienta de ejercicios se podrá apreciar, en el visor de ejercicios, la cercanía de los puntos elegidos como referencia de los alumnos a los puntos de referencia del profesor así como nombres técnicos de ciertas partes del modelos examinado.
+
+\section{Despliegue de la aplicación en un servidor}
+Encontramos también el despliegue de nuestra aplicación en un servidor como objetivo del proyecto ya que queremos que nuestra aplicación pueda servir como herramienta docente para los alumnos de cierta asignatura del Grado en Historia y Patrimonio. Para ello deberemos configurar un servidor el cual nos será proporcionado por la Universidad de Burgos con el fin de albergar tanto la aplicación como los modelos en sí mismos.
+
+\section{Dar seguridad a los modelos}
+Debido a que los modelos utilizados en el grado son únicos, caros y muy difíciles de encontrar, deberemos dotar a nuestra aplicación de la seguridad necesaria para poder almacenar estos modelos en nuestro servidor. Centraremos nuestro objetivo en dar una encriptación a los modelos que serán subidos al servidor con su posterior desencriptación a la hora de visualizarlos. De esta manera, conseguimos que los modelos albergados en el servidor(modelos que pueden recibir ataques informáticos) sean inservibles en caso de que se intente obtener información de ellos.
