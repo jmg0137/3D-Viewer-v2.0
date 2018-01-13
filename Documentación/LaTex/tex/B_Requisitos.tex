@@ -18,33 +18,80 @@ Como objetivos generales de nuestro proyecto tendremos:
 A continuación, listaremos el conjunto de requisitos funcionales extraídos a partir de los objetivos generales del proyecto.
 
 \subsection{Requisitos funcionales}
-\begin{itemize}
-	\item 
-\end{itemize}
+Los requisitos funcionales se han sacado a partir de un diagrama de casos de uso hecho desde cero aunque ciertos requisitos coinciden con los de dicha versión anterior, por lo que serán iguales.
 
-\subsection{Requisitos no funcionales}\\
 \begin{itemize}
-	\item \textbf{RF-1 Gestión de roles}: la aplicación debe ser capaz de diferenciar entre roles de usuarios.
+	\item \textbf{RF-1 Visor de modelos}: la aplicación debe ser capaz de visualizar un modelo.
+		\begin{itemize}
+		\item \textbf{RF-1.1 Gestión de anotaciones}: la aplicación debe ser capaz de manejar anotaciones sobre el modelo.
+			\begin{itemize}
+				\item \textbf{RF-1.1.1 Añadir anotación}: el usuario debe poder añadir una anotación.
+				\item \textbf{RF-1.1.2 Eliminar anotación}: el usuario debe poder eliminar una anotación.
+				\item \textbf{RF-1.1.3 Editar anotación}: el usuario debe poder editar la etiqueta de una anotación.
+				\item \textbf{RF-1.1.4 Seleccionar anotación}: el usuario debe poder seleccionar una anotación.
+				\item \textbf{RF-1.1.5 Deseleccionar anotación}: el usuario debe poder deseleccionar una anotación.
+			\end{itemize}
+		\end{itemize}
+		\begin{itemize}
+			\item \textbf{RF-1.2 Gestión de medidas}: la aplicación debe ser capaz de manejar medidas sobre el modelo.
+			\begin{itemize}
+				\item \textbf{RF-1.2.1 Añadir medida}: el usuario debe poder añadir una medida.
+				\item \textbf{RF-1.2.2 Eliminar medida}: el usuario debe poder eliminar una medida.
+				\item \textbf{RF-1.2.3 Editar medida}: el usuario debe poder editar la etiqueta de una medida.
+				\item \textbf{RF-1.2.4 Seleccionar medida}: el usuario debe poder seleccionar una medida.
+				\item \textbf{RF-1.2.5 Deseleccionar medida}: el usuario debe poder deseleccionar una medida.
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{RF-1.3 Exportar puntos}: la aplicación debe ser capaz de exportar las anotaciones y medidas que se encuentren actualmente en el visor.
+		\item \textbf{RF-1.4 Importar puntos}: la aplicación debe ser capaz de importar las anotaciones y medidas que se encuentren actualmente en el visor.
+
+	\item \textbf{RF-2 Visor de ejercicio}: la aplicación debe ser capaz de visualizar un ejercicio guardado.
 	\begin{itemize}
-		\item \textbf{RF-1.1 Exportación de puntos}: la aplicación debe ser capaz de exportar la medidas y anotaciones hechas en un modelos diferenciando entre roles.
-		\item \textbf{RF-1.2 Importación de puntos}: la aplicación debe ser capaz de importar la medidas y anotaciones hechas en un modelos diferenciando entre roles.
+		\item \textbf{RF-2.1 Gestión de anotaciones}: la aplicación debe ser capaz de manejar anotaciones sobre el modelo.
+		\begin{itemize}
+			\item \textbf{RF-2.1.1 Añadir anotación}: el usuario debe poder añadir una anotación.
+			\item \textbf{RF-2.1.2 Eliminar anotación}: el usuario debe poder eliminar una anotación.
+			\item \textbf{RF-2.1.3 Editar anotación}: el usuario debe poder editar la etiqueta de una anotación.
+			\item \textbf{RF-2.1.4 Seleccionar anotación}: el usuario debe poder seleccionar una anotación.
+			\item \textbf{RF-2.1.5 Deseleccionar anotación}: el usuario debe poder deseleccionar una anotación.
+		\end{itemize}
 	\end{itemize}
-	\item \textbf{RF-2 Gestión de ejercicios}: la aplicación debe ser capaz de manejar un listado de ejercicios de cada modelo.
 	\begin{itemize}
-		\item \textbf{RF-2.1 Añadir ejercicios}: el usuario debe poder añadir un ejercicio.
-		\item \textbf{RF-2.2 Eliminar ejercicios}: el usuario debe poder eliminar un ejercicio.
-		\item \textbf{RF-2.3 Modificar ejercicios}: el usuario debe poder modificar un ejercicio.
-		\item \textbf{RF-2.4 Editar nombre ejercicio}: el usuario debe poder editar el nombre de un ejercicio.
-		\item \textbf{RF-2-5 Salvado de ejercicio}: el usuario debe poder guardar los cambios acaecidos en el ejercicio.
-		\item \textbf{RF-2-5 Visualizar ejercicio}: el usuario debe poder visualizar el ejercicio en cuestión.
+		\item \textbf{RF-2.2 Gestión de medidas}: la aplicación debe ser capaz de manejar medidas sobre el modelo.
+		\begin{itemize}
+			\item \textbf{RF-2.2.1 Añadir medida}: el usuario debe poder añadir una medida.
+			\item \textbf{RF-2.2.2 Eliminar medida}: el usuario debe poder eliminar una medida.
+			\item \textbf{RF-2.2.3 Editar medida}: el usuario debe poder editar la etiqueta de una medida.
+			\item \textbf{RF-2.2.4 Seleccionar medida}: el usuario debe poder seleccionar una medida.
+			\item \textbf{RF-2.2.5 Deseleccionar medida}: el usuario debe poder deseleccionar una medida.
+		\end{itemize}
 	\end{itemize}
-	\item \textbf{RF-3 Gestión de modelos}: la aplicación debe ser capaz de mostrar de una pasada los diferentes modelos disponibles.
+	\item \textbf{RF-2.3 Restaurar datos}: la aplicación debe ser capaz de restaurar los datos iniciales del ejercicio previo a la carga del ejercicio del alumno.
+	\item \textbf{RF-2.4 Cancelar ejercicio}: la aplicación debe ser capaz de cancelar y salir de un ejercicio en curso.
+	\item \textbf{RF-2.5 Exportar puntos}: la aplicación debe ser capaz de exportar las anotaciones y medidas que se encuentren actualmente en el visor.
+	\item \textbf{RF-2.6 Importar puntos}: la aplicación debe ser capaz de importar las anotaciones y medidas que se encuentren actualmente en el visor.
+
+	\item \textbf{RF-3 Listar modelos}: la aplicación debe ser capaz de mostrar de una pasada los diferentes modelos disponibles.
 	\begin{itemize}
-		\item \textbf{RF-3.1 Añadir modelos}: la aplicación debe ser capaz de encriptar y desencriptar los modelos para aumentar la seguridad de estos.
+		\item \textbf{RF-3.1 Eliminar modelos}: el usuario debe ser capaz de eliminar modelos.
 	\end{itemize}
+	\item \textbf{RF-4 Listar ejercicios}: la aplicación debe ser capaz de manejar un listado de ejercicios de cada modelo.
+	\begin{itemize}
+		\item \textbf{RF-4.1 Gestión de medidas}: la aplicación debe ser capaz de manejar medidas sobre el modelo.
+		\begin{itemize}
+			\item \textbf{RF-4.1.1 Añadir ejercicio}: el usuario debe poder añadir un ejercicio.
+			\item \textbf{RF-4.1.2 Eliminar ejercicio}: el usuario debe poder eliminar un ejercicio.
+			\item \textbf{RF-4.1.3 Modificar ejercicio}: el usuario debe poder modificar un ejercicio.
+			\item \textbf{RF-4.1.4 Editar nombre ejercicio}: el usuario debe poder editar el nombre de un ejercicio.
+			\item \textbf{RF-4.1.5 Guardar ejercicio}: el usuario debe poder guardar un ejercicio modificado.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{RF-5 Subir modelos}: la aplicación debe ser capaz de manejar un listado de ejercicios de cada modelo.
 \end{itemize}
 
 \subsection{Requisitos no funcionales}
+Estos requisitos coinciden con los de la versión anterior a excepción de uno. Aun así, mencionaremos todos para que quede más claro.
+
 \begin{itemize}
 	\item \textbf{RNF-1 Usabilidad}: el conjunto de elementos visuales de la interfaz deben ser intuitivos y conocidos por el usuario medio, permitiendo un rápido aprendizaje.
 	\item \textbf{RNF-2 Mantenibilidad}: la aplicación debe desarrollarse siguiendo alguna técnica que permita facilidad de mantenimiento e incorporación de nuevas características, así como corrección de errores.
@@ -59,4 +106,1190 @@ A continuación, listaremos el conjunto de requisitos funcionales extraídos a p
 \subsection{Actores}
 En nuestro caso solamente tendremos dos actores, que serán el alumno y el profesor(administrador).
 
+\subsection{Diagrama de casos de uso}
 
+
+\tablaAncho
+{CU-1 Visor de modelos}
+{p{2.9cm} X}
+{use-case-1}
+{	
+	\textbf{CU-1} & \textbf{Visor de modelo} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.1, RF-1.2, RF-1.3, RF-1.4 \\ \midrule
+	\textbf{Descripción} & Permite al usuario visualizar un modelo y realizar operaciones sobre el mismo. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem El usuario ha seleccionado un modelo.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario abre un modelo.
+		\item Se muestran el modelo sin anotaciones ni medidas.
+		\item Se da la posibilidad de gestionar tanto anotaciones como medidas.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-1.1 Gestión de anotaciones}
+{p{2.9cm} X}
+{use-case-1.1}
+{
+	\textbf{CU-1.1} & \textbf{Gestión de anotaciones} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1, RF-1.1.1, RF-1.1.2, RF-1.1.3, RF-1.1.4, RF-1.1.5 \\ \midrule
+	\textbf{Descripción} & Permite gestionar las anotaciones (añadirlas, eliminarlas, etc.). \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem El usuario tiene un modelo abierto.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Se muestran las anotaciones del modelo visualizado.
+		\item Se muestran las opciones de añadir, eliminar, editar la etiqueta de y deseleccionar las anotaciones.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-1.1.1 Añadir anotación}
+{p{2.9cm} X}
+{use-case-1.1.1}
+{	
+	\textbf{CU-1.1.1} & \textbf{Añadir anotación} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario añadir una anotación al modelo. \\ \midrule
+	\textbf{Precondiciones} & - \\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario pincha en añadir anotación.
+		\item El usuario pincha sobre el modelo en la zona donde quiere crear una anotación.
+		\item Una esfera es añadida en el modelo para representar la anotación.
+		\item Un elemento aparece en un menú para representar la etiqueta de la anotación.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se añade una anotación al modelo.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-1.1.2 Eliminar anotación}
+{p{2.9cm} X}
+{use-case-1.1.2}
+{	
+	\textbf{CU-1.1.2} & \textbf{Eliminar anotación} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario eliminar una anotación. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que exista una anotación en el modelo.
+	
+	\tabitem (opcional) Que una anotación se encuentre seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una anotación (opcional).
+		\item Pulsar sobre borrar anotación. Si se ha realizado anterior, saltamos el siguiente paso.
+		\item Seleccionar una anotación (opcional).
+		\item Se borra la anotación.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se elimina la anotación seleccionada.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.1.3 Editar anotación}
+{p{2.9cm} X}
+{use-case-1.1.3}
+{	
+	\textbf{CU-1.1.3} & \textbf{Editar anotación} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.1 \\ \midrule
+	\textbf{Descripción} & Permite editar la etiqueta de una anotación. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya anotaciones.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una anotación.
+		\item Pulsar sobre editar anotación.
+		\item Se muestra un diálogo con la etiqueta actual de la anotación.
+		\item El usuario edita el texto.
+		\item Pulsar sobre guardar.
+		\item El texto de la anotación cambia.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem La anotación modificada cambia su texto.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.1.4 Seleccionar anotación}
+{p{2.9cm} X}
+{use-case-1.1.4}
+{
+	\textbf{CU-1.1.4} & \textbf{Seleccionar anotación} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.1 \\ \midrule
+	\textbf{Descripción} & Permite seleccionar una anotación resaltándola. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Tiene que existir al menos una anotación.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario selecciona una anotación en el modelo (opción 1).
+		\item El usuario selecciona una anotación en la lista lateral (opción 2).
+		\item La anotación se destaca tanto en el modelo como en la lista lateral.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule	
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.1.5 Deseleccionar anotación}
+{p{2.9cm} X}
+{use-case-1.1.5}
+{
+	\textbf{CU-1.1.5} & \textbf{Deseleccionar anotación} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario deseleccionar una anotación. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya al menos una anotación seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pinchar sobre una anotación en el modelo (opción 1).
+		\item Pinchar sobre una anotación en la lista lateral (opción 2).
+		\item Pinchar sobre deseleccionar todo en la lista lateral (opción 3).
+		\item Si se ha realizado opcion 1 o 2, se deselecciona dicha anotación.
+		\item Si se realiza opción 3, se deseleccionan todas las anotaciones.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.2 Gestión de medidas}
+{p{2.9cm} X}
+{use-case-1.2}
+{
+	\textbf{CU-1.2} & \textbf{Gestión de medida} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1, RF-1.2.1, RF-1.2.2, RF-1.2.3, RF-1.2.4, RF-1.2.5 \\ \midrule
+	\textbf{Descripción} & Permite gestionar las medidas (añadirlas, eliminarlas, \dots). \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem El usuario tiene abierto un modelo.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Se muestran las medidas del modelo visualizado.
+		\item Se muestran las opciones de añadir, eliminar, editar la etiqueta de y deseleccionar las medidas.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-1.2.1 Añadir medida}
+{p{2.9cm} X}
+{use-case-1.2.1}
+{
+	\textbf{CU-1.2.1} & \textbf{Añadir medida} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario añadir una medida al modelo. \\ \midrule
+	\textbf{Precondiciones} & - \\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario pincha en añadir medida.
+		\item El usuario pincha sobre el modelo en la zona donde quiere crear una anotación.
+		\item El usuario pincha sobre el modelo en la posición donde quiere que vaya el otro extremo de la medida.
+		\item Dos esferas y una raya aparecen en el visor para representar la medida.
+		\item Un elemento aparece en un menú para representar la etiqueta de la medida, que será la etiqueta y las unidades.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se añade una medida al modelo.
+	\\ \midrule
+	\textbf{Excepciones} & 
+	\tabitem No se añaden los dos puntos de la medida.
+	\\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-1.2.2 Eliminar medida}
+{p{2.9cm} X}
+{use-case-1.2.2}
+{
+	\textbf{CU-1.2.2} & \textbf{Eliminar medida} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario eliminar una medida. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que exista una medida en el modelo.
+	
+	\tabitem (opcional) Que una medida se encuentre seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una medida (opción 1).
+		\item Pulsar sobre borrar medida.
+		\item Seleccionar una medida (opción 2).
+		\item Se borra la medida.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se elimina la medida seleccionada.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.2.3 Editar medida}
+{p{2.9cm} X}
+{use-case-1.2.3}
+{
+	\textbf{CU-1.2.3} & \textbf{Editar medida} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.2 \\ \midrule
+	\textbf{Descripción} & Permite editar la etiqueta de una medida. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya medidas.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una medida.
+		\item Pulsar sobre editar medida.
+		\item Mostrar un diálogo con la etiqueta actual de la medida.
+		\item El usuario edita el texto.
+		\item Pulsar sobre guardar.
+		\item El texto de la medida cambia.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem La medida modificada cambia su texto.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.2.4 Seleccionar medida}
+{p{2.9cm} X}
+{use-case-1.2.4}
+{
+	\textbf{CU-1.2.4} & \textbf{Seleccionar medida} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.2 \\ \midrule
+	\textbf{Descripción} & Permite seleccionar una medida resaltándola. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Tiene que existir al menos una medida.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario selecciona una medida en el modelo (opción 1).
+		\item El usuario selecciona una medida en la lista lateral (opción 2).
+		\item La medida se destaca tanto en el modelo como en la lista lateral.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.2.5 Deseleccionar medida}
+{p{2.9cm} X}
+{use-case-1.2.5}
+{
+	\textbf{CU-1.2.5} & \textbf{Deseleccionar medida} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1.2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario deseleccionar una medida. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya al menos una medida seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pinchar sobre una medida en el modelo (opción 1).
+		\item Pinchar sobre una medida en la lista lateral (opción 2).
+		\item Pinchar sobre deseleccionar todo en la lista lateral (opción 3).
+		\item Si se ha realizado opcion 1 o 2, se deselecciona dicha medida.
+		\item Si se realiza opción 3, se deseleccionan todas las medidas.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.3 Exportar puntos}
+{p{2.9cm} X}
+{use-case-1.3}
+{
+	\textbf{CU-1.3} & \textbf{Exportar punto} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1 \\ \midrule
+	\textbf{Descripción} & Permite exportar los puntos que se estén visualizando. \\ \midrule
+	\textbf{Precondiciones} & - \\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pulsar sobre exportar puntos.
+		\item Un archivo se descarga.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Un archivo nuevo con nuestros puntos se almacena.
+	\tabitem Si el archivo es exportado por un alumno, quedará reflejado en archivo almacenado.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-1.4 Importar puntos}
+{p{2.9cm} X}
+{use-case-1.4}
+{
+	\textbf{CU-1.4} & \textbf{Importar punto} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario cargar puntos creados previamente. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Tener un archivo correctamente formado con puntos para el modelo.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pulsar sobre importar puntos.
+		\item Seleccionar el archivo deseado.
+		\item Pulsar sobre abrir.
+		\item Las anotaciones y medidas se añaden.
+		\item El archivo importado contendrá información de quién la ha realizado.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se añaden añaden nuevas anotaciones y medidas.
+	\\ \midrule
+	\textbf{Excepciones} &
+	\tabitem El archivo está mal formado.
+	
+	\tabitem El archivo no contiene anotaciones y medidas.
+	\\ \midrule	
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2 Visor de ejercicios}
+{p{2.9cm} X}
+{use-case-2}
+{	
+	\textbf{CU-2} & \textbf{Visor de ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.1, RF-2.2, RF-2.3, RF-2.4, RF-2.5, RF-2.6, RF-1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario visualizar un ejercicio y realizar operaciones sobre el mismo. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem El usuario ha seleccionado un ejercicio.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario abre un ejercicio.
+		\item Se muestran el ejercicio con las anotaciones y medidas guardadas.
+		\item Se da la posibilidad de gestionar tanto anotaciones como medidas y además incluir ejercicios de los alumnos.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-2.1 Gestión de anotaciones}
+{p{2.9cm} X}
+{use-case-2.1}
+{
+	\textbf{CU-1.1} & \textbf{Gestión de anotaciones} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2, RF-2.1.1, RF-2.1.2, RF-2.1.3, RF-2.1.4, RF-2.1.5 \\ \midrule
+	\textbf{Descripción} & Permite gestionar las anotaciones (añadirlas, eliminarlas, etc.). \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem El usuario tiene un ejercicio abierto.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Se muestran las anotaciones del ejercicio visualizado.
+		\item Se muestran las opciones de añadir, eliminar, editar la etiqueta de y deseleccionar las anotaciones.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-2.1.1 Añadir anotación}
+{p{2.9cm} X}
+{use-case-2.1.1}
+{	
+	\textbf{CU-1.1.1} & \textbf{Añadir anotación} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario añadir una anotación al ejercicio. \\ \midrule
+	\textbf{Precondiciones} & - \\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario pincha en añadir anotación.
+		\item El usuario pincha sobre el ejercicio en la zona donde quiere crear una anotación.
+		\item Una esfera es añadida en el ejercicio para representar la anotación.
+		\item Un elemento aparece en un menú para representar la etiqueta de la anotación.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se añade una anotación al ejercicio.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-2.1.2 Eliminar anotación}
+{p{2.9cm} X}
+{use-case-2.1.2}
+{	
+	\textbf{CU-2.1.2} & \textbf{Eliminar anotación} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario eliminar una anotación. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que exista una anotación en el ejercicio.
+	
+	\tabitem (opcional) Que una anotación se encuentre seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una anotación (opcional).
+		\item Pulsar sobre borrar anotación. Si se ha realizado anterior, saltamos el siguiente paso.
+		\item Seleccionar una anotación (opcional).
+		\item Se borra la anotación.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se elimina la anotación seleccionada.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.1.3 Editar anotación}
+{p{2.9cm} X}
+{use-case-2.1.3}
+{	
+	\textbf{CU-2.1.3} & \textbf{Editar anotación} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.1 \\ \midrule
+	\textbf{Descripción} & Permite editar la etiqueta de una anotación. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya anotaciones.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una anotación.
+		\item Pulsar sobre editar anotación.
+		\item Se muestra un diálogo con la etiqueta actual de la anotación.
+		\item El usuario edita el texto.
+		\item Pulsar sobre guardar.
+		\item El texto de la anotación cambia.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem La anotación modificada cambia su texto.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.1.4 Seleccionar anotación}
+{p{2.9cm} X}
+{use-case-2.1.4}
+{
+	\textbf{CU-2.1.4} & \textbf{Seleccionar anotación} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.1 \\ \midrule
+	\textbf{Descripción} & Permite seleccionar una anotación resaltándola. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Tiene que existir al menos una anotación.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario selecciona una anotación en el ejercicio (opción 1).
+		\item El usuario selecciona una anotación en la lista lateral (opción 2).
+		\item La anotación se destaca tanto en el ejercicio como en la lista lateral.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule	
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.1.5 Deseleccionar anotación}
+{p{2.9cm} X}
+{use-case-2.1.5}
+{
+	\textbf{CU-2.1.5} & \textbf{Deseleccionar anotación} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario deseleccionar una anotación. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya al menos una anotación seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pinchar sobre una anotación en el ejercicio (opción 1).
+		\item Pinchar sobre una anotación en la lista lateral (opción 2).
+		\item Pinchar sobre deseleccionar todo en la lista lateral (opción 3).
+		\item Si se ha realizado opcion 1 o 2, se deselecciona dicha anotación.
+		\item Si se realiza opción 3, se deseleccionan todas las anotaciones.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.2 Gestión de medidas}
+{p{2.9cm} X}
+{use-case-2.2}
+{
+	\textbf{CU-2.1} & \textbf{Gestión de medidas} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2, RF-2.2.1, RF-2.2.2, RF-2.2.3, RF-2.2.4, RF-2.2.5 \\ \midrule
+	\textbf{Descripción} & Permite gestionar las medidas (añadirlas, eliminarlas, \dots). \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem El usuario tiene abierto un ejercicio.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Se muestran las medidas del ejercicio visualizado.
+		\item Se muestran las opciones de añadir, eliminar, editar la etiqueta de y deseleccionar las medidas.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-2.2.1 Añadir medida}
+{p{2.9cm} X}
+{use-case-2.2.1}
+{
+	\textbf{CU-2.2.1} & \textbf{Añadir medida} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario añadir una medida al modelo. \\ \midrule
+	\textbf{Precondiciones} & - \\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario pincha en añadir medida.
+		\item El usuario pincha sobre el ejercicio en la zona donde quiere crear una anotación.
+		\item El usuario pincha sobre el ejercicio en la posición donde quiere que vaya el otro extremo de la medida.
+		\item Dos esferas y una raya aparecen en el visor para representar la medida.
+		\item Un elemento aparece en un menú para representar la etiqueta de la medida, que será la etiqueta y las unidades.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se añade una medida al ejercicio.
+	\\ \midrule
+	\textbf{Excepciones} & 
+	\tabitem No se añaden los dos puntos de la medida.
+	\\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-2.2.2 Eliminar medida}
+{p{2.9cm} X}
+{use-case-2.2.2}
+{
+	\textbf{CU-2.2.2} & \textbf{Eliminar medida} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario eliminar una medida. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que exista una medida en el ejercicio.
+	
+	\tabitem (opcional) Que una medida se encuentre seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una medida (opción 1).
+		\item Pulsar sobre borrar medida.
+		\item Seleccionar una medida (opción 2).
+		\item Se borra la medida.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se elimina la medida seleccionada.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.2.3 Editar medida}
+{p{2.9cm} X}
+{use-case-2.2.3}
+{
+	\textbf{CU-1.2.3} & \textbf{Editar medida} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.2 \\ \midrule
+	\textbf{Descripción} & Permite editar la etiqueta de una medida. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya medidas.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Seleccionar una medida.
+		\item Pulsar sobre editar medida.
+		\item Mostrar un diálogo con la etiqueta actual de la medida.
+		\item El usuario edita el texto.
+		\item Pulsar sobre guardar.
+		\item El texto de la medida cambia.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem La medida modificada cambia su texto.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.2.4 Seleccionar medida}
+{p{2.9cm} X}
+{use-case-2.2.4}
+{
+	\textbf{CU-2.2.4} & \textbf{Seleccionar medida} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.2 \\ \midrule
+	\textbf{Descripción} & Permite seleccionar una medida resaltándola. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Tiene que existir al menos una medida.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item El usuario selecciona una medida en el ejercicio (opción 1).
+		\item El usuario selecciona una medida en la lista lateral (opción 2).
+		\item La medida se destaca tanto en el ejercicio como en la lista lateral.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.2.5 Deseleccionar medida}
+{p{2.9cm} X}
+{use-case-2.2.5}
+{
+	\textbf{CU-2.2.5} & \textbf{Deseleccionar medida} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2.2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario deseleccionar una medida. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que haya al menos una medida seleccionada.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pinchar sobre una medida en el ejercicio (opción 1).
+		\item Pinchar sobre una medida en la lista lateral (opción 2).
+		\item Pinchar sobre deseleccionar todo en la lista lateral (opción 3).
+		\item Si se ha realizado opcion 1 o 2, se deselecciona dicha medida.
+		\item Si se realiza opción 3, se deseleccionan todas las medidas.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.3 Restaurar datos}
+{p{2.9cm} X}
+{use-case-2.3}
+{
+	\textbf{CU-2.3} & \textbf{Restaurar datos} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario restaurar los valores de anotaciones y medidas iniciales (previamente guardados). \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Que un ejercicio tenga importado los datos del alumno.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pinchar en el botón de restaurar.
+		\item Se eliminarán todas las anotaciones y medidas que no pertenezcan al ejercicio previamente guardado (Si no hay ejercicio hecho, se borra todo).
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\tabitem Se recupera el ejercicio guardado.
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-2.4 Cancelar ejercicio}
+{p{2.9cm} X}
+{use-case-2.4}
+{
+	\textbf{CU-2.3} & \textbf{Cancelar ejercicio} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario cancelar un ejercicio abierto y salir de el. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Tener un ejercicio abierto.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pinchar en el botón de cancelar.
+		\item Si existen cambios sobre ele ejercicio de partida, sale un diálogo preguntado si deseamos guardar los cambios.
+		\item Si guardamos lo cambios, el ejercicio se actualiza.
+		\item Si no guardamos los cambios, el ejercicio no se modifica.
+		\item Si cancelamos, nos quedamos en el visor de ejercicios.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\tabitem Se vuelve a la lista de ejercicios.
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-2.5 Exportar puntos}
+{p{2.9cm} X}
+{use-case-2.5}
+{
+	\textbf{CU-2.5} & \textbf{Exportar punto} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2 \\ \midrule
+	\textbf{Descripción} & Permite exportar los puntos que se estén visualizando. \\ \midrule
+	\textbf{Precondiciones} & - \\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pulsar sobre exportar puntos.
+		\item Un archivo se descarga.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Un archivo nuevo con nuestros puntos se almacena.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-2.6 Importar puntos}
+{p{2.9cm} X}
+{use-case-2.6}
+{
+	\textbf{CU-2.6} & \textbf{Importar punto} \\ \otoprule
+	\textbf{Versión} & 2.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-2 \\ \midrule
+	\textbf{Descripción} & Permite al usuario cargar puntos creados previamente. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Tener un archivo correctamente formado con puntos para el ejercicio.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Pulsar sobre importar puntos.
+		\item Seleccionar el archivo deseado.
+		\item Pulsar sobre abrir.
+		\item Las anotaciones y medidas se añaden.
+		\item Si las anotaciones eran de un alumno, se importan con un color de esfera distinto.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & 
+	\tabitem Se añaden nuevas anotaciones y medidas.
+	\\ \midrule
+	\textbf{Excepciones} &
+	\tabitem El archivo está mal formado.
+	\tabitem El archivo no contiene anotaciones y medidas.
+	\\ \midrule	
+	\textbf{Importancia} & Media \\ 
+}
+
+
+\tablaAncho
+{CU-3 Listar modelos}
+{p{2.9cm} X}
+{use-case-3}
+{
+	\textbf{CU-3} & \textbf{Listar modelos} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-3.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario ver los modelos disponibles. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Modelos.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} &- \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-3.1 Eliminar modelos}
+{p{2.9cm} X}
+{use-case-3.1}
+{
+	\textbf{CU-3.1} & \textbf{Eliminar modelos} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-3 \\ \midrule
+	\textbf{Descripción} & Permite al usuario eliminar modelos. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Modelos.
+		\item Elegir el modelo a eliminar
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-4 Listar ejercicios}
+{p{2.9cm} X}
+{use-case-4}
+{
+	\textbf{CU-4} & \textbf{Listar ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-4.1 \\ \midrule
+	\textbf{Descripción} & Permite al usuario listar los ejercicios. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Ejercicios.
+		\item Elegir un modelo para ver sus ejercicios.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} &  - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\ 
+}
+
+
+\tablaAncho
+{CU-4.1 Gestión de ejercicios}
+{p{2.9cm} X}
+{use-case-4.1}
+{
+	\textbf{CU-4.1} & \textbf{Gestión de ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-4, RF-4.1.1 ,RF-4.1.2, RF-4.1.3, RF-4.1.4, RF-4.1.5 \\ \midrule
+	\textbf{Descripción} & Permite al realizar operaciones sobres los ejercicios. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Ejercicios.
+		\item Elegir un modelo para ver sus ejercicios.
+		\item Elegir la opción correspondiente.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} &  - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\
+}
+
+
+\tablaAncho
+{CU-4.1.1 Añadir ejercicios}
+{p{2.9cm} X}
+{use-case-4.1.1}
+{
+	\textbf{CU-4.1.1} & \textbf{Añadir ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-4.1 \\ \midrule
+	\textbf{Descripción} & Permite añadir un ejercicio. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Ejercicios.
+		\item Elegir un modelo para ver sus ejercicios.
+		\item Elegir la opción de añadir.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} &
+	\tabitem Se abre el visor de ejercicios para dicho modelo.
+	\\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\
+}
+
+
+\tablaAncho
+{CU-4.1.2 Eliminar ejercicios}
+{p{2.9cm} X}
+{use-case-4.1.2}
+{
+	\textbf{CU-4.1.2} & \textbf{Eliminar ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-4.1 \\ \midrule
+	\textbf{Descripción} & Permite eliminar un ejercicio. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Ejercicios.
+		\item Elegir un modelo para ver sus ejercicios.
+		\item Elegir la opción de eliminar (botón de papelera).
+		\item Elegimos en el diálogo emergente si queremos seguir adelante.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} &
+	\tabitem Se elimina el ejercicio si elegimos que se elimine en la comprobación.
+	\\ \midrule
+	\textbf{Excepciones} & \\
+	\textbf{Importancia} & Alta \\
+}
+
+
+\tablaAncho
+{CU-4.1.3 Modificar ejercicios}
+{p{2.9cm} X}
+{use-case-4.1.3}
+{
+	\textbf{CU-4.1.3} & \textbf{Modificar ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-4.1 \\ \midrule
+	\textbf{Descripción} & Permite Modificar un ejercicio. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Ejercicios.
+		\item Elegir un modelo para ver sus ejercicios.
+		\item Elegir la opción de modificar (botón de llave inglesa).
+		\item Se abre el ejercicio guardado correspondiente.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} &  - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\
+}
+
+
+\tablaAncho
+{CU-4.1.4 Editar nombre ejercicios}
+{p{2.9cm} X}
+{use-case-4.1.4}
+{
+	\textbf{CU-4.1.4} & \textbf{Editar nombre ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-4.1 \\ \midrule
+	\textbf{Descripción} & Permite editar el nombre de un ejercicio. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Ejercicios.
+		\item Elegir un modelo para ver sus ejercicios.
+		\item Elegir la opción de modificar (botón de lápiz).
+		\item Se un cuadro de edición del nombre del ejercicio.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\
+}
+
+
+\tablaAncho
+{CU-4.1.5 Guardar ejercicios}
+{p{2.9cm} X}
+{use-case-4.1.5}
+{
+	\textbf{CU-4.1.5} & \textbf{Editar nombre ejercicios} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & RF-4.1 \\ \midrule
+	\textbf{Descripción} & Permite guardar un ejercicio modificado. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Ejercicios.
+		\item Elegir un modelo para ver sus ejercicios.
+		\item Elegir la opción de modificar (botón de llave inglesa).
+		\item Se abre el visor de ejercicios.
+		\item Si se realizan modificaciones se pulsa el botón de guardar para salvar el ejercicio.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\
+}
+
+
+\tablaAncho
+{CU-5 Subir modelo}
+{p{2.9cm} X}
+{use-case-5}
+{
+	\textbf{CU-5} & \textbf{Subir modelo} \\ \otoprule
+	\textbf{Versión} & 1.0 \\ \midrule
+	\textbf{Autor} & Jose Manuel Moral Garrido \\ \midrule
+	\textbf{Requisitos asociados} & \\ \midrule
+	\textbf{Descripción} & Permite subir modelo. \\ \midrule
+	\textbf{Precondiciones} & 
+	\tabitem Haber accedido a la aplicación correctamente.
+	\tabitem Tener rol de Profesor.
+	\\ \midrule
+	\textbf{Acciones} & 
+	\enumeratecompacto{
+		\item Entrar en la aplicación.
+		\item Elegir la opción de Subir Modelo.
+	}
+	\\ \midrule
+	\textbf{Postcondiciones} & - \\ \midrule
+	\tabitem Elegir modelo a subir.
+	\textbf{Excepciones} & - \\ \midrule
+	\textbf{Importancia} & Alta \\
+}
