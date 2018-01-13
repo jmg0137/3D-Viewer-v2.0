@@ -8,6 +8,7 @@
 \usepackage{lmodern} % scalable font
 \usepackage{microtype}
 \usepackage{placeins}
+\usepackage[inline]{enumitem}
 
 \RequirePackage{booktabs}
 \RequirePackage[table]{xcolor}
@@ -276,7 +277,26 @@
 }
 
 
+\newcommand{\enumeratecompacto}[1]{
+	\begin{enumerate*}[label=\arabic*. ,itemjoin={\newline}]
+		#1
+	\end{enumerate*}
+}
 
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+\newcommand{\tablaAncho}[4]{%
+	\begin{table}[]
+		\centering
+		\begin{tabularx}{\textwidth}{#2}
+			\toprule
+			#4
+			\bottomrule
+		\end{tabularx}
+		\caption{#1}
+		\label{tabla:#3}
+	\end{table}
+}
 
 \graphicspath{ {./img/} }
 
