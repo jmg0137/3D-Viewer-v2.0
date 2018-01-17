@@ -46,6 +46,11 @@ export class PointManager {
         this.measurements = measurements;
         this.__initImportButton();
         this.__initExportButton();
+        this.__initSaveButton();
+        this.__initLoadButton();
+        this.__initCancelButton();
+        this.__initPointsLoad();
+        this.__initResetButton();
     }
 
     /**
@@ -93,9 +98,11 @@ export class PointManager {
                             let point1 = measurement.points[0];
                             let point2 = measurement.points[1];
                             let tag = measurement.tag;
-                            instance.measurements.addPoint(point1);
+                            instance.measurements.addPoint(point1,'');
                             instance.measurements.addPoint(point2, tag);
                         }
+
+                        $("#file").val('');
                     }
                 );
             }
@@ -108,20 +115,248 @@ export class PointManager {
     __initExportButton() {
         let instance = this;
         $( "#export-points").click(
-            function importJSONPoints() {
-                let filename = "points.json";
-                let url = document.URL;
-                let documentFilename = url.substring(url.lastIndexOf('/') + 1);
-                let annotations = instance.annotations.toJSON();
-                let measurements = instance.measurements.toJSON();
-                let json = Object.assign({"filename": documentFilename}, annotations, measurements);
-                let text = JSON.stringify(json);
-                Utils.saveTextAs(text , filename);
+            function exportJSONPoints() {
+                $.ajax({
+                    url: '/get_user_rol',
+                    type: "POST",
+                    data: JSON.stringify({}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: 
+                        function(data){
+                            let url = document.URL;
+                            let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                            let annotations = instance.annotations.toJSON();
+                            let measurements = instance.measurements.toJSON();
+                            let rol = data['rol'];
+
+                            $.ajax({
+                                url: '/get_user_email',
+                                type: "POST",
+                                data: JSON.stringify({}),
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8",
+                                success: 
+                                    function(data){
+                                        let email = data["email"]
+
+                                        if(rol != "Profesor"){
+                                            for (let annotation of annotations["annotations"]) {
+                                                let prevAnnotationTag = annotation.tag;
+                                                annotation.tag = "@" + email.split("@")[0] + "-" + prevAnnotationTag;
+                                            }
+            
+                                            for (let measurement of measurements["measurements"]) {
+                                                let prevMeasurementTag = measurement.tag;
+                                                measurement.tag = "@" + email.split("@")[0] + "-" + prevMeasurementTag;
+                                            }
+                                        }
+
+                                        let json = Object.assign({"filename": documentFilename}, annotations, measurements);
+                                        $.ajax({
+                                            url: '/_add_checksum_to_json',
+                                            type: "POST",
+                                            data: JSON.stringify(json),
+                                            dataType: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            success: 
+                                                function(data){
+                                                    let filename = "pointsExport.json";
+                                                    Utils.saveTextAs(JSON.stringify(data), filename)
+                                                }
+                                        });
+                                    }
+                            });
+                        }
+                });
             }
         ).button({
             icon: "ui-icon-arrowthickstop-1-s",
             text: false
         });
+    }
+
+    /**
+     * Inits the save button on the menu.
+     */
+    __initSaveButton() {
+        let instance = this;
+        $( "#save-points").click(
+            function exportJSONPoints() {
+                let url = document.URL;
+                let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                let annotations = instance.annotations.toJSON();
+                let measurements = instance.measurements.toJSON();
+                let json = Object.assign({"filename": documentFilename}, annotations, measurements);
+                $.ajax({
+                    url: '/_save_json_in_my_folder',
+                    type: "POST",
+                    data:  JSON.stringify({'json' : JSON.stringify(json),'filename': document.getElementById("nombre").innerHTML, 'exercise' : document.getElementById("ejercicio").innerHTML}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: 
+                        function (data) {
+                        }
+                });
+            }
+        ).button({
+            icon: "ui-icon-document",
+            text: false
+        });
+    }
+
+    /**
+     * Inits the load button on the menu.
+     */
+    __initLoadButton() {
+        let instance = this;
+        $( "#load-points").click(
+            function () {
+                $.ajax({
+                    url: '/_load_json_in_visor',
+                    type: "POST",
+                    data: JSON.stringify({'exercise': document.getElementById("ejercicio").innerHTML, 'filename': document.getElementById("nombre").innerHTML}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: 
+                        function (data) {
+                            
+                            //Warn when the file we are importing doesn't match the model.
+                            let url = document.URL;
+                            let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                            let jsonFilename = data["filename"];
+                            if (jsonFilename !== documentFilename) {
+                                $( "#not-same-model-warn").dialog({
+                                    title: "Warning!",
+                                });
+                            }
+
+                            //Load annotations.
+                            let annotations = data["annotations"];
+                            for (let annotation of annotations) {
+                                let point = annotation.points[0];
+                                let tag = annotation.tag;
+                                instance.annotations.addPoint(point, tag);
+                            }
+                            //Load measurements.
+                            let measurements = data["measurements"];
+                            for (let measurement of measurements) {
+                                let point1 = measurement.points[0];
+                                let point2 = measurement.points[1];
+                                let tag = measurement.tag;
+                                instance.measurements.addPoint(point1);
+                                instance.measurements.addPoint(point2, tag);
+                            }
+                        }
+                });
+            }
+        ).button({
+            icon: "ui-icon-arrowthickstop-1-n",
+            text: false
+        });
+    }
+
+
+    /**
+     * Inits the cancel button on the menu.
+     */
+    __initCancelButton() {
+        let instance = this;
+        $( "#cancel-exercise").click(
+            function exportJSONPoints() {
+                let url = document.URL;
+                let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                let annotations = instance.annotations.toJSON();
+                let measurements = instance.measurements.toJSON();
+                let json = Object.assign({"filename": documentFilename}, annotations, measurements);
+                $.ajax({
+                    url: '/_cancel_started_exercise',
+                    type: "POST",
+                    data: JSON.stringify({'json': json, 'exercise': document.getElementById("ejercicio").innerHTML, 'filename': document.getElementById("nombre").innerHTML}),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: 
+                        function (data) {
+                            if(data['changed']){
+                                let dialog = $( "#confirm-save-tag" );
+                                dialog.dialog({
+                                    title: "¿Desea guardar los cambios?",
+                                    modal: true,
+                                    buttons: {
+                                        "Sí": function(){
+                                            $("#save-points").click();
+                                            $("#redirect-to-list").click();
+                                            $(this).dialog("close");
+                                        },
+                                        "No": function() {
+                                            $.ajax({
+                                                url: '/_delete',
+                                                type: "POST",
+                                                data: JSON.stringify({'filename' : document.getElementById("nombre").innerHTML, 'exercise': data["exercise"]}),
+                                                dataType: "json",
+                                                contentType: "application/json; charset=utf-8",
+                                                success: 
+                                                    function(data){
+                                                    }
+                                            });
+                                            $("#redirect-to-list").click();
+                                            $(this).dialog("close");
+                                        },
+                                        "Cancelar": function() {
+                                            $(this).dialog("close");
+                                        }
+                                    }
+                                        });
+                            }else{
+                                $("#redirect-to-list").click();
+                            }
+                        }
+                });
+            }
+        ).button({
+            icon: "ui-icon-close",
+            text: false
+        });
+    }
+
+    /**
+     * Reset the exercise to the begining
+     */
+    __initResetButton(){
+        let instance = this;
+        $(document).ready(function(){
+            $("#reset-anotations-mesaurements").click(
+                function resetExercise() {
+
+                    //Removing Annotations
+                    var i;
+                    for (i = instance.annotations.elements.length - 1; i >= 0 ; --i){
+                        instance.annotations.removeParticle(instance.annotations.elements[i]);
+                    }
+
+                    //Removing Measurements
+                    var j;
+                    for (j = instance.measurements.elements.length - 1; j >= 0 ; --j){
+                        instance.measurements.removeParticle(instance.measurements.elements[j]);
+                    }
+
+                    //Loading starting points
+                    $("#load-points").click();
+                }
+            ).button({
+                icon: "ui-icon-refresh",
+                text: false
+            });
+        })
+    }
+
+    /**
+     * Loads points automatically on page load
+     */
+    __initPointsLoad(){
+        $(document).ready(function(){
+            $("#load-points").click();
+        })
     }
 }</code></pre>
         </article>
@@ -133,13 +368,13 @@ export class PointManager {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AbstractElement.html">AbstractElement</a></li><li><a href="AbstractTool.html">AbstractTool</a></li><li><a href="AnnotationElement.html">AnnotationElement</a></li><li><a href="AnnotationTool.html">AnnotationTool</a></li><li><a href="Line.html">Line</a></li><li><a href="MeasurementElement.html">MeasurementElement</a></li><li><a href="MeasurementTool.html">MeasurementTool</a></li><li><a href="Particle.html">Particle</a></li><li><a href="PointManager.html">PointManager</a></li><li><a href="ScalePanel.html">ScalePanel</a></li><li><a href="Scene.html">Scene</a></li><li><a href="Sphere.html">Sphere</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#annotations">annotations</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#measurements">measurements</a></li><li><a href="global.html#myScene">myScene</a></li><li><a href="global.html#pointManager">pointManager</a></li><li><a href="global.html#scalePanel">scalePanel</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AbstractElement_AbstractElement.html">AbstractElement</a></li><li><a href="AbstractTool_AbstractTool.html">AbstractTool</a></li><li><a href="AnnotationElement_AnnotationElement.html">AnnotationElement</a></li><li><a href="AnnotationTool_AnnotationTool.html">AnnotationTool</a></li><li><a href="Line_Line.html">Line</a></li><li><a href="MeasurementElement_MeasurementElement.html">MeasurementElement</a></li><li><a href="MeasurementTool_MeasurementTool.html">MeasurementTool</a></li><li><a href="Particle_Particle.html">Particle</a></li><li><a href="PointManager_PointManager.html">PointManager</a></li><li><a href="ScalePanel_ScalePanel.html">ScalePanel</a></li><li><a href="Scene_Scene.html">Scene</a></li><li><a href="Sphere_Sphere.html">Sphere</a></li><li><a href="Utils.html">Utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#animate">animate</a></li><li><a href="global.html#annotations">annotations</a></li><li><a href="global.html#controls">controls</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#measurements">measurements</a></li><li><a href="global.html#myScene">myScene</a></li><li><a href="global.html#pointManager">pointManager</a></li><li><a href="global.html#scalePanel">scalePanel</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Jun 18 2017 01:04:33 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jan 17 2018 14:59:59 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

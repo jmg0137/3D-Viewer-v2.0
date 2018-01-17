@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: Particle.js</title>
+    <title>JSDoc: Class: ScalePanel</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,56 +17,184 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: Particle.js</h1>
+    <h1 class="page-title">Class: ScalePanel</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
- * @fileoverview Abstract class for THREE.Object3D objects.
- */
+        <h2><span class="attribs"><span class="type-signature"></span></span>ScalePanel<span class="signature">(myScene)</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">It helps to know the scale of the model.</div>
+        
+    
+</header>
 
-export class Particle {
-    /**
-     * @constructor
-     * @class Particle class, to provide functionality common to the THREE.Object3D objects.
-     * @abstract
-     * @param {Scene} myScene - The scene which this particle belongs to.
-     * @param {THREE.Color} defaultColor -  The default color the object instance must have.
-     * @param {THREE.Color} hightlightedColor - The color the instance must have when it's hightlighted.
-     */
-    constructor(myScene, defaultColor, highlightedColor) {
-        this.myScene = myScene;
-        this.defaultColor = defaultColor;
-        this.highlightedColor = highlightedColor;
-        this.threeObject = null;
-        if (this.constructor === Particle) {
-            throw new TypeError("Abstract class 'AbstractElement' cannot be instantiated.");
-        }
-        if (this.toggleColor === undefined) {
-            throw new TypeError("toggleColor method must be implemented.");
-        }
-        if (this.clear === undefined) {
-            throw new TypeError("clear method must be implemented.");
-        }
-        if (this.add === undefined) {
-            throw new TypeError("add method must be implemented.");
-        }
-    }
+<article>
+    <div class="container-overview">
+    
+        
 
-    /**
-     * Getter for the uuid property on the threeObject.
-     */
-    get uuid() {
-        return this.threeObject.uuid;
-    }
-}</code></pre>
-        </article>
-    </section>
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="ScalePanel"><span class="type-signature"></span>new ScalePanel<span class="signature">(myScene)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>myScene</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Scene.html">Scene</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The scene which we want to manage its scale.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ScalePanel.js.html">ScalePanel.js</a>, <a href="ScalePanel.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
