@@ -37,7 +37,7 @@ seed = None
 counter = 0
 
 #Coordenates
-pointsXYZ = ['x','y','z']
+pointsXYZ = ['v1','v2','v3']
 
 def myRandom(num):
     """
@@ -472,7 +472,7 @@ def upload():
     :rtype: flask.Response
 
     """
-    global seed
+    global seed, counter
 
     #We initialize the seed each time we access to the upload page
     #seed = getInitialSeed()
@@ -489,16 +489,17 @@ def upload():
                 APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
 
             #We create a folder to do exercises in the model we are uploading
-            if not os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]))):
-                os.makedirs(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0])))
+            if not os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(file.filename.split(".")[0]))):
+                os.makedirs(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(file.filename.split(".")[0])))
 
             #Then we encript the uploaded file
             fileToUpload = read_ply(os.path.join(
                 APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)))
 
             for coord in pointsXYZ:
+                counter = 0
                 seed = getInitialSeed()
-                fileToUpload['points'][coord] = list(map(applyChange, fileToUpload['points'][coord]))
+                fileToUpload['mesh'][coord] = list(map(applyChange, fileToUpload['mesh'][coord]))
 
             write_ply(os.path.join(
                 APP.config['UPLOAD_FOLDER'], secure_filename(file.filename)), fileToUpload['points'], fileToUpload['mesh'], True)
