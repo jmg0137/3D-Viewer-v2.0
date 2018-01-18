@@ -2,6 +2,101 @@
 
 \section{Introducción}
 
+Primero de todo mencionar que los siguientes apartados se han sacado del Manual del Programador del proyecto predecesor (consultar~\cite{github:alberto-viewer}) ya que, de no ser así, tendríamos que referenciar continuamente y la persona interesada podría tener problemas para el despliegue o modificación.
+En este apartado mostraremos la información necesaria para cualquier persona que quiera ejecutar nuestra aplicación o realizar modificaciones en la misma.
+
+\section{Manual de despliegue}\label{manual-despliegue}
+Vamos a ver los pasos a realizar para desplegar la aplicación desde cero. No obstante y con el fin de facilitar el despliegue, tenemos un par de \textit{scripts} para dicha tarea: 
+podemos emplear \texttt{<<install\_run.bat>>} para Windows, además de \texttt{<<install\_run.sh>>} para Linux. Si la ejecución del \textit{script} lanza algún error, siempre podemos realizar una instalación paso a paso. A su vez, trataremos de desplegar nuestra aplicación en el servidor <<Arquímedes>> con su configuración previa (ver sección~\ref{sec:arquimedes-conf}).
+
+\subsection{Lanzar un terminal o consola}
+Para comenzar, lo primero que tendremos que hacer es ejecutar una consola, algo realmente fácil. En Windows por ejemplo, pulsando \texttt{<<Windows + R>>} podemos ejecutar un comando. En este caso, queremos lanzar la consola de comandos, así que teclearemos \texttt{<<cmd>>} en el recuadro de texto y pulsaremos ejecutar. Así de fácil.
+En versiones recientes de Windows, también podremos utilizar la \texttt{<<Powershell>>} si así lo deseamos. En el menú de inicio podemos buscar la aplicación como tal.
+En Linux lanzar el terminal incluso suele estar asociado a un atajo de teclado: \texttt{<<Ctrl + Alt + T>>}. En caso contrario, podemos buscar en el menú de aplicaciones, suele estar nombrado como \texttt{<<Terminal>>}, otras veces como \texttt{<<XTerm>>}, etc.
+Finalmente, en Mac se llama \texttt{<<Terminal>>}.
+
+\subsection{Instalando Python}\label{instalar-python}
+Los componentes en que se basa el servidor web necesitan Python, que será nuestra primera parada. Para ello, iremos a la página de descargas de Python, y nos descargaremos la versión \texttt{<<3.6.4>>}\footnote{\url{https://www.python.org/downloads/release/python-364/}} para nuestro sistema operativo. Tras la descarga, procederemos a su instalación. Durante el proceso en Windows, se preguntará si desea añadir Python al \texttt{PATH} del sistema. Si desea utilizar los comandos tal cual se escriben aquí, debe aceptar esta opción. Si no, en vez de escribir \texttt{<<python3>>} o \texttt{<<pip3>>}, deberá introducir la ruta absoluta de los binarios.
+
+\subsection{Creando un entorno virtual}\label{crear-venv}
+Tras completar el paso anterior, vamos a instalar algunos componentes. Si ya tenemos más instalaciones de Python, o si simplemente queremos que nuestra instalación siga limpia, deberemos hacer un pequeño rodeo creando un  entorno virtual sobre el que recaigan los componentes. Insistimos, si has leído estos casos y no te sientes identificado, puedes saltarse esta explicación.
+
+\noindent\verb|$ python3 -m venv mi_venv|
+
+Lo que hace el código arriba descrito\footnote{Es posible que el comando \texttt{<<python3>>} no sea reconocido en ocasiones; sería posible que el alias real para la instalación sea \texttt{<<python>>.}} es crear un entorno virtual en la carpeta actual bajo la carpeta visor. Una vez creado, queremos que las dependencias se instalen en él así que necesitamos activarlo primero. Para ello, escogemos la opción según nuestro sistema operativo, escogiéndola de la tabla~\ref{tabla:comandos-source} y nuestra consola para ejecutarla en un terminal.
+
+\begin{tabular}{lll}
+	\otoprule
+	Posix   & bash/zsh   & \verb|$ source mi_venv/bin/activate|          \\
+	\cline{2-3}
+	& fish       & \verb|$ . mi_venv/bin/activate.fish|          \\
+	\cline{2-3}
+	& csh/tcshq  & \verb|$ source mi_venv/bin/activate.csh|      \\
+	\midrule
+	Windows & cmd.exe    & \verb|C:\> mi_venv\Scripts\activate.bat|    \\
+	\cline{2-3}
+	& Powershell & \verb|PS C:\> mi_venv\Scripts\Activate.ps1| \\
+	\bottomrule
+\end{tabular}\label{tabla:comandos-source}
+
+Ahora, si instalamos las dependencias se hará dentro de este entorno, sin <<manchar>> nuestra instalación original. Cuando necesitemos salir de dicho entorno virtual, teclearemos \texttt{<<deactivate>>}, o simplemente cerraremos el terminal.
+
+\subsection{Instalando las dependencias Python}\label{instalar-dependencias-python}
+En la carpeta raíz del proyecto, encontramos un archivo \texttt{<<requirements.txt>>}. A éste debemos hacer mención con el comando \texttt{pip3}\footnote{es posible que también necesitemos escribirlo sin el \texttt{<<3>>}.}:
+
+\noindent\verb|$ pip3 install -r <ruta proyecto>/requirements.txt|
+
+Con las dependencias ya instaladas, tenemos que dar permisos de acceso a los usuarios que deseemos.
+
+\subsection{Dando permisos a usuarios}
+Si queremos que un usuario pueda utilizar la aplicación, tenemos que incluirlo en la base de datos. Con el fin de facilitar añadir usuarios a dicha tabla, tenemos un método del que nos podemos aprovechar en el módulo \texttt{<<MyApp>>}, llamado \texttt{<<import\_users\_to\_db>>}. Para llamarlo, desde la línea de comandos debemos seleccionar la carpeta \texttt{<<MyApp>>} mediante el comando \texttt{<<cd>>}. Como argumento al mismo, escribiremos la carpeta hacia el cual nos queremos dirigir. Si lo que deseamos es ir un directorio hacia arriba, escribiremos como parámetro \texttt{<<..>>}.
+
+Si la consola nos indica por ejemplo que estamos sobre la carpeta MyApp del proyecto, subiremos una posición escribiendo:
+
+\noindent\verb|$ cd ..|
+
+Si la consola nos indica que estamos en la carpeta que contiene el proyecto (típicamente \texttt{<<3D-Viewer-v2.0>>)}, entonces podemos iniciar el terminal interactivo de python mediante:
+
+\noindent\verb|$ python3|
+
+Dentro del mismo, podremos importar el módulo \texttt{<<MyApp>>} mediante:
+
+\noindent\verb|>>>import MyApp|
+
+Ahora, emplearemos el método que queríamos, \texttt{<<import\_users\_to\_db>>}. Podemos hacerlo sin parámetro:
+
+\noindent\verb|>>>MyApp.import_users_to_db()|
+
+Y, entonces buscará el archivo \texttt{<<instance\slash users\textunderscore to\textunderscore import.csv>>} por defecto. Si por el contrario, deseamos que busque otro archivo (siempre dentro de la carpeta \texttt{<<instance>>}), se lo podemos pasar como parámetro:
+
+\noindent\verb|>>>MyApp.import_users_to_db('otro_archivo')|
+
+De esta manera, los usuarios dentro de este archivo serán importados a la base de datos para otorgarles permiso de acceso. El archivo que vamos a emplear para decirle los usuarios, tiene que tener un formato especial: \textit{CSV}. Éste es realmente sencillo de realizar mediante un programa de hoja de cálculo como <<Excel>>, <<Numbers>> o <<Calc>>, por mencionar los más conocidos. Simplemente llenaremos las celdas de la siguiente manera:
+
+\tablaSmallSinColores{Ejemplo de \textit{CSV}}{cc}{ejemplo-csv}
+{
+	\textbf{email} & \textbf{nombre} \\
+}
+{
+	email@mail.com & pepito \\
+	secret@mail.com & 007 Agent \\
+}
+
+Como se ve, en cada columna hay un tipo de dato, y el nombre de dicho dato se determina mediante la cabecera de dicha columna. Las celdas inferiores a la misma contendrán los datos de dicho valor para cada uno de los usuarios. Lo mismo pasa con el resto de las columnas.
+
+Pista: para introducir estos datos en la hoja de cálculo correspondiente, normalmente se pueden pegar directamente desde una tabla en un navegador, etc.
+
+Una vez los datos en la hoja de cálculo el programa correspondiente tendrá un pequeño asistente para conseguir exportar a \textit{CSV} los valores introducidos. Dicha orden suele encontrarse en el menú \texttt{<<Archivo>>}, bajo la opción \texttt{<<Exportar...>>}, \texttt{<<Exportar como...>>}, \texttt{<<Guardar como...>>}, etc. Normalmente podremos emplear los parámetros por defecto del asistente, pero no nos olvidemos de guardar el archivo en la carpeta \texttt{<<instance>>} con el nombre adecuado.
+
+Nota: En el momento de redactar esta sección, el único campo necesario es el \textit{email}, pero para saber a ciencia cierta cuáles son los campos por almacenar, conviene echar un vistazo al \textit{script} de creación en \texttt{<<MyApp/sql\textunderscore scripts\slash schema.sql>>}.
+
+\subsection{Lanzando el servidor}
+Ahora, en la carpeta raíz del proyecto, encontraremos el fichero \texttt{<<runserver.py>>} al que haremos referencia con la orden:
+
+\noindent\verb|$ python3 <ruta proyecto>/runserver.py|
+
+Et \textit{voilà}: el servidor está lanzado, y el terminal nos indica la dirección que debemos introducir para consultar el contenido: \texttt{<<localhost:5000>>} o \texttt{<<127.0.0.1:5000>>} como se prefiera. Por fin debería ver la interfaz de la aplicación.
+
 \section{Estructura de directorios}
 \noindent Para comenzar, mostraremos los archivos existentes en la raíz del proyecto. Cabe mencionar que la estructura de la versión anterior del visor ha sido modificada ya que no seguía una estructura correcta para su despliegue en un servidor. Por ello, la aplicación en sí se encuentra en la raíz.
 
@@ -94,6 +189,90 @@ Archivos de configuración para nuestro \textit{IDE} (Visual Studio Code).
 
 \section{Manual del programador}\label{sec:manual-programador}
 
+\subsection{Instalando dependencias Node}
+Para labores de desarrollo, necesitaremos tener instalado Node y algunas dependencias extra. Podremos si tecleamos desde la carpeta raíz del proyecto el siguiente comando:
+
+\noindent\verb|$ npm install|
+
+Éste y todos los comandos que sean con npm, deberán ser ejecutados desde la misma ruta.
+
+\subsection{Transpilación JavaScript}
+Durante el desarrollo del proyecto, separamos el código JavaScript en diferentes fuentes, que requieren para funcionar de realizar una transpilación a un estándar que comprendan los navegadores actuales. Aunque éstos soportan gran parte de las características de \textit{ES6} (\textit{ES2015}), estándar en el que hemos escrito el fuente original, hay elementos que todavía no soportan, como los \textit{import} entre las diferentes clases. Adicionalmente, aprovechamos para hacer el archivo destino más pequeño, en un proceso denominado \textit{minifying}.
+Para ello, vamos a empaquetar el código de una manera más adecuada, y nos ayudaremos de rollup:
+
+\noindent\verb|$ npm run build|
+
+Si por ejemplo estamos desarrollando, sería molesto llamar a esta función cada vez que hiciésemos un cambio. Para ello, hemos implementado una configuración que nos permitirá invocar una sola vez a un comando de transpilación, y cada vez que realicemos un cambio automáticamente se generará el fichero destino en formato \textit{minified}. Para hacer esto, tenemos que llamar al comando:
+
+\noindent\verb|$ npm run build dev|
+
+\subsection{Construir la documentación JavaScript}
+Para hacerlo, tenemos otro \textit{script} incluido en la configuración de Node para facilitarnos la tarea. Solamente hay que escribir:
+
+\noindent\verb|$ npm run jsdoc|
+
+\subsection{Construir la documentación de Python}
+Construir la documentación de Python es igual de sencillo:
+
+\noindent\verb|$ npm run pydoc-http|
+
+Eso sí, hay que tener en cuenta que éste comando no nos avisa de que sigamos algunas pautas recomendables, así que necesitamos de otro comando para revisar la sintaxis:
+
+\noindent\verb|$ npm run pydoc-style|
+
+\subsection{Usando el analizador de modelos: eliminando puntos superfluos}
+Con el fin de mejorar los modelos, añadimos varias funciones a nuestras herramientas con el fin de <<recortar>> en la medida de lo posible el espacio que ocupan los modelos, además de evitar errores posteriores con los mismos.
+
+Hemos empaquetado toda la funcionalidad en un módulo Python, por lo que abriremos la dicha consola sobre la carpeta \texttt{<<Resources>>}:
+
+\noindent\verb|$ python3|
+
+A continuación, cargaremos la función a emplear:
+
+\noindent\verb|>>> from ply_utils import process_ply_file|
+
+Con la función cargada, aplicaremos los parámetros necesarios.
+
+\noindent\verb|>>> process_ply_file('una ruta de archivo', 'encoding')|
+
+La ruta de archivo puede ser tanto relativa como absoluta.
+El parámetro de \texttt{encoding} es opcional, y si se incluye debe ser \texttt{<<b'ascii'>>}, \texttt{<<b'binary\_little\_endian'>>} o \texttt{<<b{'binary\_big\_endian'}>>}.
+
+Este último parámetro es el que nos permitirá comprimir los archivos \textit{ASCII} en formato binario, más compacto. Así mismo, podremos generar un fichero \textit{ASCII} a partir de uno binario.
+
+\subsection{Babel - Internacionalización}
+Como el proceso ya está iniciado, en el manual detallaremos la actualización y no el comienzo.
+La instalación de Babel es un requisito incluido en \texttt{<<requirements.txt>>}, así que podemos instalarlo junto con el resto de dependencias del proyecto (preferentemente en el entorno virtual):
+
+\noindent\verb|$ pip3 install -r requirements.txt|
+
+Los ficheros que Babel procesa están determinados por babel.cfg, así que cualquier necesidad extra deberemos reflejarla en dicho archivo.
+Al añadir o eliminar las cadenas a procesar del código, necesitamos que Babel sepa cuales son sus cambios, así que le pedimos las extraiga:
+
+\noindent\verb|$ pybabel extract -F babel.cfg -k lazy_gettext -o messages.pot .|
+
+Nota: Ojo al punto final, no es una errata, tiene significado (directorio actual).
+
+Aunque es improbable que dejemos de emplear las sustituciones perezosas (son las lazy\_gettext), si dejasen de ser necesarias podríamos quitar la parte \texttt{<<-k lazy\_gettext>>} del comando.
+Si queremos añadir un idioma que todavía no existe, entonces tenemos que crear un fichero inicial del mismo:
+
+\noindent\verb|$ pybabel init -i messages.pot -d translations -l es|
+
+El parámetro \texttt{<<-d translations>>} dictamina que el nuevo fichero tendrá como destino la carpeta translations, para que tengamos todas las traducciones juntas.
+El parámetro \texttt{<<-l es>>} determina el lenguaje; en este caso es el castellano, así que si queremos otro diferente tenemos que buscar la abreviatura adecuada\footnote{\url{http://babel.pocoo.org/en/latest/api/languages.html\#module-babel.languages}} según el proyecto que hemos empleado (flask-babel)\footnote{\url{https://github.com/python-babel/flask-babel}}\footnote{\url{https://pythonhosted.org/Flask-Babel/}}, tendríamos que revisar la versión de \textit{CLDR} empleada por Babel.
+
+Si el idioma ya estaba creado, entonces no queremos que nos sobre-escriba lo que ya teníamos traducido. Entonces, le pediremos nos actualice las referencias mediante:
+
+\noindent\verb|$ pybabel update -i messages.pot -d translations|
+
+Añadirá las nuevas cadenas, y aquellas que ya no encuentre, cambiará su marca de \texttt{<<\#:>>} a \texttt{<<\#\textasciitilde>>}.
+
+El único paso que nos quedará entonces será el de generar los ficheros que emplea Babel:
+
+\noindent\verb|$ pybabel compile -d translations|
+
+Y eso es todo, ya podemos tener las últimas etiquetas traducidas de forma dinámica.
+
 \subsection{Instalación y configuración de Moodle como API Rest}
 Como se mencionó en los aspectos relevantes de la memoria, es necesario configurar \textit{Moodle} para poder utilizarlo como una \textit{API Rest}. A continuación se detalla como configurar la \textit{API}.
 
@@ -177,7 +356,7 @@ Una vez conocidos estos datos, decidimos modificar únicamente los valores que o
 Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-corrected-encripted}:
 \imagen{skull-corrected-encripted}{Modelo de encriptado.}{0.9}
 
-\section{Configuración de  <<Arquímedes>>}
+\section{Configuración de  <<Arquímedes>>}\label{sec:arquimedes-conf}
 Debido a que no tenemos los permisos necesarios para configurar el servidor personalmente, tenemos que depender de u operador que realice las operaciones que le sean indicadas. Esto conlleva una pérdida considerable de tiempo y por ello a llevado, entre otras razones, más tiempo del programado para dicha tarea. Por un lado detallaremos como hemos configurado nuestra máquina personal para posteriormente poder facilitar las instrucciones necesarias a nuestro operador. Por otro lado, incluiremos las modificaciones realizadas para poder adaptar la configuración de nuestra máquina a la del servidor <<Arquímedes>>.
 
 \subsection{Configuración de nuestra máquina personal}
