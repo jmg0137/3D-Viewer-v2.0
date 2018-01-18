@@ -84,7 +84,7 @@ export class PointManager {
                                             let point1 = measurement.points[0];
                                             let point2 = measurement.points[1];
                                             let tag = measurement.tag;
-                                            instance.measurements.addPoint(point1,'');
+                                            instance.measurements.addPoint(point1, tag);
                                             instance.measurements.addPoint(point2, tag);
                                         }
 
