@@ -44,37 +44,75 @@ export class PointManager {
                 let file = this.files[0];
                 let json = Utils.loadJSON(file,
                     function(event){
+                        var corrupt =  false;
                         let text = event.target.result;
                         let json = JSON.parse(text);
 
-                        //Warn when the file we are importing doesn't match the model.
-                        let url = document.URL;
-                        let documentFilename = url.substring(url.lastIndexOf('/') + 1);
-                        let jsonFilename = json.filename;
-                        if (jsonFilename !== documentFilename) {
-                            $( "#not-same-model-warn").dialog({
-                                title: "Warning!",
-                            });
-                        }
+                        let json_check = JSON.parse(JSON.stringify(json));
+                        delete json_check['checksum'];
+                        delete json_check['timestamp'];
 
-                        //Load annotations.
-                        let annotations = json.annotations;
-                        for (let annotation of annotations) {
-                            let point = annotation.points[0];
-                            let tag = annotation.tag;
-                            instance.annotations.addPoint(point, tag);
-                        }
-                        //Load measurements.
-                        let measurements = json.measurements;
-                        for (let measurement of measurements) {
-                            let point1 = measurement.points[0];
-                            let point2 = measurement.points[1];
-                            let tag = measurement.tag;
-                            instance.measurements.addPoint(point1,'');
-                            instance.measurements.addPoint(point2, tag);
-                        }
+                        $.ajax({
+                            url: '/_add_checksum_to_json',
+                            type: "POST",
+                            data: JSON.stringify(json_check),
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: 
+                                function(data){
+                                    if(json['checksum'] == data['checksum']){
+                                        //Warn when the file we are importing doesn't match the model.
+                                        let url = document.URL;
+                                        let documentFilename = url.substring(url.lastIndexOf('/') + 1);
+                                        let jsonFilename = json.filename;
+                                        if (jsonFilename !== documentFilename) {
+                                            $( "#not-same-model-warn").dialog({
+                                                title: "Warning!",
+                                            });
+                                        }
 
-                        $("#file").val('');
+                                        //Load annotations.
+                                        let annotations = json.annotations;
+                                        for (let annotation of annotations) {
+                                            let point = annotation.points[0];
+                                            let tag = annotation.tag;
+                                            instance.annotations.addPoint(point, tag);
+                                        }
+                                        //Load measurements.
+                                        let measurements = json.measurements;
+                                        for (let measurement of measurements) {
+                                            let point1 = measurement.points[0];
+                                            let point2 = measurement.points[1];
+                                            let tag = measurement.tag;
+                                            instance.measurements.addPoint(point1,'');
+                                            instance.measurements.addPoint(point2, tag);
+                                        }
+
+                                    }else{
+                                        $.ajax({
+                                            url: '/get_user_rol',
+                                            type: "POST",
+                                            data: JSON.stringify(data),
+                                            dataType: "json",
+                                            contentType: "application/json; charset=utf-8",
+                                            success: 
+                                                function(data){
+                                                    if(data['rol'] == 'Profesor'){
+                                                        $( "#copy-warn").dialog({
+                                                            title: "Warning!",
+                                                        });
+                                                    }else{
+                                                        $( "#copy-warn").dialog({
+                                                            title: "Warning!",
+                                                        });
+                                                    }
+                                                }
+                                        });
+                                    }
+
+                                    $("#file").val('');
+                                }
+                        });
                     }
                 );
             }
