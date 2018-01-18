@@ -459,6 +459,9 @@ def delete_model():
     if os.path.exists(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename.split(".")[0] + ".png"))):
         os.remove(os.path.join(APP.config['UPLOAD_FOLDER'], secure_filename(filename.split(".")[0] + ".png")))
 
+    if os.path.exists(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0]))):
+        shutil.rmtree(os.path.join(APP.config['EXERCISE_FOLDER'], secure_filename(filename.split(".")[0])))
+
     return jsonify(json_data)
 
 @APP.route('/upload', methods=["GET", "POST"])
@@ -680,9 +683,9 @@ def finish_json():
     """
     json_data = request.get_json()
     #With just the integer part is way enough.
-    json_data["timestamp"] = int(time.time())
     json_md5 = hashlib.md5(json.dumps(json_data, sort_keys=True) \
         .encode('utf-8')) \
         .hexdigest()
+    json_data["timestamp"] = int(time.time())
     json_data["checksum"] = json_md5
     return jsonify(json_data)
