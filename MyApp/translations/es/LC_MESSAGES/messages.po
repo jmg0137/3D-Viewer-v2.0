@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-13 12:44+0100\n"
+"POT-Creation-Date: 2018-01-18 12:38+0100\n"
 "PO-Revision-Date: 2017-05-22 14:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -76,7 +76,7 @@ msgstr "El usuario no está cursando esta asignatura"
 msgid "User or password incorrect"
 msgstr "Usuario o contraseña incorrectos"
 
-#: views.py:506 views.py:513
+#: views.py:510 views.py:517
 #, python-format
 msgid "File '%(filename)s' successfully uploaded"
 msgstr "Archivo '%(filename)s' subido con éxito"
@@ -157,39 +157,51 @@ msgstr ""
 "El archivo de puntos que estás importando no se corresponde con\n"
 "\t\t\tel mismo modelo: siga bajo su cuenta y riesgo."
 
-#: templates/visor.html:190 templates/visor_exercise.html:9
+#: templates/visor.html:190
+msgid ""
+"The file you are triying to import is corrupted, student may have copied "
+"between them."
+msgstr ""
+"El archivo que estás intentando importar está corrupto, los alumnos pueden haberse copiado entre ellos"
+
+#: templates/visor.html:196
+msgid "The file you are triying to import is corrupted, could not be imported."
+msgstr ""
+""El archivo que estás intentando importar está corrupto, no se pudo importar""
+
+#: templates/visor.html:202 templates/visor_exercise.html:9
 msgid "Import points"
 msgstr "Importar puntos"
 
-#: templates/visor.html:191 templates/visor_exercise.html:10
+#: templates/visor.html:203 templates/visor_exercise.html:10
 msgid "Export points"
 msgstr "Exportar puntos"
 
-#: templates/visor.html:191
+#: templates/visor.html:203
 msgid "Import & Export"
 msgstr "Importar y Exportar"
 
-#: templates/visor.html:200
+#: templates/visor.html:212
 msgid "Annotations"
 msgstr "Anotaciones"
 
-#: templates/visor.html:207 templates/visor.html:225
+#: templates/visor.html:219 templates/visor.html:237
 msgid "Unselect all"
 msgstr "Deseleccionar todo"
 
-#: templates/visor.html:208 templates/visor.html:226
+#: templates/visor.html:220 templates/visor.html:238
 msgid "Add"
 msgstr "Añadir"
 
-#: templates/visor.html:209 templates/visor.html:227
+#: templates/visor.html:221 templates/visor.html:239
 msgid "Remove"
 msgstr "Eliminar"
 
-#: templates/visor.html:210 templates/visor.html:228
+#: templates/visor.html:222 templates/visor.html:240
 msgid "Edit"
 msgstr "Editar"
 
-#: templates/visor.html:218
+#: templates/visor.html:230
 msgid "Measurements"
 msgstr "Mediciones"
 
