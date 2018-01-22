@@ -365,7 +365,15 @@ export class PointManager {
      */
     __initPointsLoad(){
         $(document).ready(function(){
-            $("#load-points").click();
+            if(document.getElementById("loaded").innerHTML == "True"){
+                $("#load-points").click();
+            }else{
+                var myInterval = setInterval(function(){
+                    if(document.getElementById("loaded").innerHTML == "True"){
+                        $("#load-points").click();
+                        clearInterval(myInterval);
+                    }}, 1000);
+            }
         })
     }
 }

@@ -26,8 +26,16 @@
  *
  */
 
-
 THREE.PLYLoader = function ( manager ) {
+
+	THREE.DefaultLoadingManager.onLoad = function ( ) {
+
+		var paragraph = document.createElement("P");
+		var content = document.createTextNode("True");
+		paragraph.appendChild(content);
+		var elem = document.getElementById("loaded").innerHTML = paragraph.innerHTML;
+		
+	};
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
