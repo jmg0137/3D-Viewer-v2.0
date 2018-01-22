@@ -24,6 +24,13 @@
 % Ecuaciones
 \usepackage{amsmath}
 
+%Para las ecuaciones en formato SI
+\usepackage{eurosym}
+\usepackage{amstext} % for \text
+\DeclareRobustCommand{\officialeuro}{%
+	\ifmmode\expandafter\text\fi
+	{\fontencoding{U}\fontfamily{eurosym}\selectfont e}}
+
 % Rutas de fichero / paquete
 \newcommand{\ruta}[1]{{\sffamily #1}}
 
