@@ -74,7 +74,7 @@ export class MeasurementTool extends AbstractTool {
         if (!lastElement || lastElement.isComplete()) {
             if(tag != undefined){
                 if(!tag.includes("@")){
-                    measurement = new MeasurementElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
+                    measurement = new MeasurementElement(this.myScene, Utils.getColor("measurement-standard"), Utils.getColor("student-highlighted"));
                 } else {
                     measurement = new MeasurementElement(this.myScene, Utils.getColor("student-standard"), Utils.getColor("student-highlighted"));
                 }
