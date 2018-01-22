@@ -1,4 +1,5 @@
 <html>
+<link href='https://fonts.googleapis.com/css?family=Amaranth' rel='stylesheet'>
 <head>
     <title>{{ _('Login') }}</title>
     <style type="text/css">
@@ -7,33 +8,47 @@
             margin: 0px;
             --start-color: #AFC;
             --end-color: #CF6;
-            background-image: -webkit-gradient(linear, left top, left bottom, from(var(--start-color)), to(var(--end-color)));
-            background-image: -webkit-linear-gradient(top, var(--start-color), var(--end-color));
-            background-image: -moz-linear-gradient(top, var(--start-color), var(--end-color));
-            background-image: linear-gradient(to bottom, var(--start-color), var(--end-color));
+            background-image: url("../static/images/skeleton.png");
+			background-size: cover;
         }
         .login-div {
+			position: absolute;
+			top: 30%;
+			left: 38%;
             margin: 0 auto;
-            margin-top: 10px;
-            width: 300px;
+            width: 400px;
+			height: 300px;
             padding: 10px;
-            background-color: rgba(255, 0, 255, 0.25);
+            background-color: white;
+			border-radius: 10px;
+			opacity: 0.6;
         }
         .login-div h1 {
             text-align: center;
-            color: #aa223c;
+			font-family: 'Amaranth';
+            color: #0099ff;
         }
         .login-div form {
             margin: 26px;
         }
         #email, #password {
             width: 100%;
-            margin-bottom: 10px;
+			height: 40px;
+            margin-bottom: 1px;
             text-align: center;
+			border-radius: 10px;
+			font-size: 15px;
         }
         #submit {
             width: 100%;
-            margin-top: 10px;
+			height: 40px;
+            margin-top: 1px;
+			background-color: #0099ff;
+			color: white;
+			border-radius: 10px;
+			font-size: 20px;
+			font-weight: bold;
+			font-family: 'Amaranth';
         }
         img {
             float: left;
@@ -54,14 +69,18 @@
     {% for message in form.password.errors %}
         <div class="flash">{{ message }}</div>
     {% endfor %}
-    <img src="{{ url_for('static', filename='images/escudo_COLOR_1L_DCHA.png') }}">
+    <img id="escudo" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='images/escudo_COLOR_1L_DCHA.png') }}">
     <div class="login-div">
         <h1>{{ _("Login form") }}</h1>
         <form action="" method="POST">
             {{ form.csrf_token }}
-            {{ form.email(placeholder=_("Email")) }}
+			<div id="email-login">
+				{{ form.email(placeholder=_("Email")) }}
+			</div>
             <br>
-            {{ form.password(placeholder=_("Password")) }}
+			<div id="pass-login">
+				{{ form.password(placeholder=_("Password")) }}
+			</div>
             <br> 
             {{ form.submit }}
         </form>
