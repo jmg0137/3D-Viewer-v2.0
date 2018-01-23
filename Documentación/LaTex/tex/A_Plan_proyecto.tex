@@ -118,10 +118,58 @@ Podemos observar el progreso del \textit{sprint} en la figura~\ref{fig:sprint-14
 \subsection{Sprint 15 - 08-01-2018/14-01-2018}
 En este \textit{sprint} continuaremos pendientes de la configuración de <<Arquímedes>> para ejecutar nuestra aplicación debido a que durante finales del mes de Diciembre no se ha trabajado en ello (operador del servidor). A su vez nos centraremos en realizar pruebas y corregir errores encontrados, así como elaborar la documentación del proyecto.
 
+Podemos observar el progreso del \textit{sprint} en la figura~\ref{fig:sprint-15}
+\imagen{sprint-15}{Progreso en el \textit{sprint} 15.}{0.9}
+
+\subsection{Sprint 16 - 15-01-2018/21-01-2018}
+En este \textit{sprint} trataremos de corregir los errores más relevantes de la memoria y anexos y completar éstos en la medida de lo posible. A su vez, realizaremos una reorganización de los diagramas de casos de uso para una mejor visibilidad y comprensión. Así mismo, corregiremos errores de vulnerabilidad en nuestra aplicación. Como último objetivo de este \textit{sprint}, cambiaremos la estética de la página de \textit{login}.
+
+Podemos observar el progreso del \textit{sprint} en la figura~\ref{fig:sprint-16}
+\imagen{sprint-16}{Progreso en el \textit{sprint} 16.}{0.9}
+
+\subsection{Sprint 17 - 22-01-2018/28-01-2018}
+En este \textit{sprint} solucionaremos los errores en la carga de los ejercicios (se intentan cargar los puntos en el modelo antes de que éste se encuentre completamente cargado). Posteriormente, corregiremos errores en la importación de medidas ya que el color obtenido no es el correcto dependiendo de los roles. Refiriéndonos a la estética de la aplicación, cambiaremos el tono de la barra de navegación para mejor visibilidad y mejoraremos la distribución de los mensajes de error de la página de \textit{login}. Por último, realizaremos la documentación referente al estudio de viabilidad y los diagramas de secuencia para la especificación de diseño.
+
+
 \section{Estudio de viabilidad}
+En este apartado explicaremos los distintos escenarios en los que aplicar nuestro proyecto para lograr su futuro desarrollo.
 
 \subsection{Viabilidad económica}
+A continuación, analizaremos la viabilidad económica de nuestro proyecto detallando los gastos que hubiera supuesto en los diferentes niveles de una empresa.
+
+\subsubsection{Coste de personal}
+Los recursos humanos empleados en nuestro proyecto han sido el alumno y los tutores. En primer lugar, el alumno ha empleado 20 semanas a media jornada (20 horas semanales). Suponiendo que el alumno tiene un salario mensual bruto de 700\euro{} , al que restándole los gastos de seguridad social del alumno nos deja 656.04\euro{} netos, lo cual ha sido obtenido a partir de\footnote{\url{http://www.seg-social.es/Internet_1/Trabajadores/CotizacionRecaudaci10777/Basesytiposdecotiza36537/index.htm}}:
+
+\begin{itemize}
+	\item Desempleo: 1.55\%
+	\item Formación Profesional: 0.03\%
+	\item Contingencias Comunes: 4.7\%
+\end{itemize}
+
+Esto hace un total de un 6,28\% para el trabajador, por lo que multiplicándolo por el número de meses que ha requerido el proyecto hace un total de 3280.2\euro{} por parte del alumno.
+
+Para calcular el coste de las reuniones con los tutores se conoce que el sueldo base de un ayudante de doctor es de 1815,61 euros mensuales o 21787,32 anuales\footnote{\url{http://www.ubu.es/sites/default/files/portal_page/files/pdi_laboral_2017_2.pdf}}. En total se imparten 24 créditos con un coste anual por crédito de 907,805\euro{}, por lo que teniendo dos tutores que son ayudantes de doctor tendremos:
+
+\[ (907,805\euro{} * 0,5 créditos) + (907,805\euro{} * 0.5 créditos) = 907,805\euro{}\]
+
+Por lo que el total de costes sería de:
+
+\[ 3280,2\euro{} + 907,805\euro{} = 4188,005\euro{} \]
+
+\subsubsection{Coste de hardware}
+En primer lugar, mencionamos que no se ha necesitado de ningún equipo informático adicional para la correcta realización del proyecto. No obstante, deberemos calcular el coste \textit{hardware} de los equipo utilizados en nuestro proyecto.
+
+En este caso, se ha desarrollado nuestra aplicación únicamente en un equipo portátil y estimando su valor en 1400\euro{} y suponiendo una vida útli de 10 años y 20 semanas de proyecto, tenemos un coste de amortización de 54\euro{} aproximadamente:
+\[ \frac{1400\euro}{10 \ a\textit{ñ}os} * \frac{1 \ a\textit{ñ}o}{52 \ semanas} * 20 \ semanas \approx 54\euro \]
+
+\subsubsection{Coste de software}
+Este proyecto es una segunda versión y se ha desarrollado empleando plataformas \textit{software} libre para todo lo imprescindible como son las herramientas de documentación, navegadores, \textit{IDE}, etc. Lo único distinto con respecto a su versión anterior ha sido la integración de la aplicación en un servidor proporcionado por la Universidad de Burgos, el cual tiene un SO gratuito, por lo que el coste \textit{software} es nulo.
+
+\subsubsection{Coste total}
+Así, realicemos un cálculo del coste total del proyecto:
 
 \subsection{Viabilidad legal}
+Como se mencionó en la versión anterior a nuestro proyecto (~\cite{github:alberto-viewer}), uno de los datos potencialmente sensibles que manejará la aplicación serán los modelos a visualizar. Por ello, tendremos que estar atentos a los posibles cambios con el tipo de licencia que puedan poseer dichos modelos. No por el tipo de fichero ni porque dicho tipo sea propietario --pues es un estándar abierto--, sino por la preferencia de mantener los mencionados modelos a buen recaudo. Además de lo anterior, también almacenaremos unos pocos datos de carácter personal (por el momento solo el correo electrónico institucional).
+A su vez, cabe mencionar que la imágenes utilizadas para la estética de la aplicación tienen licencia con derecho a reutilización y a reutilización con modificaciones.
 
-
+\subsection{Software}
