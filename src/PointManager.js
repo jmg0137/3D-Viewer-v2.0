@@ -372,7 +372,7 @@ export class PointManager {
                     if(document.getElementById("loaded").innerHTML == "True"){
                         $("#load-points").click();
                         clearInterval(myInterval);
-                    }}, 1000);
+                    }}, 500);
             }
         })
     }
