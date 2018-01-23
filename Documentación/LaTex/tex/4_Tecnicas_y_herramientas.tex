@@ -17,7 +17,7 @@ Aunque nuestra aplicación esté orientada a impartir una docencia online desde 
 	\item Implementación de aulas virtuales
 \end{itemize}
 
-Moodle ofrece ciertas características de administración, dentro de las cuales entran los roles de usuario, que tienen un papel importante en nuestra \textit{API} (sección~\ref{sec:roles}). Los privilegios de cada uno de los roles son diferentes y cada uno tiene una funcionalidad diferente y es por esto que necesitábamos una instalación local, para poder probar cada uno de los roles~\cite{wiki:moodle}.
+Moodle ofrece ciertas características de administración, dentro de las cuales entran los roles de usuario, que tienen un papel importante en nuestra \textit{API} (sección~\ref{sec:roles}). Los privilegios de cada uno de los roles son distintos y cada uno tiene una funcionalidades diferentes y es por esto que necesitábamos una instalación local, para poder probar cada uno de los roles~\cite{wiki:moodle}.
 
 \section{Sublime Text}
 Para la edición del los diferentes \textit{scripts} utilizaremos este editor de texto ya que, además de ser gratuito (aunque un tanto cargante con solicitar la compra de la versión de pago), es intuitivo y nos proporciona una interfaz cómoda para trabajar,además de una función de auto completar altamente útil.
@@ -30,9 +30,9 @@ Como se menciona en \textit{Wikipedia}: "\TeX{} studio es un editor de \LaTeX{} 
 Hemos utilizado esta herramienta, la cual en realidad es una página web que nos ayuda a interpretar la información obtenida en formato \textit{JSON} y simplificarnos su vista~\cite{json:jsnomate}.
 
 \section{PuTTY}
-\textit{PuTTY} es un cliente \textit{SSH, Telnet, rlogin, y TCP raw} disponible para \textit{Windows} y en varias plataformas de \textit{Unix} (Versión \textit{Mac OS}). Hemos utilizado esta herramienta para acceder al servidor arquimedes (sección \ref{sec:arquimedes}) desde nuestra máquina con \textit{Windows}, ya que desde \textit{Linux} realizamos las llamadas mediante el comando \texttt{ssh}~\cite{wiki:putty}.
+\textit{PuTTY} es un cliente \textit{SSH, Telnet, rlogin, y TCP raw} disponible para \textit{Windows} y en varias plataformas de \textit{Unix} (Versión \textit{Mac OS}). Hemos utilizado esta herramienta para acceder al servidor Arquimedes (sección \ref{sec:arquimedes}) desde nuestra máquina con \textit{Windows}, ya que desde \textit{Linux} realizamos las llamadas mediante el comando \texttt{ssh}~\cite{wiki:putty}.
 
-\section{Servidor arquimedes}\label{sec:arquimedes}
+\section{Servidor Arquimedes}\label{sec:arquimedes}
 Se trata de un servidor proporcionado por la Universidad de Burgos para poder desplegar nuestra aplicación. Este servidor contiene una máquina con un sistema operativo \textit{Ubuntu} 16.04\footnote{\url{https://arquimedes.ubu.es/}}.
 
 \section{Comparativa servidores para desplegar Flask}\label{sec:comparativa-servidores}
@@ -45,7 +45,7 @@ A continuación, mostraremos una tabla con las diferentes herramientas seleccion
 		\centering
 		\caption{Tabla comparativa servidores. ¿Por qué utilizar cada servidor?}
 		\label{serverTable}
-		\begin{tabular}{p{3.5cm} p{3.5cm} p{3.5cm} p{3.5cm}}
+		\begin{tabular}{p{5cm} p{5cm} p{5cm} p{5cm}}
 			\toprule
 			\textbf{Apache} & \textbf{uWSGI} & \textbf{Stand-Alone (Gunicorn)} & \textbf{Stand-Alone (Twisted Web)} \\
 			\midrule
@@ -58,7 +58,7 @@ A continuación, mostraremos una tabla con las diferentes herramientas seleccion
 Inicialmente escogimos \textit{Gunicorn} como método de despliegue de nuestra aplicación debido a su sencillez y compatibilidad con \textit{Apache} (compatible con extensiones y utilidades). A medida que avanzamos, nos dimos cuenta de que \textit{Gunicorn} no cumplía nuestras expectativas, así como una falta de información de configuración en nuestro caso. Por ello, finalmente nos decantamos por \textit{Apache} (mod\_wsgi) para el despliegue de nuestra aplicación.
 
 \section{<<Librería>> Pyntcloud}
-La palabra librería se encuentra entrecomillada ya que no es una biblioteca en sí misma, sino una serie de recursos que en nuestro caso han sido utilizados para la lectura de os archivos \textit{PLY}, tanto formato \textit{ASCII} como \textit{Binario} (ver sección \textbf{3.2 Formato PLY}~\cite{github:alberto-viewer}\footnote{Consultar apartado Conceptos Teóricos del proyecto predecesor al nuestro.})\footnote{\url{https://github.com/daavoo/pyntcloud/blob/master/pyntcloud/io/ply.py}}.
+La palabra librería se encuentra entrecomillada ya que no es una biblioteca en sí misma, sino una serie de recursos que en nuestro caso han sido utilizados para la lectura de os archivos \textit{PLY}, tanto formato \textit{ASCII} como \textit{Binario} (ver sección \textbf{3.2 Formato PLY}~\cite{github:alberto-viewer} (Consultar apartado Conceptos Teóricos del proyecto predecesor al nuestro).)\footnote{\url{https://github.com/daavoo/pyntcloud/blob/master/pyntcloud/io/ply.py}}.
 
 De esta manera, los modelos se leerán tanto en formato \textit{ASCII} como en \textit{Binario} almacenando los vértices y las caras por separado en dos \textit{DataFrames} diferentes. A su vez, diferencia entre los modelos con color a los modelos en escala de grises utilizando estructuras como las que se aprecia en las figuras~\ref{fig:dataframeColor} y~\ref{fig:dataframeNoColor}:
 \imagen{dataframeColor}{DataFrame que contiene los vértices y colores.}{0.9}
