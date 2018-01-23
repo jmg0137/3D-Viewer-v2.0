@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-18 12:38+0100\n"
+"POT-Creation-Date: 2018-01-23 14:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,43 +17,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: forms.py:19 templates/login.html:62
+#: forms.py:20 templates/login.html:95
 msgid "Email"
 msgstr ""
 
-#: forms.py:21
-msgid "Introduce an email."
-msgstr ""
-
 #: forms.py:22
-msgid "Introduce a valid email."
+msgid "Email required"
 msgstr ""
 
-#: forms.py:23 templates/login.html:64
+#: forms.py:23
+msgid "Introduce a valid email"
+msgstr ""
+
+#: forms.py:24 templates/login.html:99
 msgid "Password"
 msgstr ""
 
-#: forms.py:24
+#: forms.py:25
 msgid "Password required"
 msgstr ""
 
-#: forms.py:25
+#: forms.py:26
 msgid "Enter"
 msgstr ""
 
-#: forms.py:40
+#: forms.py:41
 msgid "Browse files"
 msgstr ""
 
-#: forms.py:42
+#: forms.py:43
 msgid "No file was selected"
 msgstr ""
 
-#: forms.py:43
+#: forms.py:44
 msgid "Only ply!"
 msgstr ""
 
-#: forms.py:44 templates/navigation_bar.html:14 templates/upload.html:6
+#: forms.py:45 templates/navigation_bar.html:14 templates/upload.html:6
 msgid "Upload"
 msgstr ""
 
@@ -61,28 +61,32 @@ msgstr ""
 msgid "You are not allowed, contact administrator"
 msgstr ""
 
-#: views.py:229
-msgid "Only one session permited, close session and please log in again"
+#: views.py:230
+msgid "Only one session permited, close session and"
 msgstr ""
 
-#: views.py:242
+#: views.py:230
+msgid "please log in again"
+msgstr ""
+
+#: views.py:244
 msgid "User is not coursing this subject"
 msgstr ""
 
-#: views.py:245
+#: views.py:248
 msgid "User or password incorrect"
 msgstr ""
 
-#: views.py:510 views.py:517
+#: views.py:514 views.py:521
 #, python-format
 msgid "File '%(filename)s' successfully uploaded"
 msgstr ""
 
-#: templates/login.html:3
+#: templates/login.html:4
 msgid "Login"
 msgstr ""
 
-#: templates/login.html:59
+#: templates/login.html:91
 msgid "Login form"
 msgstr ""
 
@@ -134,65 +138,65 @@ msgstr ""
 msgid "3D Visor"
 msgstr ""
 
-#: templates/visor.html:172
+#: templates/visor.html:173
 msgid "Please, select just one."
 msgstr ""
 
-#: templates/visor.html:177
+#: templates/visor.html:178
 msgid ""
 "Because you didn't selected one object before press \"remove\",\n"
 "\t\t\tjust the next object you press will be deleted."
 msgstr ""
 
-#: templates/visor.html:183
+#: templates/visor.html:184
 msgid ""
 "The file of points you are importing does not correspond to\n"
 "\t\t\tthe not of the same model: do it at your own risk."
 msgstr ""
 
-#: templates/visor.html:190
+#: templates/visor.html:191
 msgid ""
 "The file you are triying to import is corrupted, student may have copied "
 "between them."
 msgstr ""
 
-#: templates/visor.html:196
+#: templates/visor.html:197
 msgid "The file you are triying to import is corrupted, could not be imported."
 msgstr ""
 
-#: templates/visor.html:202 templates/visor_exercise.html:9
+#: templates/visor.html:203 templates/visor_exercise.html:9
 msgid "Import points"
 msgstr ""
 
-#: templates/visor.html:203 templates/visor_exercise.html:10
+#: templates/visor.html:204 templates/visor_exercise.html:10
 msgid "Export points"
 msgstr ""
 
-#: templates/visor.html:203
+#: templates/visor.html:204
 msgid "Import & Export"
 msgstr ""
 
-#: templates/visor.html:212
+#: templates/visor.html:213
 msgid "Annotations"
 msgstr ""
 
-#: templates/visor.html:219 templates/visor.html:237
+#: templates/visor.html:220 templates/visor.html:238
 msgid "Unselect all"
 msgstr ""
 
-#: templates/visor.html:220 templates/visor.html:238
+#: templates/visor.html:221 templates/visor.html:239
 msgid "Add"
 msgstr ""
 
-#: templates/visor.html:221 templates/visor.html:239
+#: templates/visor.html:222 templates/visor.html:240
 msgid "Remove"
 msgstr ""
 
-#: templates/visor.html:222 templates/visor.html:240
+#: templates/visor.html:223 templates/visor.html:241
 msgid "Edit"
 msgstr ""
 
-#: templates/visor.html:230
+#: templates/visor.html:231
 msgid "Measurements"
 msgstr ""
 

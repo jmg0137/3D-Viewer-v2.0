@@ -189,7 +189,7 @@ def login():
         password = form.password.data
 
         if not email_in_db(email):
-            message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>You are not allowed, contact administrator</div>")
+            message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>" + (gettext("You are not allowed, contact administrator")) + "</div>")
             flash(message)
             return redirect(url_for('login'))
 
@@ -227,7 +227,7 @@ def login():
                     rol = field['roles'][0]['name']
 
             if email in actualUserInfo.keys():
-                message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>Only one session permited, close session and <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; please log in again</div>")
+                message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>"+ (gettext("Only one session permited, close session and")) + "<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + (gettext("please log in again")) + "</div>")
                 flash(message)
                 actualUserInfo.pop(email, None)
                 return redirect(url_for('logout'))
@@ -241,11 +241,11 @@ def login():
 
                 return redirect(url_for('main'))
             else:
-                message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>User is not coursing this subject</div>")
+                message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>" + (gettext("User is not coursing this subject")) + "</div>")
                 flash(message)
                 return redirect(url_for('index'))
         else:
-            message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>User or password incorrect</div>")
+            message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>" + (gettext("User or password incorrect")) + "</div>")
             flash(message)
             return redirect(url_for('index'))
     else:
