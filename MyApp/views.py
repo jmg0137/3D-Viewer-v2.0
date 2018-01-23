@@ -4,7 +4,7 @@ import shutil
 import time, json, hashlib
 import requests
 from flask import request, render_template, flash, abort, \
-    send_from_directory, redirect, url_for, jsonify, session
+    send_from_directory, redirect, url_for, jsonify, session, Markup
 from werkzeug.utils import secure_filename
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_babel import gettext
@@ -189,7 +189,8 @@ def login():
         password = form.password.data
 
         if not email_in_db(email):
-            flash(gettext("You are not allowed, contact administrator"))
+            message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>You are not allowed, contact administrator</div>")
+            flash(message)
             return redirect(url_for('login'))
 
         #We declare the login params
@@ -226,7 +227,8 @@ def login():
                     rol = field['roles'][0]['name']
 
             if email in actualUserInfo.keys():
-                flash(gettext("Only one session permited, close session and please log in again"))
+                message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>Only one session permited, close session and <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; please log in again</div>")
+                flash(message)
                 actualUserInfo.pop(email, None)
                 return redirect(url_for('logout'))
 
@@ -239,10 +241,12 @@ def login():
 
                 return redirect(url_for('main'))
             else:
-                flash(gettext("User is not coursing this subject"))
+                message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>User is not coursing this subject</div>")
+                flash(message)
                 return redirect(url_for('index'))
         else:
-            flash(gettext("User or password incorrect"))
+            message = Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>User or password incorrect</div>")
+            flash(message)
             return redirect(url_for('index'))
     else:
         return render_template('login.html', form=form)

@@ -3,6 +3,8 @@
 <head>
     <title>{{ _('Login') }}</title>
     <style type="text/css">
+		@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+		
         body {
             height: 100%;
             margin: 0px;
@@ -10,6 +12,7 @@
             --end-color: #CF6;
             background-image: url("../static/images/skeleton.png");
 			background-size: cover;
+			z-index: -1;
         }
         .login-div {
 			position: absolute;
@@ -17,10 +20,11 @@
 			left: 38%;
             margin: 0 auto;
             width: 400px;
-			height: 300px;
+			height: 310px;
             padding: 10px;
             background-color: white;
 			border-radius: 10px;
+			z-index: 0;
         }
         .login-div h1 {
             text-align: center;
@@ -49,6 +53,20 @@
 			font-weight: bold;
 			font-family: 'Amaranth';
         }
+		.error {
+			position: absolute;
+			top: 58%;
+			left: 40%;
+			color: #D8000C;
+			background-color: #FFD2D2;
+			border-radius: 10px;
+			z-index: 1;
+		}
+		.error i {
+			margin:10px 22px;
+			font-size: 10px;
+			vertical-align:middle;
+		}
         img {
             float: left;
             width: 350px;
