@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-23 14:31+0100\n"
+"POT-Creation-Date: 2018-01-23 14:39+0100\n"
 "PO-Revision-Date: 2017-05-24 20:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: forms.py:20 templates/login.html:95
+#: forms.py:19 templates/login.html:95
 msgid "Email"
 msgstr "Email"
 
+#: forms.py:21
+msgid "Introduce an email."
+msgstr "Introduce an email."
+
 #: forms.py:22
-msgid "Email required"
-msgstr "Email required"
+msgid "Introduce a valid email."
+msgstr "Introduce a valid email."
 
-#: forms.py:23
-msgid "Introduce a valid email"
-msgstr "Introduce a valid email"
-
-#: forms.py:24 templates/login.html:99
+#: forms.py:23 templates/login.html:99
 msgid "Password"
 msgstr "Password"
 
-#: forms.py:25
+#: forms.py:24
 msgid "Password required"
 msgstr "Password required"
 
-#: forms.py:26
+#: forms.py:25
 msgid "Enter"
 msgstr "Enter"
 
-#: forms.py:41
+#: forms.py:40
 msgid "Browse files"
 msgstr "Browse files"
 
-#: forms.py:43
+#: forms.py:42
 msgid "No file was selected"
 msgstr "No file was selected"
 
-#: forms.py:44
+#: forms.py:43
 msgid "Only ply!"
 msgstr "Only ply files accepted!"
 
-#: forms.py:45 templates/navigation_bar.html:14 templates/upload.html:6
+#: forms.py:44 templates/navigation_bar.html:14 templates/upload.html:6
 msgid "Upload"
 msgstr "Upload"
 
@@ -239,4 +239,10 @@ msgstr "Exit"
 
 #~ msgid "Password required"
 #~ msgstr "Password required"
+
+#~ msgid "Email required"
+#~ msgstr "Email required"
+
+#~ msgid "Introduce a valid email"
+#~ msgstr "Introduce a valid email"
 

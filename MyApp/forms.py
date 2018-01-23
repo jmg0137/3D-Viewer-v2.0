@@ -3,8 +3,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Email
-from flask_babel import lazy_gettext, gettext
-from flask import Markup
+from flask_babel import lazy_gettext
 from . import APP
 
 
@@ -19,10 +18,10 @@ class EmailPasswordForm(FlaskForm):
 
     email = StringField(lazy_gettext(u"Email"),
                         validators=[
-                            InputRequired(Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>" + (lazy_gettext(u"Email required")) + "</div>")),
-                            Email(Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>" + (lazy_gettext(u"Introduce a valid email")) + "</div>"))])
+                            InputRequired(lazy_gettext(u"Introduce an email.")),
+                            Email(lazy_gettext(u"Introduce a valid email."))])
     password = PasswordField(lazy_gettext(u"Password"),
-                             validators=[InputRequired(Markup("<div class=\"error\"><i class=\"fa fa-times-circle\"></i>" + (lazy_gettext(u"Password required")) + "</div>"))])
+                             validators=[InputRequired(lazy_gettext(u"Password required"))])
     submit = SubmitField(lazy_gettext(u"Enter"))
 
 
