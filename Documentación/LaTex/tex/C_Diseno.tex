@@ -1,11 +1,56 @@
 \apendice{Especificación de diseño}
 
 \section{Introducción}
+A continuación especificaremos la manera en la que hemos organizado cada uno de los elementos del proyecto y detallaremos las razones de por qué lo hemos hecho así.
 
 \section{Diseño de datos}
+Este apartado junto con el diagrama de clases del apartado~\ref{sec:diseño-arquitectonico} se ha sacado de la primera versión de nuestro proyecto puesto que no se han realizado cambios. A su vez, se han modificado los diagramas de flujo sustituyéndolos por diagramas de secuencia para conocer el \textit{Proceso de login}, \textit{Selección de un Modelo} y \textit{Selección de un Ejercicio}.
+
+\subsection{Puntos}
+Necesitamos una convención para que nuestro sistema de importar y exportar puntos funcione correctamente. El archivo \textit{JSON} (ver código \ref{JSON-schema}) se compone por:
+\begin{itemize}
+	\item \texttt{filename} El nombre del modelo al que pertenece.
+	\item \texttt{annotations} Una lista con las diferentes anotaciones.
+	\item \texttt{measurements} Una lista con las medidas.
+	\item \texttt{timestamp} Una marca de tiempo de cuando se ha validado en el servidor.
+	\item \texttt{checksum} Un código de comprobación (\textit{md5} para ser concretos.)
+\end{itemize}
+Cada una de las anotaciones se compone por una etiqueta y un punto. Las medidas son una etiqueta y dos puntos. Finalmente, los puntos son tres números de tipo \textit{float} (\texttt{x}, \texttt{y}, \texttt{z}).
+
+La estructura de los archivos \textit{JSON} puede verse en el código \ref{JSON-schema}.
+
+\begin{lstlisting}[language=json, float, caption=Esquema JSON, label=JSON-schema]
+{"filename": "a filename",
+ "annotations": [annotation, ..., annotation],
+ "measurements": [measurement, ..., measurement]}
+
+annotation = {"tag": "a tag",
+			  points: [point]}
+
+measurement = {"tag": "a tag",
+			   points: [point, point]}
+
+point = {"x": float,
+		 "y": float,
+		 "z": float}
+\end{lstlisting}
 
 \section{Diseño procedimental}
+En el momento que el servidor está en línea, éste puede aceptar peticiones de inicio de sesión. Cuando un usuario lo solicita, es redirigido a la página de \textit{login}, en el que tendrá que introducir su correo y contraseña de UBUVirtual. Tras ello, el servidor buscará en su base de datos de usuarios si éste está presente en ella. Si no está, redirigiremos al usuarios a la página de \textit{login} anteriormente mencionada. Si pertenece, entonces el servidor lanza una consulta a la \textit{API} de UBUVirtual, para saber si también se encuentra reconocido como usuario en dicha plataforma y, en caso afirmativo, conocer su rol en una asignatura en concreto. Si no consta el correo, o si la contraseña es incorrecta, se redirige a la página de \textit{login}. En caso de que ambas preguntas sean correctas, dependiendo del rol que dicho usuario ocupe, tendrá la posibilidad de acceder únicamente a visualizar un modelo (rol de alumno) o podrá acceder a visualizar un modelo o un ejercicio (rol de profesor). En el caso de que se quiera visualizar un modelo, se redirigirá a la estantería de modelos desde la cual se elegirá el modelo a visualizar. En caso de querer consultar un ejercicio (únicamente el profesor), se realizará la misma mecánica pero esta vez se redirigirá a la estantería de ejercicios y, desde allí, se elegirá el ejercicio que corresponda.
 
-\section{Diseño arquitectónico}
+En la figura \ref{fig:login-sequence} se aprecia cómo sucede el proceso de \textit{login}.
+\imagen{login-sequence}{Proceso de \textit{login}}{0.9}
+
+Por ejemplo, si el siguiente proceso que queremos realizar es elegir el modelo, se seguirá el diagrama de la figura \ref{fig:select-model-sequence}.
+\imagen{select-model-sequence}{Selección de un modelo}{0.9}
+
+Si somos profesor, podremos a su vez elegir un ejercicio tal y como se aprecia en la figura \ref{fig:select-exercise-sequence}.
+\imagen{select-exercise-sequence}{Selección de un ejercicio}{0.9}
+
+\section{Diseño arquitectónico}\label{sec:diseño-arquitectonico}
+En la figura \ref{fig:class-diagram} el diagrama de clases que define la parte JavaScript del proyecto. La clase \texttt{<<Utils>>} aunque separada del resto, sí está relacionada con las demás clases, aunque para facilitar la comprensión hemos evitado las uniones. Dependen de ella las clases \texttt{<<AnnotationTool>>}, \texttt{<<MeasurementTool>>}, \texttt{<<PointManager>>} y \texttt{<<Scene>>}.
+\imagen{class-diagram}{Diagrama de clases de parte JavaScript}{1.0}
+
+Sin embargo, no añadiremos el diagrama de paquetes JavaScript, puesto que solamente existe uno.
 
 
