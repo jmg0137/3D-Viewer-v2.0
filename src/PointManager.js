@@ -102,7 +102,7 @@ export class PointManager {
                                                             title: "Warning!",
                                                         });
                                                     }else{
-                                                        $( "#copy-warn").dialog({
+                                                        $( "#copy-warn-student").dialog({
                                                             title: "Warning!",
                                                         });
                                                     }
