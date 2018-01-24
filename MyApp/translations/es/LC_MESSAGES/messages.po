@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-23 14:39+0100\n"
+"POT-Creation-Date: 2018-01-24 17:26+0100\n"
 "PO-Revision-Date: 2017-05-22 14:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -170,8 +170,7 @@ msgstr ""
 #: templates/visor.html:197
 msgid "The file you are triying to import is corrupted, could not be imported."
 msgstr ""
-"\"El archivo que estás intentando importar está corrupto, no se pudo "
-"importar\""
+"El archivo que estás intentando importar está corrupto, no se pudo importar"
 
 #: templates/visor.html:203 templates/visor_exercise.html:9
 msgid "Import points"
