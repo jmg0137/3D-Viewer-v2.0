@@ -32,6 +32,8 @@ Por otro lado, si su rol es el de \textbf{Alumno}, se encontrará con un único 
 En esta página podremos observar el listado de los modelos disponibles sobre los que podremos realizar ejercicios. Aquí podremos elegir qué modelo utilizar simplemente pinchando sobre este y automáticamente se abrirá una página como la mostrada en la sección~\ref{sec:rep-ejercicios-modelos}. Es entonces cuando encontraremos el listado de ejercicios disponibles para dicho modelo. Esta página sigue la estructura de la figura~\ref{fig:rep-ejercicios}.
 (IMAGEEEEEEEEEEEEEEEEN)
 
+Aunque siga la estructura de la estantería de los modelos, existe una pequeña diferencia. Esta diferencia reside en que desde la estantería de modelos podemos eliminar un modelo y desde la estantería de ejercicios no.
+
 \subsection{Repositorio de ejercicios para cada modelos}\label{sec:rep-ejercicios-modelos}
 Es en esta página donde encontraremos el listado de ejercicios disponibles para un modelo en concreto. Dicha página tiene la estructura de la figura~\ref{fig:rep-ejercicios-por-modelo}.
 (IMAGEEEEEEEEEEEEEEEEN)
@@ -45,7 +47,7 @@ A su vez, se resaltan tres botones en el ejercicio correspondiente con distintas
 Por último tenemos el botón de \textbf{Editar nombre} con el que podremos editar el nombre del ejercicio a nuestro gusto siempre y cuando respetemos las reglas de nombres correspondientes. Cuando pinchemos en dicho botón nos aparecerá un cuadro como el mostrado en la figura~\ref{fig:dialogo-edicion-nombre}, el cual nos permitirá guardar los cambios o cancelar el proceso.
 (IMAGEEEEEEEEEEEEEEEEN)
 
-Si la comvención de nombres no es respetada, nuestra aplicación mostrará una alerta como la de la figura~\ref{fig:alert-nombre}.
+Si la convención de nombres no es respetada, nuestra aplicación mostrará una alerta como la de la figura~\ref{fig:alert-nombre}.
 (IMAGEEEEEEEEEEEEEEEEN)
 
 \subsection{Visor}
@@ -56,11 +58,13 @@ Lo miso que en lo de Alberto.
 Este visor únicamente será visible para los usuarios con rol de \textbf{profesor} debido a que aquí se realizarán las plantillas de corrección para determinados ejercicios. Se compondrá de funcionalidades ampliadas para facilitar al usuario la corrección y visualización de ejercicios.
 
 \subsubsection{Acciones comunes en el visor de ejercicios}
-Dicho visor se compondrá de las mismas funcionalidades que en visor de modelos visible para los alumnos (añadir, borrar, editar, etc), con la diferencia que en este no tendremos la posibilidad de importar y exportar modelos. En este caso, los ejercicios realizados por el profesor será almacenados en el servidor, pudiendo editar estos en cualquier momento(como se puede ver en la sección~\ref{sec:rep-ejercicios-modelos}). La diferencia de este visor con respecto al anterior reside en la aparición de dos botones nuevos, uno de <<Guardar>> y otro de <<Salir>>. El visor mencionado tendrá la estructura de la figura~\ref{fig:visor-ejercicios}.
+Dicho visor se compondrá de las mismas funcionalidades que en visor de modelos visible para los alumnos (añadir, borrar, editar, etc), con la diferencia que en este no tendremos la posibilidad de importar y exportar modelos. En este caso, los ejercicios realizados por el profesor será almacenados en el servidor, pudiendo editar estos en cualquier momento(como se puede ver en la sección~\ref{sec:rep-ejercicios-modelos}). La diferencia de este visor con respecto al anterior reside en la aparición de tres botones nuevos, uno de <<Guardar>>, otro de <<Restablecer Datos>> y otro de <<Salir>>. El visor mencionado tendrá la estructura de la figura~\ref{fig:visor-ejercicios}.
 (IMAGEEEEEEEEEEEEEEEEEEEEEEEEEEN)
 
 El botón de guardar simplemente guardará los cambios realizados en las medidas y anotaciones, mientras que el botón de salir nos devolverá a la pantalla de ejercicios para cada modelo en el caso de no haber realizado cambios(sección~\ref{sec:rep-ejercicios-modelos}). Si cuando pulsamos este botón (<<Salir>>) se detectan cambios, nos aparecerá un diálogo de confirmación en la pantalla como el mostrado en la figura4~\ref{fig:confirmacion-salida-visor}.
 (IMAGEEEEEEEEEEEEEEEEEEEEEEEEEEN)
+
+Respecto al botón de <<Restablecer Datos>>, su función consiste en que teniendo el profesor un ejercicio hecho, y sobre éste carga el ejercicio de un alumno, posteriormente sea capaz de volver a su ejercicio inicial sin tener que salir del ejercicio y volver a entrar.
 
 De esta manera podremos salir del visor de ejercicios descartando o guardando los cambios, o simplemente cancelar el proceso de salida del ejercicio.
 
