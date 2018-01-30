@@ -178,7 +178,33 @@ En este apartado no se han realizado variaciones de la versión anterior, por lo
 Pasamos ahora a analizar la licencia que deberíamos tener en nuestro proyecto. Tendremos que observar las licencias de los elementos que hemos utilizado para su realización.
 Podemos observar las diferentes licencias de los componentes del proyecto en ~\ref{tabla:licencias}.
 
-
+\tablaApaisadaSmall{Licencias utilizadas en el proyecto}
+{p{3.5cm} c l c}
+{licencias}
+{
+	\textbf{Dependencia} & \textbf{Versión} & \textbf{Descripción} & \textbf{Licencia} \\
+}
+{
+	three.js & 84.0 & Motor de renderizado en navegadores. & MIT \\
+	dat.GUI & 0.62 & Librería para generación de menús. & Apache 2.0 \\
+	jQuery & 1.12.4 & Biblioteca para manejo \textit{DOM}. & Apache 2.0 \\
+	jQueryUI & 1.12.4 & Biblioteca con elementos \textit{UI} \textit{web}. & Apache 2.0 \\
+	rollup & 0.41.6 & Empaquetador de código. & MIT \\
+	rollup-plugin-node-resolve & 2.0.0 & \textit{Plugin} de rollup para manejar import. & MIT \\
+	rollup-plugin-uglify & 2.0.1 & \textit{Plugin} de rollup para comprimir el código. & MIT \\
+	rollup-watch & 3.2.2 & \textit{Plugin} para vigilar el proceso de \textit{minifying}. & MIT \\
+	uglify-es & 3.0.15 & \textit{Plugin} para comprimir código con formato \textit{ES6}. & BSD-2-Clause \\
+	jsdoc & 3.4.3 & Herramienta para extraer documentación de código JavaScript. &  Apache-2.0 \\
+	pydocstyle & 2.0.0 & Herramienta para extraer documentación de código Python. & MIT \\
+	Flask & 0.12.1 & \textit{Microframework} Python para servidor. & BSD \\
+	Flask-WTF & 0.14.2 & \textit{Plugin} Flask para soportar formularios. & BSD \\
+	Flask-Login & 0.4.0 & \textit{Plugin} Flask para restringir acceso de usuarios. & MIT \\
+	Flask-Babel & 0.11.2 & \textit{Plugin} Flask para soportar i18n y i10n. & BSD-3-Clause \\
+	Jinja2 & 2.9.6 & Motor de plantillas para Python. & BSD \\
+	requests & 2.14.2 & Librería para realizar peticiones \textit{HTTP}. & Apache 2.0 \\
+	Sphinx & 1.6.1 & Herramienta para generar documentación. & PSFL (BSD + GPL) \\
+	bitarray & 0.8.1 & Librería para manejo de \textit{arrays} binarios. & PSFL (BSD + GPL) \\
+}
 
 Analizando la tabla, vemos que el conjunto de las licencias está en MIT, Apache 2.0, BSD-2-Clause, BSD-3-Clause, BSD. Las licencias BSD y es más restrictiva que su hija la BSD-3-Clause, y esta a su vez más restrictiva que la BSD-2-Clause. Simplemente se diferencian en no poder emplear el nombre de la licencia para promover productos derivados sin permiso y en la obligatoriedad de mencionar la autoría del software en el que te bases para realizar tu proyecto. Pero para más simplicidad, evitaremos incluirlas en la figura~\ref{fig:comparativa-licencias}. De izquierda a derecha, las hemos ordenado de más permisivas a más restrictivas.
 

@@ -1,64 +1,132 @@
 \apendice{Documentación de usuario}
 
 \section{Introducción}
+En este apartado realizaremos una guía detallada para el usuario de cómo utilizar la aplicación. Desde este punto hasta la sección~\ref{sec:visor} se proporcionará la misma información que en la versión anterior en los puntos en los que no haya habido modificaciones~\cite{github:alberto-viewer}.
 
 \section{Requisitos de usuarios}
+La parte del visor funciona en Firefox 50 y posteriores, Safari 10.1 y superior, y Chrome en versiones superiores a la 58.
+Se requiere de conexión a Internet, además de estar autorizado a usar la aplicación.
 
 \section{Instalación}
+Suponemos que el usuario final tendrá un navegador web disponible, así que no necesitará instalar nada. No obstante, garantizamos la funcionalidad con Firefox\footnote{\url{https://support.mozilla.org/es/products/firefox/install-and-update-firefox}}.
 
 \section{Manual del usuario}
 En este apartado, se explicará cada una de las funcionalidades disponibles de nuestra aplicación.
 
+También definiremos algunos términos para conseguir una mejor comprensión de las instrucciones:
+\begin{itemize}
+	\item Barra de navegación: aparece en la parte superior de casi todas las vistas, y nos sirve para navegar por los diferentes elementos de la interfaz. Nos permite acceder al almacén de modelos, subir otros nuevos o cerrar sesión.
+	\item Modelo: versión digital de cada elemento físico que vamos a emplear (restos óseos, fósiles, etc).
+	\item Vista: cada una de las interfaces que es fundamentalmente diferente, en nuestro caso tenemos una página de \textit{login}, otra para subir nuevos modelos, otra más para previsualizar aquellos disponibles y otra para subir otros nuevos.
+	\item Anotación: elemento gráfico que permite etiquetar un punto o zona del modelo mediante una esfera pegada al mismo. La etiqueta aparece en el menú de anotaciones sobre la barra de herramientas.
+	\item Medida: elemento gráfico que permite conocer la distancia lineal entre dos puntos del modelos, además de poner un nombre concreto a dicha medida. En el modelo, se encuentra representada a través de dos esferas y una línea que las une. Aparecen sobre la barra de herramientas (concretamente sobre el menú de medidas) su etiqueta y medida.
+	\item Barra de herramientas: aparece en la parte izquierda en la vista del visor, y permite realizar acciones con anotaciones y medidas. Nos da acceso a las diferentes herramientas: anotaciones, medidas, y asistente de importación\slash exportación.
+	\item Visor: elemento gráfico que se encarga de mostrar un modelo. Es el rectángulo negro sobre el que se ve el modelo.
+\end{itemize}
+
+\subsection{Login de usuario}
+Una vez estemos autorizados a usar la aplicación (típicamente el responsable de la asignatura nos lo permitirá), lo primero que necesitamos hacer es conectarnos a la misma. Para ello, abriremos un navegador \textit{web} compatible e introduciremos la dirección apropiada. Una vez allí, nos aparecerá la ventana de \textit{login}, similar a la figura ~\ref{fig:login-page}. En ella vamos a introducir las mismas credenciales de acceso que empleamos para los servicios \textit{on-line} en la Universidad de Burgos. Dicha página nos redirigirá automáticamente a la sección adecuada.
+\imagen{login-page}{Página de login.}{0.9}
+
 \subsection{Barra de navegación}\label{sec:barra-navegacion}
 Este elemento se encontrará en todas las vistas de la aplicación a excepción de la página de \textit{login}. Dicho elemento nos proporcionará una navegación mas rápida y fluida a cada uno de los elementos incluidos en nuestra barra de navegación. A su vez, este elemento nos dotará de una herramienta conocida como \textit{miga de pan(breadcrumb)}. Dicha herramienta nos ayudará a encontrar el camino de vuelta a cualquier pantalla por la que hayamos pasado sin necesidad de volver al inicio y empezar de nuevo. Podemos apreciar en la figura~\ref{fig:barra-nav-main} la barra de navegación inicial, y en la figura~\ref{fig:barra-nav-breadcrumb} la barra de navegación con la utilización de \textit{migas de pan}.
-(IMAGEEEEEEEEEEEEEEEEN)
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{barra-nav-main}{Barra de navegación de la página principal.}{1.5}
+\imagen{barra-nav-breadcrumb}{Barra de navegación con miga de pan.}{1.5}
 
 Nuestra barra de navegación diferencia también entre usuarios con diferente rol. Dependiendo de nuestro rol (alumno o profesor), podremos acceder al apartado de subida de modelos (sección~\ref{sec:subir-modelos}). La diferencia entre las barras de navegación según el rol del usuario se pueden apreciar en las figuras~\ref{fig:barra-nav-profesor} y \ref{fig:barra-nav-alumno}.
-(IMAGEEEEEEEEEEEEEEEEN)
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{barra-nav-profesor}{Barra de navegación del profesor.}{1.5}
+\imagen{barra-nav-alumno}{Barra de navegación del alumno.}{1.5}
 
 \subsection{Página de inicio}
 Una vez se haya logueado correctamente, según sea su rol en la asignatura correspondiente, se encontrará con dos estructuras diferentes.
 Por un lado, si su rol es el de \textbf{profesor}, se topará con dos bloques que distinguen entre \textbf{Modelos} y \textbf{Ejercicios} como se representa en la figura~\ref{fig:main-page-profesor}.
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{main-page-profesor}{Página principal del profesor.}{0.9}
 
-El bloque de \textbf{Modelos} nos llevará a la estantería de los modelos en la que podremos elegir qué modelo visualizar, como se explica en la sección~\ref{sec:}. Por otro lado, el bloque de \textbf{Ejercicios} nos llevará al listado de los modelos disponibles para la realización de ejercicios, como se muestra en la sección~\ref{sec:rep-ejercicios}.
+El bloque de \textbf{Modelos} nos llevará a la estantería de los modelos en la que podremos elegir qué modelo visualizar, como se explica en la sección~\ref{sec:rep-modelos}. Por otro lado, el bloque de \textbf{Ejercicios} nos llevará al listado de los modelos disponibles para la realización de ejercicios, como se muestra en la sección~\ref{sec:rep-ejercicios}.
 
 Por otro lado, si su rol es el de \textbf{Alumno}, se encontrará con un único bloque llamado \textbf{Modelos} que nos redirigirá a la estantería de modelos en la que podremos elegir el modelo a visualizar. Sigue la estructura de la figura~\ref{fig:main-page-alumno}.
-(IMAAAGEEEEEEEEEEEEEN)
+\imagen{main-page-alumno}{Página principal del alumno.}{0.9}
+
+\subsection{Repositorio de modelos}\label{sec:rep-modelos}
+Una vez se haya conectado, lo más probable es que la primera página que vea sea la estantería de modelos. En ella podrá elegir el modelo que desea visualizar; para ello, solamente debe pinchar sobre este y automáticamente se abrirá un visor con el modelo seleccionado. Los modelos aparecerán con una miniatura para ser fácilmente identificables, tal y como se aprecia en la figura~\ref{fig:models-in-viewer}.
+\imagen{models-in-viewer}{Estantería de modelos.}{0.9}
+
+\subsection{Manipulando el modelo}
+Existen diferentes acciones básicas que podemos realizar para manipular el modelo y adecuar su posición consiguiendo así una mejor perspectiva del mismo; estas acciones son rotar, mover y enfocar.
+
+El enfoque o \textit{zoom} es realmente sencillo, solamente necesitamos mover la rueda del ratón. Para que esto suceda, el puntero debe estar ubicado dentro del visor. Como acción alternativa a esta (si nuestra rueda no funciona tan bien como quisiéramos), también podemos pinchar y mantener pulsado mediante el botón central del ratón (la rueda) mientras movemos el ratón.
+
+La rotación requiere que pinchemos con el botón izquierdo del ratón sobre el visor, mantengamos pulsado y movamos el puntero del ratón. Cuando soltemos, el movimiento del ratón dejará de afectar al modelo.
+
+El desplazamiento es similar a la rotación, pero se diferencia en que usa el botón derecho del ratón en vez de el izquierdo.
 
 \subsection{Repositorio de ejercicios}\label{sec:rep-ejercicios}
 En esta página podremos observar el listado de los modelos disponibles sobre los que podremos realizar ejercicios. Aquí podremos elegir qué modelo utilizar simplemente pinchando sobre este y automáticamente se abrirá una página como la mostrada en la sección~\ref{sec:rep-ejercicios-modelos}. Es entonces cuando encontraremos el listado de ejercicios disponibles para dicho modelo. Esta página sigue la estructura de la figura~\ref{fig:rep-ejercicios}.
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{rep-ejercicios}{Repositorio de ejercicios.}{0.9}
 
 Aunque siga la estructura de la estantería de los modelos, existe una pequeña diferencia. Esta diferencia reside en que desde la estantería de modelos podemos eliminar un modelo y desde la estantería de ejercicios no.
 
 \subsection{Repositorio de ejercicios para cada modelos}\label{sec:rep-ejercicios-modelos}
 Es en esta página donde encontraremos el listado de ejercicios disponibles para un modelo en concreto. Dicha página tiene la estructura de la figura~\ref{fig:rep-ejercicios-por-modelo}.
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{rep-ejercicios-por-modelo}{Repositorio de ejercicios para cada modelo.}{0.9}
 
 Como se puede apreciar, tenemos la imagen del modelo a un lado de la página y al otro el listado de ejercicios disponibles para dicho modelo. Cuando naveguemos por la lista de ejercicios veremos como se ilumina cada ejercicio al paso del ratón como se muestra en la figura~\ref{fig:resaltado-ejercicio}.
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{resaltado-ejercicio}{Resaltado de un ejercicio.}{0.9}
 
 A su vez, se resaltan tres botones en el ejercicio correspondiente con distintas funcionalidades. Por un lado tenemos el botón de \textbf{Editar}, el cual nos redirigirá al visor de ejercicios mencionado en la sección~\ref{sec:visor-ejercicios}. Por otro lado tenemos el botón de \textbf{Eliminar} con el nos aparecerá un diálogo de confirmación para la eliminación de dicho ejercicio como el mostrado en la figura~\ref{fig:confirmacion-eliminacion-ejercicio}.
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{confirmacion-eliminacion-ejercicio}{Diálogo de confirmación de eliminación de un ejercicio.}{0.9}
 
 Por último tenemos el botón de \textbf{Editar nombre} con el que podremos editar el nombre del ejercicio a nuestro gusto siempre y cuando respetemos las reglas de nombres correspondientes. Cuando pinchemos en dicho botón nos aparecerá un cuadro como el mostrado en la figura~\ref{fig:dialogo-edicion-nombre}, el cual nos permitirá guardar los cambios o cancelar el proceso.
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{dialogo-edicion-nombre}{Diálogo de edición del nombre de un ejercicio.}{0.9}
 
 Si la convención de nombres no es respetada, nuestra aplicación mostrará una alerta como la de la figura~\ref{fig:alert-nombre}.
-(IMAGEEEEEEEEEEEEEEEEN)
+\imagen{alert-nombre}{Alerta de que el nombre introducido no es válido.}{0.9}
 
-\subsection{Visor}
-En este apartado se ha modificado únicamente un aspecto con respecto a la versión anterior, la cual será descrita con mayor detalle en la sección~\ref{sec:import-export}.
+\subsection{Visor}\label{sec:visor}
+En este apartado se ha modificado únicamente un aspecto con respecto a la versión anterior, la cual será descrita con mayor detalle en la sección~\ref{sec:import-export}. El restod e información se adjuntará tal cual de la versión anterior con el fin de no generar dudas a un usuario a la hora de leer este manual. Por lo tanto la información que se muestra a continuación hasta el apartado~\ref{sec:visor-ejercicios} será la misma que la del proyecto de partida~\cite{github:alberto-viewer}.
+
 \subsubsection{Acciones comunes en el visor de modelos}
-Lo miso que en lo de Alberto.
+Tanto para el menú de anotaciones como el de medidas, existen acciones comunes. Éstas son:
+\begin{itemize}
+	\item Añadir: este botón añade un nuevo elemento tanto en el menú adecuado como en el visor.
+	\item Editar: mediante dicho botón podemos cambiar la etiqueta del mismo.
+	\item Eliminar: pulsando este botón borra la presencia de dicho elemento tanto del menú correspondiente como en el visor.
+	\item Seleccionar/Deseleccionar: esta acción no se lleva a cabo pulsando ningún botón; se realiza haciendo \textit{click} sobre cualquier elemento (anotación o medida) que aparezca tanto en el visor como en la lista del menú correspondiente. Sobre las medidas, se realiza pulsando sobre cualquiera de los dos puntos que la componen.
+	\item Deseleccionar todo: dicho botón nos permite desmarcar todos los elementos del mismo tipo que el del menú empleado.
+	\item Cambiar la escala: dentro del visor, en la parte superior derecha, tenemos un pequeño menú que nos permitirá realizar diversos ajustes con la escala del modelo, además de visualizar una malla para hacernos una idea de las dimensiones.
+\end{itemize}
+
+\subsubsection{Anotaciones}
+En la figura~\ref{fig:viewer-femur-annotation-greater-trocanter} podemos apreciar dos anotaciones sobre un fémur: el <<trocánter mayor>>, seleccionado y que aparece resaltado en la lista y en verde el modelo, y el <<trocánter menor>>, que no se encuentra seleccionado.
+\imagen{viewer-femur-annotation-greater-trocanter}{Dos anotaciones sobre un fémur.}{0.9}
+
+Para añadir una nueva anotación, pincharemos primero en el botón <<Añadir>> del menú de anotaciones, y después pincharemos sobre el modelo. Actualmente no se puede cancelar la acción de añadir, así que si pinchamos accidentalmente dicho botón, y no queríamos crear ninguna anotación, primero tendremos que añadir un punto cualquiera, y después eliminarlo.
+
+Para editar una anotación, primero tenemos que seleccionar la deseada. Seleccionaremos solamente una, ya sea desde el menú o a través del modelo. Después pulsaremos sobre <<Editar>>, y nos aparecerá una ventana para cambiar la etiqueta. Una vez cambiado el texto, podremos guardar los cambios pulsando <<Save>> o descartarlos, pudiendo pinchar tanto en <<Cancel>> como cerrando la ventana.
+En la figura~\ref{fig:viewer-femur-annotation-editing} podemos observar el diálogo que nos permite editar la anotación.
+\imagen{viewer-femur-annotation-editing}{Editando una anotación.}{0.9}
+
+Si lo que queremos es eliminar una anotación, seleccionaremos aquellas que deseemos descartar (en este caso sí pueden ser varias). Acto seguido, pulsaremos eliminar. Si no tenemos ninguna seleccionada antes de pulsar en <<Eliminar>>, podremos borrar la siguiente anotación sobre la que pulsemos. Desafortunadamente, en este segundo caso tenemos un comportamiento similar al de añadir: hasta que no eliminemos una anotación, no podemos cancelar este estado. Una <<solución>>, si nos hemos equivocado y no queremos eliminar ninguna de las anotaciones disponibles, reside en añadir nosotros otra de forma aleatoria. Así, la creamos con el procedimiento anterior, y después de ésto, lo que haremos es pinchar otra vez sobre la misma en el visor.
+
+Finalmente, si tenemos varias anotaciones seleccionadas y queremos que no lo estén, únicamente pincharemos en el botón <<Deseleccionar todo>> en el menú correspondiente.
+
+\subsubsection{Medidas}
+Para las medidas, los procedimientos antes descritos son similares, así que explicaremos las diferencias a continuación (además de emplear los botones de su menú).
+
+Cuando añadimos, tenemos que pulsar sobre dos ubicaciones del modelo para conseguir finalizar la medida.
+
+Editar se hace del mismo modo.
+
+Para eliminar una medida, la selección se puede realizar pinchando cualquiera de las dos esferas que componen una medida.
+
+Y por supuesto, deseleccionar todas ellas es idéntico.
 
 \subsubsection{Importación / Exportación}\label{sec:import-export}
 Se provee la misma funcionalidad de importación y exportación de anotaciones y medidas que en la versión anterior. La diferencia reside en que si un usuario decide exportar un conjunto de anotaciones y medidas para después poder volver a cargarlo en el visor, dependiendo del rol de usuario este fichero exportado tendrá contenido diferente.
 
 Si el rol de usuario es del alumno, tanto a las anotaciones y a las medidas se las añadirá una etiqueta con la estructura '@-<<identificador del correo del alumno>>' para que así la aplicación pueda diferenciar si se trata de un fichero exportado por un alumno o un profesor. Este cambio se verá reflejado una ver importado el ejercicio en cuestión en el que se apreciará el cambio de color entre anotaciones y medidas del alumno y el profesor, como se puede apreciar en la figura~\ref{fig:dif-import-colors}.
+
+\imagen{dif-import-colors}{Diferencia de colores entre profesor y alumno.}{0.9}
 
 En el caso del rol de profesor, no cambia ni el color de las esferas importadas ni el nombre de las anotaciones y medidas.
 
@@ -68,10 +136,10 @@ Este visor únicamente será visible para los usuarios con rol de \textbf{profes
 
 \subsubsection{Acciones comunes en el visor de ejercicios}
 Dicho visor se compondrá de las mismas funcionalidades que en visor de modelos visible para los alumnos (añadir, borrar, editar, etc), con la diferencia que en este no tendremos la posibilidad de importar y exportar modelos. En este caso, los ejercicios realizados por el profesor será almacenados en el servidor, pudiendo editar estos en cualquier momento(como se puede ver en la sección~\ref{sec:rep-ejercicios-modelos}). La diferencia de este visor con respecto al anterior reside en la aparición de tres botones nuevos, uno de <<Guardar>>, otro de <<Restablecer Datos>> y otro de <<Salir>>. El visor mencionado tendrá la estructura de la figura~\ref{fig:visor-ejercicios}.
-(IMAGEEEEEEEEEEEEEEEEEEEEEEEEEEN)
+\imagen{visor-ejercicios}{Imágen de la interfaz del visor de ejercicios.}{0.9}
 
 El botón de guardar simplemente guardará los cambios realizados en las medidas y anotaciones, mientras que el botón de salir nos devolverá a la pantalla de ejercicios para cada modelo en el caso de no haber realizado cambios(sección~\ref{sec:rep-ejercicios-modelos}). Si cuando pulsamos este botón (<<Salir>>) se detectan cambios, nos aparecerá un diálogo de confirmación en la pantalla como el mostrado en la figura4~\ref{fig:confirmacion-salida-visor}.
-(IMAGEEEEEEEEEEEEEEEEEEEEEEEEEEN)
+\imagen{confirmacion-salida-visor}{diálogo de confirmación de salida del visor de ejercicios.}{0.9}
 
 Respecto al botón de <<Restablecer Datos>>, su función consiste en que teniendo el profesor un ejercicio hecho, y sobre éste carga el ejercicio de un alumno, posteriormente sea capaz de volver a su ejercicio inicial sin tener que salir del ejercicio y volver a entrar.
 
@@ -79,10 +147,10 @@ De esta manera podremos salir del visor de ejercicios descartando o guardando lo
 
 \subsection{Subir modelos}\label{sec:subir-modelos}
 Finalmente, nos encontramos con la página de subida de modelos, la cual solamente estará visible en la barra de navegación (sección~\ref{sec:barra-navegacion}) para los usuarios con rol de \textbf{profesor}. Nos dirigiremos al apartado <<Subir>> en la barra de navegación y nos redirigirá a la página de la figura~\ref{fig:subida-modelos}.
-(IMAAAAAAGEEEEEEEEEEEEN)
+\imagen{subida-modelos}{Página de subida de modelos.}{0.9}
 
 A la hora de subir un modelo, pincharemos en <<Selección de archivo>> y nos aparecerá un diálogo en el que seleccionaremos el modelo con extensión <<\textit{.ply}>> correspondiente. Tras seleccionar el archivo pulsar en aceptar, pincharemos en el botón de \textbf{Subir} y tendremos que esperar a que nos aparezca el cuadro de confirmación como el de la figura~\ref{fig:confirmacion-subida}.
-(IMAAAAAAGEEEEEEEEEEEEN)
+\imagen{confirmacion-subida}{Diálogo de confirmación de subida correcta de un modelo o imagen <<.png>>.}{0.9}
 
 Si no realizamos la espera correspondiente, la cual puede demorarse en función del tamaño del modelo, la subida de dicho modelo podría verse alterada. Esta alteración se debería a que interrumpimos el proceso de encriptación de los modelos (véase la sección\ref{sec:manual-programador}), pudiendo conllevar a fallos en la carga de los modelos.
 
