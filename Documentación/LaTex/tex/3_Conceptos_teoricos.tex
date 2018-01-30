@@ -7,7 +7,7 @@ Para comprender como funciona nuestra \textit{API} primero debemos comprender en
 Se compone de un conjunto de operaciones \textit{CRUD} (create, read, update, delete) con sus métodos \textit{POST, GET, PUT, DELETE, PATCH} correspondientes, de los cuales se obtendrá información en un determinado formato (en nuestro caso \textit{JSON}).
 
 Una manera rápida de comprender como se realizan las peticiones a la \textit{API} de UBUVirtual es comprobar la llamada con el formato que se ve en la figura~\ref{fig:curl-rest}.
-\imagen{curl-rest}{URL de ejemplo de llamada a la API Rest correspondiente~\cite{moodle:api-rest-config}.}{0.9}
+\imagen{curl-rest}{URL de ejemplo de llamada a la API Rest correspondiente~\cite{moodle:api-rest-config}.}{1.5}
 
 \section{Web Server Gateway Interface (WSGI)}\label{sec:wsgi}
 Se trata de una especificación para una interfaz simple y universal entre servidores web y aplicaciones (o \textit{frameworks}) para aplicaciones programadas en Python. De esta manera podremos distinguir entre dos grandes bloques:
@@ -23,6 +23,3 @@ Esta capa de \textit{middleware} puede tener las siguientes funcionalidades:
 	\item Permitir a múltiples aplicaciones ejecutarse de manera concurrente.
 	\item Mantener un equilibrio de carga.
 \end{itemize}
-
-\section{Mod\_wsgi}
-Se trata de un módulo HTTP de \textit{Apache} que proporciona un interfaz compatible con \textit{WSGI} (ver sección~\ref{sec:wsgi}) en el que se pueden alojar aplicaciones web desarrolladas en \textit{Python} bajo Apache~\cite{wiki:modwsgi}.

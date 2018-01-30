@@ -1,5 +1,5 @@
 \capitulo{4}{Técnicas y herramientas}
-A continuación mostraremos las diferentes técnicas y herramientas utilizadas para el desarrollo de nuestro proyecto. Así mismo, se han incluido únicamente las técnicas y herramientas nuevas. El resto de técnicas y herramientas comunes a la versión anterior pueden consultarse en las páginas 9-12 de la memoria del proyecto de Alberto Vivar Arribas~\cite{github:alberto-viewer}.
+A continuación mostraremos las diferentes técnicas y herramientas utilizadas para el desarrollo de nuestro proyecto. Así mismo, se han incluido únicamente las técnicas y herramientas nuevas. El resto de técnicas y herramientas comunes a la versión anterior pueden consultarse en las páginas 9--12 de la memoria del proyecto de Alberto Vivar Arribas~\cite{github:alberto-viewer}.
 
 \section{Moodle}\label{sec:moodle-local}
 Previo a centrarnos en \textit{Moodle} en particular, tendremos que saber que se trata de un sistema de gestión de aprendizaje (\textit{Learning Management System}). Estos sistemas se utilizan para administrar y gestionar las actividades de formación no presencial, permitiendo un trabajo asíncrono entre los participantes. Dentro de sus competencias encontramos la gestión de usuarios, gestión de recursos o material docente, actividades de formación, seguimiento en el proceso de aprendizaje de los participantes, realizar evaluaciones, foros de consulta, etc.~\cite{wiki:sistemaGestionAprendizaje}. Una vez conocido esto, indaguemos en por qué \textit{Moodle} forma parte de este apartado.
@@ -36,6 +36,9 @@ Hemos utilizado esta herramienta, la cual en realidad es una página web que nos
 \section{Servidor Arquimedes}\label{sec:arquimedes}
 Se trata de un servidor proporcionado por la Universidad de Burgos para poder desplegar nuestra aplicación. Este servidor contiene una máquina con un sistema operativo \textit{Ubuntu} 16.04\footnote{\url{https://arquimedes.ubu.es/}}.
 
+\section{Mod\_wsgi}
+Se trata de un módulo HTTP de \textit{Apache} que proporciona un interfaz compatible con \textit{WSGI} (ver sección~\ref{sec:wsgi}) en el que se pueden alojar aplicaciones web desarrolladas en \textit{Python} bajo Apache~\cite{wiki:modwsgi}.
+
 \section{Comparativa servidores para desplegar Flask}\label{sec:comparativa-servidores}
 Dado que la Universidad de Burgos nos ha dotado con un servidor (ver sección ~\ref{sec:arquimedes}) tenemos que elegir la manera de desplegar nuestra \textit{API Flask}, para lo cual hemos realizado una comparativa con diversas herramientas para desplegarla con el fin de encontrar la mejor manera de hacerlo.
 
@@ -46,7 +49,7 @@ A continuación, mostraremos una tabla con las diferentes herramientas seleccion
 		\centering
 		\caption{Tabla comparativa servidores. ¿Por qué utilizar cada servidor?}
 		\label{serverTable}
-		\begin{tabular}{p{5cm} p{5cm} p{5cm} p{5cm}}
+		\begin{tabular}{p{4cm} p{4cm} p{4cm} p{4cm}}
 			\toprule
 			\textbf{Apache} & \textbf{uWSGI} & \textbf{Stand-Alone (Gunicorn)} & \textbf{Stand-Alone (Twisted Web)} \\
 			\midrule
@@ -58,8 +61,8 @@ A continuación, mostraremos una tabla con las diferentes herramientas seleccion
 
 Inicialmente escogimos \textit{Gunicorn} como método de despliegue de nuestra aplicación debido a su sencillez y compatibilidad con \textit{Apache} (compatible con extensiones y utilidades). A medida que avanzamos, nos dimos cuenta de que \textit{Gunicorn} no cumplía nuestras expectativas, así como una falta de información de configuración en nuestro caso. Por ello, finalmente nos decantamos por \textit{Apache} (mod\_wsgi) para el despliegue de nuestra aplicación.
 
-\section{<<Librería>> Pyntcloud}
-La palabra librería se encuentra entrecomillada ya que no es una biblioteca en sí misma, sino una serie de recursos que en nuestro caso han sido utilizados para la lectura de os archivos \textit{PLY}, tanto formato \textit{ASCII} como \textit{Binario} (ver sección \textbf{3.2 Formato PLY}~\cite{github:alberto-viewer} (Consultar apartado Conceptos Teóricos del proyecto predecesor al nuestro).)\footnote{\url{https://github.com/daavoo/pyntcloud/blob/master/pyntcloud/io/ply.py}}.
+\section{<<Biblioteca>> Pyntcloud}
+La palabra biblioteca se encuentra entrecomillada ya que no es una biblioteca en sí misma, sino una serie de recursos que en nuestro caso han sido utilizados para la lectura de os archivos \textit{PLY}, tanto formato \textit{ASCII} como \textit{Binario} (ver sección \textbf{3.2 Formato PLY}~\cite{github:alberto-viewer}.)\footnote{Consultar apartado Conceptos Teóricos del proyecto predecesor al nuestro.}\footnote{\url{https://github.com/daavoo/pyntcloud/blob/master/pyntcloud/io/ply.py}}.
 
 De esta manera, los modelos se leerán tanto en formato \textit{ASCII} como en \textit{Binario} almacenando los vértices y las caras por separado en dos \textit{DataFrames} diferentes. A su vez, diferencia entre los modelos con color a los modelos en escala de grises utilizando estructuras como las que se aprecia en las figuras~\ref{fig:dataframeColor} y~\ref{fig:dataframeNoColor}:
 \imagen{dataframeColor}{DataFrame que contiene los vértices y colores.}{0.9}

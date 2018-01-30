@@ -1,7 +1,7 @@
 \apendice{Especificación de diseño}
 
 \section{Introducción}
-A continuación especificaremos la manera en la que hemos organizado cada uno de los elementos del proyecto y detallaremos las razones de por qué lo hemos hecho así.
+A continuación especificaremos la manera en la que hemos organizado cada uno de los elementos del proyecto y detallaremos las razones de por qué lo hemos hecho así. La información mostrada hasta el apartado~\ref{sec:diseño-procedimental} es idéntica a la primera versión de nuestro proyecto ya que no se han realizado modificaciones al respecto~\cite{github:alberto-viewer}.
 
 \section{Diseño de datos}
 Este apartado junto con el diagrama de clases del apartado~\ref{sec:diseño-arquitectonico} se ha sacado de la primera versión de nuestro proyecto puesto que no se han realizado cambios. A su vez, se han modificado los diagramas de flujo sustituyéndolos por diagramas de secuencia para conocer el \textit{Proceso de login}, \textit{Selección de un Modelo} y \textit{Selección de un Ejercicio}.
@@ -35,7 +35,7 @@ point = {"x": float,
 		 "z": float}
 \end{lstlisting}
 
-\section{Diseño procedimental}
+\section{Diseño procedimental}\label{sec:diseño-procedimental}
 En el momento que el servidor está en línea, éste puede aceptar peticiones de inicio de sesión. Cuando un usuario lo solicita, es redirigido a la página de \textit{login}, en el que tendrá que introducir su correo y contraseña de UBUVirtual. Tras ello, el servidor buscará en su base de datos de usuarios si éste está presente en ella. Si no está, redirigiremos al usuarios a la página de \textit{login} anteriormente mencionada. Si pertenece, entonces el servidor lanza una consulta a la \textit{API} de UBUVirtual, para saber si también se encuentra reconocido como usuario en dicha plataforma y, en caso afirmativo, conocer su rol en una asignatura en concreto. Si no consta el correo, o si la contraseña es incorrecta, se redirige a la página de \textit{login}. En caso de que ambas preguntas sean correctas, dependiendo del rol que dicho usuario ocupe, tendrá la posibilidad de acceder únicamente a visualizar un modelo (rol de alumno) o podrá acceder a visualizar un modelo o un ejercicio (rol de profesor). En el caso de que se quiera visualizar un modelo, se redirigirá a la estantería de modelos desde la cual se elegirá el modelo a visualizar. En caso de querer consultar un ejercicio (únicamente el profesor), se realizará la misma mecánica pero esta vez se redirigirá a la estantería de ejercicios y, desde allí, se elegirá el ejercicio que corresponda.
 
 En la figura \ref{fig:login-sequence} se aprecia cómo sucede el proceso de \textit{login}.

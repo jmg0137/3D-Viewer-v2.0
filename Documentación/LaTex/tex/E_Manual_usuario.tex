@@ -51,8 +51,17 @@ Si la convención de nombres no es respetada, nuestra aplicación mostrará una 
 (IMAGEEEEEEEEEEEEEEEEN)
 
 \subsection{Visor}
+En este apartado se ha modificado únicamente un aspecto con respecto a la versión anterior, la cual será descrita con mayor detalle en la sección~\ref{sec:import-export}.
 \subsubsection{Acciones comunes en el visor de modelos}
 Lo miso que en lo de Alberto.
+
+\subsubsection{Importación / Exportación}\label{sec:import-export}
+Se provee la misma funcionalidad de importación y exportación de anotaciones y medidas que en la versión anterior. La diferencia reside en que si un usuario decide exportar un conjunto de anotaciones y medidas para después poder volver a cargarlo en el visor, dependiendo del rol de usuario este fichero exportado tendrá contenido diferente.
+
+Si el rol de usuario es del alumno, tanto a las anotaciones y a las medidas se las añadirá una etiqueta con la estructura '@-<<identificador del correo del alumno>>' para que así la aplicación pueda diferenciar si se trata de un fichero exportado por un alumno o un profesor. Este cambio se verá reflejado una ver importado el ejercicio en cuestión en el que se apreciará el cambio de color entre anotaciones y medidas del alumno y el profesor, como se puede apreciar en la figura~\ref{fig:dif-import-colors}.
+
+En el caso del rol de profesor, no cambia ni el color de las esferas importadas ni el nombre de las anotaciones y medidas.
+
 
 \subsection{Visor de ejercicios}\label{sec:visor-ejercicios}
 Este visor únicamente será visible para los usuarios con rol de \textbf{profesor} debido a que aquí se realizarán las plantillas de corrección para determinados ejercicios. Se compondrá de funcionalidades ampliadas para facilitar al usuario la corrección y visualización de ejercicios.
