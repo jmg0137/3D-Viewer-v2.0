@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-01-24 17:26+0100\n"
+"POT-Creation-Date: 2018-01-30 20:25+0100\n"
 "PO-Revision-Date: 2017-05-25 00:25+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 
-#: forms.py:19 templates/login.html:95
+#: forms.py:20 templates/login.html:95
 msgid "Email"
 msgstr "Email"
 
-#: forms.py:21
-msgid "Introduce an email."
+#: forms.py:22
+msgid "Introduce an email"
 msgstr ""
 
-#: forms.py:22
+#: forms.py:23
 msgid "Introduce a valid email."
 msgstr ""
 
-#: forms.py:23 templates/login.html:99
+#: forms.py:24 templates/login.html:99
 msgid "Password"
 msgstr "Mot de passe"
 
-#: forms.py:24
+#: forms.py:25
 msgid "Password required"
 msgstr ""
 
-#: forms.py:25
+#: forms.py:26
 msgid "Enter"
 msgstr "Entrer"
 
-#: forms.py:40
+#: forms.py:41
 msgid "Browse files"
 msgstr "Parcourir les fichiers"
 
-#: forms.py:42
+#: forms.py:43
 msgid "No file was selected"
 msgstr "Aucun fichier sélectionné"
 
-#: forms.py:43
+#: forms.py:44
 msgid "Only ply!"
 msgstr "Seuls les fichiers ply"
 
-#: forms.py:44 templates/navigation_bar.html:14 templates/upload.html:6
+#: forms.py:45 templates/navigation_bar.html:14 templates/upload.html:6
 msgid "Upload"
 msgstr "Télécharger"
 
@@ -230,7 +230,7 @@ msgstr ""
 #~ msgstr "Utilisateur ou mot de passe incorrect"
 
 #~ msgid "Introduce an email."
-#~ msgstr "Entrez un email."
+#~ msgstr ""
 
 #~ msgid "Introduce a valid email."
 #~ msgstr "Entrez un email valide."
