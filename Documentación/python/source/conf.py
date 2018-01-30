@@ -20,7 +20,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.join( \
-    os.path.dirname(__name__), os.path.abspath('../../../WebPage')))
+    os.path.dirname(__name__), os.path.abspath('../../../3D-Viewer.v2.0')))
 
 
 # -- General configuration ------------------------------------------------
