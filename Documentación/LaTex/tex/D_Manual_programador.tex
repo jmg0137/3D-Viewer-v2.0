@@ -49,7 +49,7 @@ En la carpeta raíz del proyecto, encontramos un archivo \texttt{<<requirements.
 Con las dependencias ya instaladas, tenemos que dar permisos de acceso a los usuarios que deseemos.
 
 \subsection{Dando permisos a usuarios}
-Si queremos que un usuario pueda utilizar la aplicación, tenemos que incluirlo en la base de datos. Con el fin de facilitar añadir usuarios a dicha tabla, tenemos un método del que nos podemos aprovechar en el módulo \texttt{<<MyApp>>}, llamado \texttt{<<import\_users\_to\_db>>}. Para llamarlo, desde la línea de comandos debemos seleccionar la carpeta \texttt{<<MyApp>>} mediante el comando \texttt{<<cd>>}. Como argumento al mismo, escribiremos la carpeta hacia el cual nos queremos dirigir. Si lo que deseamos es ir un directorio hacia arriba, escribiremos como parámetro \texttt{<<..>>}.
+Primero mencionar que, aunque nuestra aplicación permite únicamente a un alumno que esté cursando la asignatura correspondiente, terminamos por decidir mantener una base de datos en la que se da permiso para utilizar la aplicación a los usuarios. Esto es debido a que mantendremos la idea inicial de seleccionar manualmente el conjunto de usuarios que usará nuestra \textit{API}. Si queremos que un usuario pueda utilizar la aplicación, tenemos que incluirlo en la base de datos. Con el fin de facilitar añadir usuarios a dicha tabla, tenemos un método del que nos podemos aprovechar en el módulo \texttt{<<MyApp>>}, llamado \texttt{<<import\_users\_to\_db>>}. Para llamarlo, desde la línea de comandos debemos seleccionar la carpeta \texttt{<<MyApp>>} mediante el comando \texttt{<<cd>>}. Como argumento al mismo, escribiremos la carpeta hacia el cual nos queremos dirigir. Si lo que deseamos es ir un directorio hacia arriba, escribiremos como parámetro \texttt{<<..>>}.
 
 Si la consola nos indica por ejemplo que estamos sobre la carpeta MyApp del proyecto, subiremos una posición escribiendo:
 
@@ -337,7 +337,7 @@ Tras realizar las operaciones de codificación del modelo, procedimos a comproba
 \imagen{skull-modified-floats}{Modelo desencriptado utilizando los valores de los vértices.}{0.9}
 
 \subsubsection{Para la modificación de los valores de las caras}
-Tras el resultado nefasto de modificar los valores de los vértices, decidimos que podríamos alterar los valores de las caras formadas por los vértices, las cuales son enteras y no tendremos el problema de los decimales. En este caso, siendo la manera de generar los números aleatorios la mencionada en la sección~\ref{sec:numero-aleatorio} y la manera de modificar los valores de las caras: \text{valor de la cara * (número aleatorio obtenido * $10$) + (número aleatorio obtenido * $100$)} habiendo también realizado un estudio de los tiempos de codificación de los modelos, teniendo en cuanta que el número de caras en el modelo cogido de ejemplo es $248\,999$ mientras que el número de vértices es de $126\,720$:
+Tras el resultado nefasto de modificar los valores de los vértices, decidimos que podríamos alterar los valores de las caras formadas por los vértices, las cuales son enteras y no tendremos el problema de los decimales. En este caso, siendo la manera de generar los números aleatorios la mencionada en la sección~\ref{sec:numero-aleatorio} y la manera de modificar los valores de las caras: \[ valor De La Cara * (número Aleatorio Obtenido * 10) + (número Aleatorio Obtenido * 100) \] habiendo también realizado un estudio de los tiempos de codificación de los modelos, teniendo en cuanta que el número de caras en el modelo cogido de ejemplo es $248\,999$ mientras que el número de vértices es de $126\,720$:
 
 \textbf{Para los modelos ASCII:}
 \begin{itemize}
@@ -357,7 +357,7 @@ Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-co
 \imagen{skull-corrected-encripted}{Modelo de encriptado.}{0.9}
 
 \section{Configuración de  <<Arquímedes>>}\label{sec:arquimedes-conf}
-Debido a que no tenemos los permisos necesarios para configurar el servidor personalmente, tenemos que depender de u operador que realice las operaciones que le sean indicadas. Esto conlleva una pérdida considerable de tiempo y por ello a llevado, entre otras razones, más tiempo del programado para dicha tarea. Por un lado detallaremos como hemos configurado nuestra máquina personal para posteriormente poder facilitar las instrucciones necesarias a nuestro operador. Por otro lado, incluiremos las modificaciones realizadas para poder adaptar la configuración de nuestra máquina a la del servidor <<Arquímedes>>.
+Debido a que no tenemos los permisos necesarios para configurar el servidor personalmente, tenemos que depender de un operador que realice las operaciones que le sean indicadas. Esto conlleva una pérdida considerable de tiempo y por ello a llevado, entre otras razones, más tiempo del programado para dicha tarea. Por un lado detallaremos como hemos configurado nuestra máquina personal para posteriormente poder facilitar las instrucciones necesarias a nuestro operador. Por otro lado, incluiremos las modificaciones realizadas para poder adaptar la configuración de nuestra máquina a la del servidor <<Arquímedes>>.
 
 \subsection{Configuración de nuestra máquina personal}
 Primero de todo mencionar que la máquina a configurar se compondrá de un sistema operativo \textit{Linux} en su versión 16.04~\footnote{\url{https://es.wikipedia.org/wiki/Ubuntu\#Ubuntu\_16.04}}. Para poder empezar, primero tuvimos que elegir de qué manera queríamos desplegar nuestra aplicación y con qué herramienta, como se mencionó en la sección de \textit{Técnicas y Herramientas} de la Memoria.
@@ -378,7 +378,7 @@ Seguidamente y dependiendo de si estamos desplegando nuestra aplicación en \tex
 
 \noindent\verb|pip3 install -r requirements.txt|
 
-Esto es debido a que si trabajamos desde \textit{Windows} nuestro entorno virtual no tendrá la carpeta \texttt{<<../mi\_venv/bin>>} y dicho comando creará ese directorio. Este paso se debe a que necesitamos meter en dicho directorio el archivo \textit{activate\_this.py}~\footnote{\url{text}}https://github.com/pypa/virtualenv/blob/master/virtualenv\_embedded/activate\_this.py situado en la carpeta raíz del proyecto. Dicho archivo contiene la configuración necesaria para que \textit{Apache} pueda obtener las dependencias instaladas en el entorno virtual ya que, por defecto, dichas dependencias deberían estar instaladas en la máquina. nuestra aplicación deberá constar de un archivo con extensión \textit{.wsgi} que será el que le diga a \textit{Apache} lo que debe hacer con nuestra aplicación y cómo hacerlo.
+Esto es debido a que si trabajamos desde \textit{Windows} nuestro entorno virtual no tendrá la carpeta \texttt{<<../mi\_venv/bin>>} y dicho comando creará ese directorio. Este paso se debe a que necesitamos meter en dicho directorio el archivo \textit{activate\_this.py}~\footnote{\url{https://github.com/pypa/virtualenv/blob/master/virtualenv\_embedded/activate\_this.py}} situado en la carpeta raíz del proyecto. Dicho archivo contiene la configuración necesaria para que \textit{Apache} pueda obtener las dependencias instaladas en el entorno virtual ya que, por defecto, dichas dependencias deberían estar instaladas en la máquina. nuestra aplicación deberá constar de un archivo con extensión \textit{.wsgi} que será el que le diga a \textit{Apache} lo que debe hacer con nuestra aplicación y cómo hacerlo.
 
 En este archivo (situado en la raíz del proyecto) se deberá incluir nuestra aplicación como variable del sistema, así como realizar la lectura y ejecución del archivo \textit{activate\_this.py} mencionado anteriormente. Finalmente dicho archivo de configuración contendrá la ejecución de nuestro programa (\textit{APP.run})~\footnote{\url{https://gist.github.com/LeZuse/4032238}}. Importante mencionar que en la línea de nuestro fichero \textit{.wsgi} \noindent\verb|from MyApp import APP as application|, la última parte (\textit{as application}) es necesaria para el \textit{Apache} conozca qué va a ser la aplicación.
 
@@ -399,6 +399,5 @@ Un vez hecho esto, deberemos hacer \textit{reset} al servicio de apache con el c
 
 Siguiendo estos pasos, podremos acceder a nuestra aplicación desde nuestro navegador en el \textit{localhost/<<nombre dado>>} si estamos en la máquina configurada y desde el
 
-\section{Compilación, instalación y ejecución del proyecto}
-
 \section{Pruebas del sistema}
+Por problemas de tiempo, por estar pendientes del despliegue en el servidor por parte del operador, y por no haber realizado el proyecto mediante la filosofía \textit{TDD}~\cite{wiki:TDD}, no se han realizado pruebas formales del sistema.
