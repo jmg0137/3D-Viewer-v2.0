@@ -22,13 +22,11 @@ exerciseCounter = dict()
 
 #We declare the url directions
 base_url = 'https://ubuvirtual.ubu.es/'
-base_url_miMoodle = 'https://localhost/'
 api_endpoint = '/login/token.php'
 api_function_endpoint = 'webservice/rest/server.php'
 
 #We declare the course id
 courseid = 8688
-courseid_miMoodle = 2
 
 #Seed to generate random numbers
 seed = None
@@ -182,7 +180,7 @@ def login():
     :rtype: flask.Response
 
     """
-    global actualUserInfo, base_url, api_endpoint, api_function_endpoint, courseid, courseid_miMoodle
+    global actualUserInfo, base_url, api_endpoint, api_function_endpoint, courseid
     form = EmailPasswordForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -200,7 +198,7 @@ def login():
 
         #We take the login response
         responseLogin = requests.get(
-                        base_url_miMoodle + api_endpoint,
+                        base_url + api_endpoint,
                         params=paramsLogin, verify = False
                 ).json()
 
@@ -213,11 +211,11 @@ def login():
             paramsRol = {"wstoken": userToken,
                       "moodlewsrestformat": format,
                       "wsfunction": wsfunction,
-                      "courseid": courseid_miMoodle}
+                      "courseid": courseid}
 
             #We take the rol response
             responseRol = requests.get(
-                            base_url_miMoodle + api_function_endpoint,
+                            base_url + api_function_endpoint,
                             params=paramsRol, verify = False
                     ).json()
 
