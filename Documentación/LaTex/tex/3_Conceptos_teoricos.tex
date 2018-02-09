@@ -6,8 +6,10 @@ Para comprender como funciona nuestra \textit{API} primero debemos comprender en
 
 Se compone de un conjunto de operaciones \textit{CRUD} (create, read, update, delete) con sus métodos \textit{POST, GET, PUT, DELETE, PATCH} correspondientes, de los cuales se obtendrá información en un determinado formato (en nuestro caso \textit{JSON}).
 
-Una manera rápida de comprender como se realizan las peticiones a la \textit{API} de UBUVirtual es comprobar la llamada con el formato que se ve en la figura~\ref{fig:curl-rest}.
-\imagen{curl-rest}{URL de ejemplo de llamada a la API Rest correspondiente~\cite{moodle:api-rest-config}.}{1.2}
+Una manera rápida de comprender como se realizan las peticiones a la \textit{API} de UBUVirtual es comprobar la llamada con el formato que se ve a continuaciín:
+\begin{lstlisting}[basicstyle=\tiny,]
+https://your.site.com/moodle/webservice/rest/server.php?wstoken=...&wsfunction=...&moodlewsrestformat=json
+\end{lstlisting}
 
 \section{Web Server Gateway Interface (WSGI)}\label{sec:wsgi}
 Se trata de una especificación para una interfaz simple y universal entre servidores web y aplicaciones (o \textit{frameworks}) para aplicaciones programadas en Python. De esta manera podremos distinguir entre dos grandes bloques:
