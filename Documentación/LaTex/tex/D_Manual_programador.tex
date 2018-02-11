@@ -359,7 +359,7 @@ Obtendremos un modelo encriptado como el mostrado en la figura~\ref{fig:skull-co
 \section{Configuración de  <<Arquímedes>>}\label{sec:arquimedes-conf}
 Debido a que no tenemos los permisos necesarios para configurar el servidor personalmente, tenemos que depender de un operador que realice las operaciones que le sean indicadas. Esto conlleva una pérdida considerable de tiempo y por ello a llevado, entre otras razones, más tiempo del programado para dicha tarea. Por un lado detallaremos como hemos configurado nuestra máquina personal para posteriormente poder facilitar las instrucciones necesarias a nuestro operador. Por otro lado, incluiremos las modificaciones realizadas para poder adaptar la configuración de nuestra máquina a la del servidor <<Arquímedes>>.
 
-\subsection{Configuración de nuestra máquina personal}
+\subsection{Configuración de nuestra máquina personal}\label{sec:maq-pers-conf}
 Primero de todo mencionar que la máquina a configurar se compondrá de un sistema operativo \textit{Linux} en su versión 16.04~\footnote{\url{https://es.wikipedia.org/wiki/Ubuntu\#Ubuntu\_16.04}}. Para poder empezar, primero tuvimos que elegir de qué manera queríamos desplegar nuestra aplicación y con qué herramienta, como se mencionó en la sección de \textit{Técnicas y Herramientas} de la Memoria.
 
 Primero instalaremos \textit{Apache} en nuestra máquina con el comando:
@@ -398,6 +398,9 @@ Un vez hecho esto, deberemos hacer \textit{reset} al servicio de apache con el c
 \noindent\verb|service apache2 restart|
 
 Siguiendo estos pasos, podremos acceder a nuestra aplicación desde nuestro navegador en el \textit{localhost/<<nombre dado>>} si estamos en la máquina configurada y desde el
+
+\subsection{Configuración de nuestra máquina personal}
+Como idea inicial se tenía la de terminar de realizar el despliegue de nuestra aplicación en el servidor <<Arquímedes>>, pero no se nos ha dado una respuesta de cuando estará configurado completamente. Por lo tanto, únicamente hemos podido realizar la configuración de nuestra máquina personal (ver sección~\ref{sec:maq-pers-conf}) y no la del servidor <<Arquímedes>>.
 
 \section{Pruebas del sistema}
 Por problemas de tiempo, por estar pendientes del despliegue en el servidor por parte del operador, y por no haber realizado el proyecto mediante la filosofía \textit{TDD}~\cite{wiki:TDD}, no se han realizado pruebas formales del sistema.
