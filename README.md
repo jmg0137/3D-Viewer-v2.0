@@ -1,14 +1,14 @@
 ﻿# 3D-Viewer-v2
 Trabajo de Fin de Grado de la Universidad de Burgos.
 
-Se trata de un visor 3D para modelos óseos en formato <<.PLY>> dirigido para la docencia online del Grado en Historia y Patrimonio de la universidad de Burgos.
+Se trata de un visor 3D para modelos óseos en formato ".PLY" dirigido para la docencia online del Grado en Historia y Patrimonio de la universidad de Burgos.
 
-Se distinguen en la aplicación entre roles de usuario obtenidos directamente de la plataforma de UBUVirtual, teniendo cada uno de ellos distintas funcionalidades. Los roles pueden ser o <<Profesor>> o que no sea profesor (generalmente alumno), siendo estos roles los proporcionados por Moodle
+Se distinguen en la aplicación entre roles de usuario obtenidos directamente de la plataforma de UBUVirtual, teniendo cada uno de ellos distintas funcionalidades. Los roles pueden ser o "Profesor" o que no sea profesor (generalmente alumno), siendo estos roles los proporcionados por Moodle
 Este proceso se realiza tras introducir nuestras credenciales en la página de login:
 
 ![Página de login](https://github.com/jmg0137/3D-Viewer-v2.0/blob/master/Documentaci%C3%B3n/LaTex/img/login-page.JPG)
 
-Dependiendo si se tiene rol de <<Profesor>> o <<Alumno>> la aplicación se verá de distinta manera.
+Dependiendo si se tiene rol de "Profesor" o "Alumno" la aplicación se verá de distinta manera.
 
 -Para un profesor la página de inicio se verá así:
 
@@ -30,7 +30,7 @@ Se distinguen entre los datos importados entre alumnos y profesores con el fin d
 
 ![Distinción entre datos importados por alumnos](https://github.com/jmg0137/3D-Viewer-v2.0/blob/master/Documentaci%C3%B3n/LaTex/img/dif-import-colors.JPG)
 
-Nuestra aplicación permita la subida de modelos en formato <.PLY>>:
+Nuestra aplicación permita la subida de modelos en formato ".PLY":
 
 ![Subida de modelos](https://github.com/jmg0137/3D-Viewer-v2.0/blob/master/Documentaci%C3%B3n/LaTex/img/subida-modelos.JPG)
 
